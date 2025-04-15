@@ -10,12 +10,22 @@ def registerPage(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])  # For proper password hashing since we set password as a CharField() in the forms
-            user.save()
-            return redirect('login')
+            email = form.cleaned_data['email']
+            if User.objects.filter(email=email).exists():
+                messages.error(request, "Email already exists. Choose another one.")
+                return render(request, 'register.html', {'form': form})  
+            else:
+                user = form.save(commit=False)
+                user.set_password(form.cleaned_data['password'])
+                user.save()
+                return redirect('login')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{error}")
     else:
         form = RegisterForm()
+    
     return render(request, 'register.html', {'form': form})
 
 def loginPage(request):

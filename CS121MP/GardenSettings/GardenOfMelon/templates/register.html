@@ -72,6 +72,14 @@
                     <label for="{{ form.password.id_for_label }}">Password</label>
                 </div>
             </div>
+
+            {% if messages %}
+                <div class="mb-2">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" id="login-error-messages">ⓘ {{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             
             <div id="register-form-bottom">
                 <button type="submit" class="btn btn-success" id="create-new-account-btn">Create New Account →</button><br><br>
