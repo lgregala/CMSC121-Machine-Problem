@@ -3,8 +3,225 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> About </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <style>
+        #background-img{
+            background-image: url("https://www.saferbrand.com/media/Articles/Safer-Brand/26-best-indoor-plants.jpg");
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 300px;
+        }
+        .about-container{
+            padding: 25px;
+            margin: auto;
+            width: 1175px;
+            color: black;
+            display: flex; 
+            flex-direction: column;                       
+        }
+        .about{
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 17.5px;
+        }
+        #about-text{
+            font-size: 40px;            
+            font-weight: bold;         
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); 
+            color: green;
+        }
+        .card-title{
+            font-weight: bold;         
+            color: green;
+            text-align: center;
+            font-size: 25px;
+        }
+        .card-text{
+            text-align: justify;
+        }
+        #team-text{
+            margin-top: 15px;
+            margin-bottom: 15px;
+            font-size: 40px;            
+            font-weight: bold;         
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); 
+            color: green;
+        }
+        .row-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 20px;
+        }
+        .team-card-container{
+            perspective: 1200px;
+        }
+        .team-card{
+            position: relative;
+            width: 225px;
+            height: 275px;
+            transform-style: preserve-3d;
+            transition: transform 0.7s;
+            background-color: rgb(225, 225, 225);
+            border-radius: 8px;
+        }
+        .team-card-text{
+            width: 100%;
+            height: 10%;
+            background-color: rgba(255, 255, 255, 0.75);
+            color: black;
+            font-weight: bolder;
+            text-align: center;
+        }
+        .team-card-images{
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .front, .back{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 8px;
+        }
+        .front{
+            color: black;
+            transform: rotateY(0deg);
+        }
+        .back{
+            background-image: url(Images/Leaf-bg.jpg);
+            color: black;
+            transform: rotateY(180deg);
+        }
+        .team-card-container:hover .team-card{
+            transform: rotateY(180deg);
+        }
+        .footer{
+            margin-top: 15px;
+            width: 100%;
+            height: 125px;
+            background-image: url(Images/Plantbg.jpg);
+            background-size: cover;
+        }
+        .footer-text-container{
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 252, 252, 0.6);
+        }
+    </style>
 </head>
 <body>
-    <h1> About Plantita Queens </h1>
+    <div id="background-img"> </div>
+    <div class="about-container"> 
+        <div class="about" id="about-text"> ABOUT US </div>
+        <p class="about"> Garden of Melon is a cozy haven for plant lovers, offering a curated selection of lush greenery, stylish pots, and plant 
+            care essentials to bring life and calm into every home. Whether you're a seasoned plant parent or just starting your indoor 
+            garden journey, we are here to help you grow with confidence. From tiny succulents to towering indoor trees, we believe every plant 
+            has a story — and we are here to help you tell yours. </p>
+        <div class="card mb-3" style="max-width: 1140px; margin-top: 15px; background-color: whitesmoke">
+            <div class="row g-0">
+                <div class="col-md-5">
+                <img src="https://potsplantersandmore.com/product_images/uploaded_images/outdoor-potted-plants.jpg" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body">
+                        <h5 class="card-title">THE BIRTH</h5>
+                        <p class="card-text">It all began in 2019, in a tiny apartment with a single potted monstera and too much sunlight. 
+                            Melon, a college student stressed from school, started collecting plants as a way to unwind. What was meant to be 
+                            just one or two quickly turned into a full-blown indoor jungle. With every leaf that unfurled, the idea grew: what if this love for greenery could be shared with more people? 
+                            By 2021, Melon turned her hobby into a small online shop: selling propagated plants, pot kits, and handwritten care notes. It 
+                            is a story of growth, rooted in self-care, community, and the belief that even the smallest seed can grow into something beautiful. 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-3" style="max-width: 1140px; margin-top: 15px; background-color: whitesmoke">
+            <div class="row g-0">
+                <div class="col-md-7">
+                    <div class="card-body h-100">
+                        <h5 class="card-title"> MISSION & VISION </h5>
+                        <p class="card-text"> To inspire and nurture a love for indoor gardening by providing thoughtfully selected plants, stylish essentials, and heartfelt guidance.
+                            We believe that caring for plants is a calming and rewarding experience that everyone can enjoy.
+                        </p>
+                        <p class="card-text">
+                            To grow a greener world, one cozy space at a time where every home becomes a sanctuary filled with life.
+                            We envision a community that embraces plants not just as décor, but as living companions that bring peace & purpose.
+                            With every plant we share, we hope to cultivate connection that extends far beyond the pot.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-5 ">
+                    <img src="Images/SnakePlant.jpg" class="img-fluid rounded-start" alt="...">
+                </div>
+            </div>
+        </div>
+        <div class="about" id="team-text"> MEET THE TEAM </div>
+        <div class="row-container">
+            <div class="team-card-container">
+                <div class="team-card">
+                    <div class="front">
+                        <img src="Images/Ryzzah.png" class="team-card-images">
+                    </div>
+                    <div class="back">
+                        <span class="team-card-text"> Ryzzah Mae Arenas </span>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card-container">
+                <div class="team-card">
+                    <div class="front">
+                        <img src="Images/Lance.png" class="team-card-images">
+                    </div>
+                    <div class="back">
+                        <span class="team-card-text"> Lance Kerwin Regala </span>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card-container">
+                <div class="team-card">
+                    <div class="front">
+                        <img src="Images/Loisse.png" class="team-card-images">
+                    </div>
+                    <div class="back">
+                        <span class="team-card-text"> Loisse Melon </span>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card-container">
+                <div class="team-card">
+                    <div class="front">
+                        <img src="Images/Shaira.png" class="team-card-images">
+                    </div>
+                    <div class="back">
+                        <span class="team-card-text"> Shaira Satinitigan </span>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card-container">
+                <div class="team-card">
+                    <div class="front">
+                        <img src="Images/Louis.png" class="team-card-images">
+                    </div>
+                    <div class="back">
+                        <span class="team-card-text"> Louis Ruemyr Carballo </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-text-container"></div>
+    </div>
 </body>
 </html>
