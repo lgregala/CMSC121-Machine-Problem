@@ -2,89 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Horizontal Navbar</title>
+  <title>Home</title>
   {% load static %}
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap 5 CDN -->
+ 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-
-    .nav-link img {
-        transition: transform 0.2s ease, filter 0.2s ease;
-    }
-
-    .nav-link img:hover {
-        background-color: #90c67c;
-        transform: scale(1.1);
-        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
-    }
-
-    .navbar-border {
-        background-color: #90c67c;
-        height: 9px;
-    }
-
-    .search-form {
-        opacity: 0;
-        transition: opacity 0.4s ease;
-    }
-
-    .search-form.show {
-        display: flex;
-        opacity: 1;
-    }
-    
-    
-
-    #searchForm button:hover {
-        background-color: #871313;
-        color: #fff;
-    }
-
-    #searchForm input:hover {
-        border-color: #871313; 
-    }
-
-    #searchForm input:active {
-        border-color: #000000; 
-        box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.7);
-    }
-
-    #searchForm button {
-        transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-    }
-
-    h1 {
-        font-family: "Oleo Script", system-ui;
-        font-size: 75px;
-    }
-    
-    .content {
-      margin-left: 10px;
-      padding: 2rem;
-    }
-  </style>
-
-    
+  <link rel="stylesheet" type="text/css" href="{% static 'Styles/Home.css' %}">
+  <script src="{% static 'Scripts/Home.js' %}"></script>
 </head>
 <body>
-    
     <nav class="navbar navbar-expand-lg" style="background-color: #e1eebc; height: 100px;">
         <div class="container-fluid d-flex align-items-center justify-content-between">
       
     
           <a href="#" class="nav-link">
-            <img src="{% static 'Logos/GoM-Logo.png' %}" class="img-fluid rounded-start" alt="..." style="height: 90px; width: auto;">
+            <img src="{% static 'Logos/GoM-Horizontal-Logo.png' %}" class="img-fluid rounded-start" alt="..." style="height: 90px; width: auto;">
           </a>
       
           <div class="d-flex flex-row justify-content-center align-items-center flex-wrap">
@@ -121,32 +58,17 @@
       </nav>
 
       <div class="navbar-border"></div>
-      
 
-      <div class="content">
-        <h1>Welcome to the Garden of Melon</h1>
-        <p>Isa ka bang plantitang ina? Bili na!</p>
+      <div class="hero-section">
+        <div class="overlay"></div>
+        <div class="plant-text">
+          <h1>Welcome to the Garden of Melon!</h1>
+        </div>
       </div>
       
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
       
       <script>
-        const searchToggle = document.getElementById('searchToggle');
-        const searchForm = document.getElementById('searchForm');
-
-        searchToggle.addEventListener('click', () => {
-            if (searchForm.classList.contains('show')) {
-            searchForm.classList.remove('show');
-            setTimeout(() => {
-                searchForm.style.display = 'none';
-            }, 400); // wait for fade out
-            } else {
-            searchForm.style.display = 'flex';
-            setTimeout(() => {
-                searchForm.classList.add('show');
-            }, 10); // slight delay to allow transition
-            }
-        });
 </script>
       
 </body>
