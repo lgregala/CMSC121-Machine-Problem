@@ -50,3 +50,9 @@ def loginPage(request):
             return redirect('login')
 
     return render(request, 'login.html')
+
+def aboutPage(request):
+    return render(request, 'about.html')
+
+def homePage(request):
+    return render(request, 'dashboard.html')
