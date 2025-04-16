@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Horizontal Navbar</title>
+  {% load static %}
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Bootstrap 5 CDN -->
@@ -83,7 +84,7 @@
       
     
           <a href="#" class="nav-link">
-            <img src="Logos/GoM-Logo.png" alt="Logo" style="height: 90px; width: auto;">
+            <img src="{% static 'Logos/GoM-Logo.png' %}" class="img-fluid rounded-start" alt="..." style="height: 90px; width: auto;">
           </a>
       
           <div class="d-flex flex-row justify-content-center align-items-center flex-wrap">
@@ -96,24 +97,24 @@
               </form>
               
             <button id="searchToggle" class="btn nav-link mx-2">
-              <img src="Logos/Search.png" alt="Search" style="height: 80px; width: auto;">
+              <img src="{% static 'Logos/Search.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </button>
       
        
             <a href="#" class="nav-link mx-2">
-              <img src="Logos/About-Us.png" alt="About Us" style="height: 80px; width: auto;">
+              <img src="{% static 'Logos/About-Us.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
             <a href="#" class="nav-link mx-2">
-              <img src="Logos/Products.png" alt="Products" style="height: 80px; width: auto;">
+              <img src="{% static 'Logos/Products.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
             <a href="#" class="nav-link mx-2">
-              <img src="Logos/Contacts.png" alt="Contacts" style="height: 80px; width: auto;">
+              <img src="{% static 'Logos/Contacts.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
             <a href="#" class="nav-link mx-2">
-              <img src="Logos/Account.png" alt="Account" style="height: 80px; width: auto;">
+              <img src="{% static 'Logos/Account.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
             <a href="#" class="nav-link mx-2">
-              <img src="Logos/Shopping-Cart.png" alt="Cart" style="height: 80px; width: auto;">
+              <img src="{% static 'Logos/Shopping-Cart.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
           </div>
         </div>
