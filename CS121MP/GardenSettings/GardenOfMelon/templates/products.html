@@ -17,6 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">
     <script src="{% static 'Scripts/Navbar.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'Styles/Footer.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Navbar.css' %}">
 </head>
 <body>
@@ -49,7 +50,7 @@
             <a href="{% url 'contact' %}" class="nav-link mx-2">
               <img src="{% static 'Logos/Contacts.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
-            <a href="#" class="nav-link mx-2">
+            <a href="{% url 'login' %}" class="nav-link mx-2">
               <img src="{% static 'Logos/Account.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
             <a href="#" class="nav-link mx-2">
@@ -61,5 +62,8 @@
 
       <div class="navbar-border"></div>
     <h1> HELLO PRODUCT PAGE </h1>
+    <div class="footer">
+      <div class="footer-text-container"></div>
+    </div>
 </body>
 </html>

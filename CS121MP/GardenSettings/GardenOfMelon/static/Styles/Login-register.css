@@ -1,5 +1,5 @@
 body {
-    background-image: url('../Images/login-register-bg.jpg');
+    background-image: url('../Images/login-register-bg1.jpg');
     background-size: cover;
 }
 
@@ -64,6 +64,7 @@ body {
     color: red;
 }
 
+/* ----------- NAVBAR CSS ----------- */
 header {
     margin: 0;
     padding: 0;
