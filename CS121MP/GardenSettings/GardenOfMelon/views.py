@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.messages import get_messages
 
 
 def registerPage(request):
@@ -17,6 +18,12 @@ def registerPage(request):
                 user = form.save(commit=False)
                 user.set_password(form.cleaned_data['password'])
                 user.save()
+                messages.success(request, "Account created successfully! Please log in.")
+                
+                storage = get_messages(request)
+                for msg in list(storage):
+                    pass
+                
                 return redirect('login')
         else:
             for field, errors in form.errors.items():
