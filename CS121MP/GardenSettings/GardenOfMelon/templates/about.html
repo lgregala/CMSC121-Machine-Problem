@@ -9,20 +9,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'Styles/About.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">
-    <script src="{% static 'Scripts/About.js' %}"></script>
+    <script src="{% static 'Scripts/Navbar.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'Styles/Navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Styles/About.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Styles/Footer.css' %}">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg" style="background-color: #e1eebc; height: 100px;">
         <div class="container-fluid d-flex align-items-center justify-content-between">
-      
-    
-          <a href="#" class="nav-link">
+  
+          <a href="{% url 'home' %}" class="nav-link">
             <img src="{% static 'Logos/GoM-Horizontal-Logo.png' %}" class="img-fluid rounded-start" alt="..." style="height: 90px; width: auto;">
           </a>
       
@@ -39,17 +41,16 @@
               <img src="{% static 'Logos/Search.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </button>
       
-       
-            <a href="#" class="nav-link mx-2">
+            <a href="{% url 'about' %}" class="nav-link mx-2">
               <img src="{% static 'Logos/About-Us.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
-            <a href="#" class="nav-link mx-2">
+            <a href="{% url 'products' %}" class="nav-link mx-2">
               <img src="{% static 'Logos/Products.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
-            <a href="#" class="nav-link mx-2">
+            <a href="{% url 'contact' %}" class="nav-link mx-2">
               <img src="{% static 'Logos/Contacts.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
-            <a href="#" class="nav-link mx-2">
+            <a href="{% url 'login' %}" class="nav-link mx-2">
               <img src="{% static 'Logos/Account.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
             <a href="#" class="nav-link mx-2">
@@ -113,8 +114,8 @@
         <div class="row">
             <div class="col-sm-6 mb-3 mb-sm-0">
               <div class="card">
+                <div class="mv-icon-container"> <img src="{% static 'Images/Mission.png' %}" class="mv-icon-1"> </div>
                 <div class="card-body">
-                  <img src="{% static 'Images/Mission.png' %}" class="mv-icon">
                   <h5 class="card-title"> Mission </h5>
                   <p class="card-text" style="text-align: center;"> To nurture joy, mindfulness, and inner calm by bringing nature into everyday spaces. 
                     Each plant is a gentle reminder to slow down, breathe deeply, and find beauty in growth no matter how small. 
@@ -125,8 +126,8 @@
             </div>
             <div class="col-sm-6">
               <div class="card">
+                <div class="mv-icon-container"> <img src="{% static 'Images/Vision.png' %}" class="mv-icon-2"> </div>
                 <div class="card-body">
-                  <img src="{% static 'Images/Vision.png' %}" class="mv-icon">
                   <h5 class="card-title"> Vision </h5>
                   <p class="card-text" style="text-align: center;" >A world where every corner blooms with life and intention. A 
                     future shaped by sustainable living, creative expression, and meaningful connections, all rooted in the quiet magic 
@@ -138,7 +139,7 @@
             </div>
         </div>
 
-        <div class="about" id="ad-text"> AWARD-WINNING PLANTS </div>
+        <div class="about" id="awp-text"> AWARD-WINNING PLANTS </div>
         <div class="awp-container">
             <div class="awp-card">
                 <div class="img-box">
@@ -147,7 +148,7 @@
                 <div class="content-box">
                     <h4> 1. Calathea </h4>
                     <p> A group of tropical plants known for their stunning, patterned leaves that often have a purplish underside. 
-                        Nicknamed the <i>Prayer Plant</i>because many species close their leaves at night, like they're praying. 
+                        Nicknamed the <i>Prayer Plant</i> because many species close their leaves at night, like they're praying. 
                         They're a bit fussy but totally worth it for looks.</p>
                     <button href=""  class="view-btn"> VIEW </button>
                 </div>
@@ -204,13 +205,13 @@
 
         <div class="about" id="ad-text"> ADVERTISEMENTS </div>
         <div class="ad-video-container"> 
-            <video autoplay muted loop>
+            <video autoplay muted loop id="vid1">
                 <source src="{% static 'Videos/AD1.mp4' %}" type="video/mp4">
             </video>
-            <video autoplay muted loop>
+            <video autoplay muted loop id="vid2">
                 <source src="{% static 'Videos/AD2.mp4' %}" type="video/mp4">
             </video>
-            <video autoplay muted loop>
+            <video autoplay muted loop id="vid3">
                 <source src="{% static 'Videos/AD3.mp4' %}" type="video/mp4">
             </video>
         </div>

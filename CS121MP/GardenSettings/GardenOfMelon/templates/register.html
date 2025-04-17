@@ -10,92 +10,122 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">    <link rel="stylesheet" type="text/css" href="{% static 'Styles/Login-register.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Styles/Navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Styles/Footer.css' %}">
+    <script src="{% static 'Scripts/Navbar.js' %}"></script>
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-lg" style="background-color: #e1eebc; height: 100px;">
             <div class="container-fluid d-flex align-items-center justify-content-between">
-                <a href="#" class="nav-link">
-                    <img src="{% static 'Logos/GoM-Horizontal-Logo.png' %}" class="img-fluid rounded-start" alt="..." style="height: 90px; width: auto;">
-                </a>
-            
+      
+              <a href="{% url 'home' %}" class="nav-link">
+                <img src="{% static 'Logos/GoM-Horizontal-Logo.png' %}" class="img-fluid rounded-start" alt="..." style="height: 90px; width: auto;">
+              </a>
           
-                <div class="d-flex flex-row justify-content-center align-items-center flex-wrap">
-                    <form id="searchForm" class="d-flex mx-2 search-form" style=" width: 330px; display: none;">
-                        <input class="form-control me-1" type="search" placeholder="Search..." aria-label="Search">
-                        <button class="btn btn-info" type="submit" style="background-color: #90c67c; border:none;">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </form>
-                  
-                    <button id="searchToggle" class="btn nav-link mx-2">
-                        <img src="{% static 'Logos/Search.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
+              <div class="d-flex flex-row justify-content-center align-items-center flex-wrap">
+             
+                <form id="searchForm" class="d-flex mx-2 search-form" style=" width: 330px; display: none;">
+                    <input class="form-control me-1" type="search" placeholder="Search..." aria-label="Search">
+                    <button class="btn btn-info" type="submit" style="background-color: #90c67c; border:none;">
+                        <i class="fas fa-search"></i>
                     </button>
-            
-                    <a href="#" class="nav-link mx-2">
-                        <img src="{% static 'Logos/About-Us.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-                    </a>
-                    <a href="#" class="nav-link mx-2">
-                        <img src="{% static 'Logos/Products.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-                    </a>
-                    <a href="#" class="nav-link mx-2">
-                        <img src="{% static 'Logos/Contacts.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-                    </a>
-                    <a href="#" class="nav-link mx-2">
-                        <img src="{% static 'Logos/Account.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-                    </a>
-                    <a href="#" class="nav-link mx-2">
-                        <img src="{% static 'Logos/Shopping-Cart.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-                    </a>
-                </div>
+                  </form>
+                  
+                <button id="searchToggle" class="btn nav-link mx-2">
+                  <img src="{% static 'Logos/Search.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
+                </button>
+          
+                <a href="{% url 'about' %}" class="nav-link mx-2">
+                  <img src="{% static 'Logos/About-Us.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
+                </a>
+                <a href="{% url 'products' %}" class="nav-link mx-2">
+                  <img src="{% static 'Logos/Products.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
+                </a>
+                <a href="{% url 'contact' %}" class="nav-link mx-2">
+                  <img src="{% static 'Logos/Contacts.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
+                </a>
+                <a href="{% url 'login' %}" class="nav-link mx-2">
+                  <img src="{% static 'Logos/Account.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
+                </a>
+                <a href="#" class="nav-link mx-2">
+                  <img src="{% static 'Logos/Shopping-Cart.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
+                </a>
+              </div>
             </div>
-        </nav>
-        <div class="navbar-border"></div>
+          </nav>
+    
+          <div class="navbar-border"></div>
     </header>
 
     <div id="register-body">
         <div id="register-form">
             <div id="register-form-title">
                 <p style="font-size: 25px; font-weight: bold;">Register</p>
-                <p style="font-size: 15px;">Fill in the details below to create your account.</p><br>
+                <!-- {% if messages %}
+                <div class="mb-2">
+                    {% for message in messages %}
+                        <span class="alert alert-{{ message.tags }}" id="login-error-messages">ⓘ {{ message }}</span>
+                        <br>
+                    {% endfor %}
+                </div>
+                {% else %}
+                    <div class="mb-2">
+                        <span> Fill in the necessary information below. </span>
+                    </div>
+                {% endif %} -->
+
+                <div class="mb-2">
+                    <span> Fill in the necessary information below. </span>
+                </div>
             </div>
             
             <form method="post">
                 {% csrf_token %}
                 
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="firstname-addon">👤</span>
-                    <div class="form-floating">
-                        <input type="text" name="{{ form.first_name.name }}" class="form-control" 
-                               id="{{ form.first_name.id_for_label }}" placeholder="First Name"
-                               {% if form.first_name.field.required %}required{% endif %}
-                               {% if form.first_name.value %}value="{{ form.first_name.value }}"{% endif %}>
-                        <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                <div id="name-fields"> 
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="firstname-addon">👤</span>
+                        <div class="form-floating">
+                            <input type="text" name="{{ form.first_name.name }}" class="form-control form-control-names" 
+                                   id="{{ form.first_name.id_for_label }}" placeholder="First Name"
+                                   {% if form.first_name.field.required %}required{% endif %}
+                                   {% if form.first_name.value %}value="{{ form.first_name.value }}"{% endif %}>
+                            <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="lastname-addon">👤</span>
-                    <div class="form-floating">
-                        <input type="text" name="{{ form.last_name.name }}" class="form-control" 
-                               id="{{ form.last_name.id_for_label }}" placeholder="Last Name"
-                               {% if form.last_name.field.required %}required{% endif %}
-                               {% if form.last_name.value %}value="{{ form.last_name.value }}"{% endif %}>
-                        <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="lastname-addon">👤</span>
+                        <div class="form-floating">
+                            <input type="text" name="{{ form.last_name.name }}" class="form-control form-control-names" 
+                                   id="{{ form.last_name.id_for_label }}" placeholder="Last Name"
+                                   {% if form.last_name.field.required %}required{% endif %}
+                                   {% if form.last_name.value %}value="{{ form.last_name.value }}"{% endif %}>
+                            <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="phone-addon">📞</span>
                     <div class="form-floating">
-                        <input type="phone" name="{{ form.phone.name }}" class="form-control" 
-                               id="{{ form.phone.id_for_label }}" placeholder="Phone Number"
-                               {% if form.phone.field.required %}required{% endif %}
-                               {% if form.phone.value %}value="{{ form.phone.value }}"{% endif %}>
-                        <label for="{{ form.phone.id_for_label }}">Phone</label>
+                        <input type="tel" name="{{ form.phone_number.name }}" class="form-control" 
+                               id="{{ form.phone_number.id_for_label }}" placeholder="Phone Number"
+                               {% if form.phone_number.field.required %}required{% endif %}
+                               {% if form.phone_number.value %}value="{{ form.phone_number.value }}"{% endif %}>
+                        <label for="{{ form.phone_number.id_for_label }}">Phone</label>
                     </div>
                 </div>
+
+                {% if form.phone_number.errors %}
+                    <div class="mb-2">
+                        {% for error in form.phone_number.errors %}
+                            <span class="alert alert" id="login-error-messages">ⓘ {{ error }}</span><br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="email-addon">✉</span>
@@ -107,6 +137,14 @@
                         <label for="{{ form.email.id_for_label }}">Email</label>
                     </div>
                 </div>
+
+                {% if form.email.errors %}
+                    <div class="mb-2">
+                        {% for error in form.email.errors %}
+                            <span class="alert alert" id="login-error-messages">ⓘ {{ error }}</span><br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="password-addon">🔒</span>
@@ -117,14 +155,6 @@
                         <label for="{{ form.password.id_for_label }}">Password</label>
                     </div>
                 </div>
-    
-                {% if messages %}
-                    <div class="mb-2">
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }}" id="login-error-messages">ⓘ {{ message }}</div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
                 
                 <div id="register-form-bottom">
                     <button type="submit" class="btn btn-success" id="create-new-account-btn">Create New Account →</button><br><br>
@@ -134,28 +164,12 @@
         </div>
     </div>
 
+    <div class="footer">
+        <div class="footer-text-container"></div>
+    </div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
-
-    <script>
-        const searchToggle = document.getElementById('searchToggle');
-        const searchForm = document.getElementById('searchForm');
-
-        searchToggle.addEventListener('click', () => {
-            if (searchForm.classList.contains('show')) {
-            searchForm.classList.remove('show');
-            setTimeout(() => {
-                searchForm.style.display = 'none';
-            }, 400); // wait for fade out
-            } else {
-            searchForm.style.display = 'flex';
-            setTimeout(() => {
-                searchForm.classList.add('show');
-            }, 10); // slight delay to allow transition
-            }
-        });
-    </script>
-
 </body>
 
 </html>

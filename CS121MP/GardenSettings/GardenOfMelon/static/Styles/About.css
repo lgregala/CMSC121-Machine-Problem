@@ -7,52 +7,6 @@
     filter: brightness(80%);
     display: block;
 }
-
-.nav-link img {
-    transition: transform 0.2s ease, filter 0.2s ease;
-}
-
-.nav-link img:hover {
-    background-color: #90c67c;
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
-}
-
-.navbar-border {
-    background-color: #90c67c;
-    height: 9px;
-}
-
-.search-form {
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.search-form.show {
-    display: flex;
-    opacity: 1;
-}
-
-
-
-#searchForm button:hover {
-    background-color: #871313;
-    color: #fff;
-}
-
-#searchForm input:hover {
-    border-color: #871313; 
-}
-
-#searchForm input:active {
-    border-color: #000000; 
-    box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.7);
-}
-
-#searchForm button {
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-}
-
 .about-container{
     padding: 25px;
     margin: auto;
@@ -62,7 +16,7 @@
     flex-direction: column;                       
 }
 .about{
-    font-family: "Oleo Script", system-ui;
+    font-family: "Oleo Script";
     text-align: center;
     margin-bottom: 10px;
     font-size: 17.5px;
@@ -81,18 +35,39 @@
     color: green;
 }
 .card-title{
+    font-family: 'Winky rough';
     font-weight: bold;         
     color: green;
     text-align: center;
     font-size: 25px;
 }
 .card-text{
+    font-family: 'Winky rough';
     text-align: justify;
     line-height: 25px;
 }
-.mv-icon{
+.mv-icon-container{
+    width: 100%;
+    height: 70px;
+    background-color: rgb(225, 225, 225);
+    padding: 8px;
+}
+.mv-icon-1{
+    margin-left: 5px;
+    width: 55px;
+    height: 55px;
+}
+.mv-icon-2{
+    margin-left: 5px;
     width: 60px;
     height: 60px;
+}
+#awp-text{
+    margin-top: 40px;
+    font-size: 40px;            
+    font-weight: bold;         
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); 
+    color: green;
 }
 .awp-container{
     position: relative;
@@ -100,8 +75,8 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 50px;
-    padding: 20px;
+    gap: 55px;
+    padding: 15px;
 }
 .awp-card{
     position: relative;
@@ -112,7 +87,7 @@
     height: 275px;
     background: rgb(225, 225, 225);
     border-radius: 20px;
-    box-shadow: 0 35px 50px rgba(0, 0, 0, 0.6);
+    box-shadow: -10px 7px 20px rgba(108, 214, 43, 0.6);
     transition: 0.5s;
 }
 .awp-card:hover{
@@ -141,6 +116,7 @@
     object-fit: cover;
 }
 .content-box{
+    font-family: 'Winky rough';
     position: absolute;
     width: 100%;
     padding: 0 30px;
@@ -161,6 +137,43 @@
     border: 2px solid #81c784; 
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+#ad-text{
+    margin-top: 40px;
+    margin-bottom: 10px;
+    font-size: 40px;            
+    font-weight: bold;         
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); 
+    color: green;
+}
+.ad-video-container{
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    border-radius: 20px;
+}
+video{
+    border: 3px solid black;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+#vid1{
+    border-right: none;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+#vid2{
+    border-left: none;
+    border-right: none;
+    height: 668.5px;
+}
+#vid3{
+    border-left: none;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 #team-text{
     margin-top: 40px;
@@ -186,9 +199,11 @@
     transform-style: preserve-3d;
     transition: transform 0.7s;
     background-color: rgb(225, 225, 225);
+    box-shadow: -0px 0px 12px rgba(0, 0, 0, 0.65);
     border-radius: 8px;
 }
 .team-card-text{
+    font-family: 'Winky rough';
     width: 100%;
     height: 10%;
     background-color: rgba(255, 255, 255, 0.75);
@@ -229,36 +244,4 @@
 }
 .team-card-container:hover .team-card{
     transform: rotateY(180deg);
-}
-#ad-text{
-    margin-top: 40px;
-    margin-bottom: 15px;
-    font-size: 40px;            
-    font-weight: bold;         
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); 
-    color: green;
-}
-.ad-video-container{
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-}
-video{
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    height: 100%;
-}
-.footer{
-    margin-top: 15px;
-    width: 100%;
-    height: 125px;
-    background-image: url(../Images/Plantbg.jpg);
-    background-size: cover;
-}
-.footer-text-container{
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 252, 252, 0.6);
 }
