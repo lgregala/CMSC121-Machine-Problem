@@ -1,0 +1,34 @@
+.nav-link img {
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+.nav-link img:hover {
+    background-color: #90c67c;
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+}
+.navbar-border {
+    background-color: #90c67c;
+    height: 9px;
+}
+.search-form {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+.search-form.show {
+    display: flex;
+    opacity: 1;
+}
+#searchForm button:hover {
+    background-color: #871313;
+    color: #fff;
+}
+#searchForm input:hover {
+    border-color: #871313; 
+}
+#searchForm input:active {
+    border-color: #000000; 
+    box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.7);
+}
+#searchForm button {
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
