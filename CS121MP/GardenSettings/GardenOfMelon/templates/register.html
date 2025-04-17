@@ -63,17 +63,22 @@
         <div id="register-form">
             <div id="register-form-title">
                 <p style="font-size: 25px; font-weight: bold;">Register</p>
-                {% if messages %}
+                <!-- {% if messages %}
                 <div class="mb-2">
                     {% for message in messages %}
                         <span class="alert alert-{{ message.tags }}" id="login-error-messages">ⓘ {{ message }}</span>
+                        <br>
                     {% endfor %}
                 </div>
                 {% else %}
                     <div class="mb-2">
                         <span> Fill in the necessary information below. </span>
                     </div>
-                {% endif %}
+                {% endif %} -->
+
+                <div class="mb-2">
+                    <span> Fill in the necessary information below. </span>
+                </div>
             </div>
             
             <form method="post">
@@ -106,13 +111,21 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="phone-addon">📞</span>
                     <div class="form-floating">
-                        <input type="phone" name="{{ form.phone.name }}" class="form-control" 
-                               id="{{ form.phone.id_for_label }}" placeholder="Phone Number"
-                               {% if form.phone.field.required %}required{% endif %}
-                               {% if form.phone.value %}value="{{ form.phone.value }}"{% endif %}>
-                        <label for="{{ form.phone.id_for_label }}">Phone</label>
+                        <input type="tel" name="{{ form.phone_number.name }}" class="form-control" 
+                               id="{{ form.phone_number.id_for_label }}" placeholder="Phone Number"
+                               {% if form.phone_number.field.required %}required{% endif %}
+                               {% if form.phone_number.value %}value="{{ form.phone_number.value }}"{% endif %}>
+                        <label for="{{ form.phone_number.id_for_label }}">Phone</label>
                     </div>
                 </div>
+
+                {% if form.phone_number.errors %}
+                    <div class="mb-2">
+                        {% for error in form.phone_number.errors %}
+                            <span class="alert alert" id="login-error-messages">ⓘ {{ error }}</span><br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="email-addon">✉</span>
@@ -124,6 +137,14 @@
                         <label for="{{ form.email.id_for_label }}">Email</label>
                     </div>
                 </div>
+
+                {% if form.email.errors %}
+                    <div class="mb-2">
+                        {% for error in form.email.errors %}
+                            <span class="alert alert" id="login-error-messages">ⓘ {{ error }}</span><br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="password-addon">🔒</span>
