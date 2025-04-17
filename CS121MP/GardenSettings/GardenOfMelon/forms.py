@@ -5,7 +5,6 @@ from phonenumber_field.formfields import PhoneNumberField
 class RegisterForm(forms.ModelForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
-    #phone = forms.CharField(required=True)
     phone_number = PhoneNumberField(
         required=True,
         error_messages={
