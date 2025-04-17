@@ -12,7 +12,6 @@ def registerPage(request):
         if form.is_valid():
             email = form.cleaned_data['email']
             if User.objects.filter(email=email).exists():
-                messages.error(request, "Email already exists. Choose another one.")
                 return render(request, 'register.html', {'form': form})  
             else:
                 user = form.save(commit=False)
