@@ -59,22 +59,34 @@ let products = [
 let filteredProducts = [...products];
 let listCarts  = [];
 
-searchInput.addEventListener('input', () => {
+// Search functionality
+document.querySelector('#searchForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    performSearch();
+});
+
+searchInput.addEventListener('input', performSearch);
+
+function performSearch() {
     const query = searchInput.value.toLowerCase().trim();
     
     if (query === '') {
-        // Show all products when search is empty
         filteredProducts = [...products];
     } else {
-        // Filter products based on search query
         filteredProducts = products.filter(product => 
             product.name.toLowerCase().includes(query)
         );
     }
     
     renderProducts(filteredProducts);
-});
+}
 
+function clearSearch() {
+    searchInput.value = '';
+    performSearch();
+}
+
+// For displaying products (All products or filtered products based on search)
 function renderProducts(productArray){
     list.innerHTML = ''; // clear existing list
 
