@@ -1,3 +1,14 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Check for search parameter in URL (important for redirecting from other non-product pages)
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = urlParams.get('search');
+    
+    if (searchQuery && searchInput) {
+        searchInput.value = searchQuery;
+        performSearch(); // This will automatically filter products
+    }
+});
+
 let openShopping = document.querySelector('#shopping');
 let closeShopping = document.querySelector('.closeShopping');
 let list = document.querySelector('.list');
