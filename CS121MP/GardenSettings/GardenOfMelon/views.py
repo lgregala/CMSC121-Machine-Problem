@@ -56,3 +56,9 @@ def aboutPage(request):
 
 def homePage(request):
     return render(request, 'dashboard.html')
+
+def contactPage(request):
+    return render(request, 'contact.html')
+
+def productsPage(request):
+    return render(request, 'products.html')
