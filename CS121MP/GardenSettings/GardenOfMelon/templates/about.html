@@ -277,8 +277,32 @@
         </div>
     </div>
 
-    <div class="footer">
-        <div class="footer-text-container"></div>
+    <div class="navbar-border"></div>
+    <div class="footer-container">
+        <div class="footer-content">
+            <img src="{% static 'Logos/GoM-Horizontal-Logo.png' %}" class="img-fluid rounded-start" alt="..." style="height: 75px; width: auto;">
+            <p style="margin-top: 8px;"> Garden of Melon is a favorite among plant lovers in the Philippines.
+                We bring nature’s charm right into your home, one leaf at a time.</p>
+        </div>    
+        <div class="footer-content"> 
+            <h3 class="footer-content-categ"> Quick Links </h3>
+            <div class="qlink-div"><a href="{% url 'home' %}" class="qlink">HOME</a></div>
+            <div class="qlink-div"><a href="{% url 'about' %}" class="qlink">ABOUT</a></div>
+            <div class="qlink-div"><a href="{% url 'products' %}" class="qlink">PRODUCTS</a></div>
+            <div class="qlink-div"><a href="{% url 'contact' %}" class="qlink">CONTACT</a></div>
+            <div class="qlink-div"><a href="{% url 'login' %}" class="qlink">LOGIN</a></div>
+        </div>
+        <div class="footer-content"> 
+            <h3 class="footer-content-categ"> Follow Us</h3>
+            <div style="margin-top: 15px;">
+                <a href="https://www.facebook.com/loi.melona" class="fab fa-facebook fa-2x icon"></a>
+                <a href="https://www.instagram.com/thisismelon_/?hl=en" class="fab fa-instagram fa-2x icon"></a>
+                <a href="https://youtube.com/shorts/XM-XiowQ9Sk?si=medAWuhISfLJOWvw" class="fab fa-youtube fa-2x icon"></a>
+                <a href="https://x.com/melon?lang=en" class="fab fa-twitter fa-2x icon"></a>
+                <a href="https://www.tiktok.com/tag/melon?lang=en" class="fab fa-tiktok fa-2x icon"></a>
+            </div>
+            <p style="margin-top: 15px;"> © 2025 Garden of Melon. All rights reserved.</p>
+        </div>
     </div>
 </body>
 </html>
