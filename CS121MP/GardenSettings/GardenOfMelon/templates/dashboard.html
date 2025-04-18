@@ -9,14 +9,18 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'Styles/Home.css' %}">
   <script src="{% static 'Scripts/Navbar.js' %}"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'Styles/Navbar.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'Styles/Footer.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'Styles/Products.css' %}"> <!-- I added this -->
+  <link rel="stylesheet" type="text/css" href="{% static 'Styles/Products.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'Scripts/Navbar.js' %}"></script>
+  <script src="{% static 'Scripts/Products.js' %}" defer></script>
 </head>
-<body data-static-path="{% static 'Images/' %}"> <!-- I added this -->
+<body data-static-path="{% static 'Images/' %}">
       <nav class="navbar navbar-expand-lg" style="background-color: #e1eebc; height: 100px;">
         <div class="container-fluid d-flex align-items-center justify-content-between">
 
@@ -52,7 +56,7 @@
             <a href="#" class="nav-link mx-2" id="shopping">
               <img src="{% static 'Logos/Shopping-Cart.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
               <span class="quantity">0</span>
-            </a> <!-- Added span class here -->
+            </a>
           </div>
         </div>
       </nav>
@@ -66,27 +70,45 @@
         </div>
       </div>
 
-      <!-- -------------- SHOPPING CART HTML -------------- -->
-      <div class="cart">
-        <div class="cart-headings">
-          <h1>Shopping Cart</h1>
-          <span class="closeShopping">✕</span>
-        </div>
-        <ul class="listCart">
-        </ul>
-        <div class="checkOut">
-            <div class="total">0</div>
-            <div class="checkout-btn">CHECK OUT</div>
-        </div>
-      </div><br><br>
-
-      <div class="footer">
-        <div class="footer-text-container"></div>
+      <div class="navbar-border"></div>
+      <div class="footer-container">
+          <div class="footer-content">
+              <img src="{% static 'Logos/GoM-Horizontal-Logo.png' %}" class="img-fluid rounded-start" alt="..." style="height: 75px; width: auto;">
+              <p style="margin-top: 8px;"> Garden of Melon is a favorite among plant lovers in the Philippines.
+                  We bring nature’s charm right into your home, one leaf at a time.</p>
+          </div>    
+          <div class="footer-content"> 
+              <h3 class="footer-content-categ"> Quick Links </h3>
+              <div class="qlink-div"><a href="{% url 'home' %}" class="qlink">HOME</a></div>
+              <div class="qlink-div"><a href="{% url 'about' %}" class="qlink">ABOUT</a></div>
+              <div class="qlink-div"><a href="{% url 'products' %}" class="qlink">PRODUCTS</a></div>
+              <div class="qlink-div"><a href="{% url 'contact' %}" class="qlink">CONTACT</a></div>
+              <div class="qlink-div"><a href="{% url 'login' %}" class="qlink">LOGIN</a></div>
+          </div>
+          <div class="footer-content"> 
+              <h3 class="footer-content-categ"> Follow Us</h3>
+              <div style="margin-top: 15px;">
+                  <a href="https://www.facebook.com/loi.melona" class="fab fa-facebook fa-2x icon"></a>
+                  <a href="https://www.instagram.com/thisismelon_/?hl=en" class="fab fa-instagram fa-2x icon"></a>
+                  <a href="https://youtube.com/shorts/XM-XiowQ9Sk?si=medAWuhISfLJOWvw" class="fab fa-youtube fa-2x icon"></a>
+                  <a href="https://x.com/melon?lang=en" class="fab fa-twitter fa-2x icon"></a>
+                  <a href="https://www.tiktok.com/tag/melon?lang=en" class="fab fa-tiktok fa-2x icon"></a>
+              </div>
+              <p style="margin-top: 15px;"> © 2025 Garden of Melon. All rights reserved.</p>
+          </div>
       </div>
-      
-      <!-- -------------- nilagay ko rito yung js kasi nung nasa <head> hindi sha gumana po -------------- -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="{% static 'Scripts/Navbar.js' %}"></script>
-      <script src="{% static 'Scripts/Products.js' %}"></script>
+  
+      <div class="cart">
+          <div class="cart-headings">
+            <h1>Shopping Cart</h1>
+            <span class="closeShopping">✕</span>
+          </div>
+          <ul class="listCart">
+          </ul>
+          <div class="checkOut">
+              <div class="total">0</div>
+              <div class="checkout-btn">CHECK OUT</div>
+          </div>
+      </div>
 </body>
 </html>
