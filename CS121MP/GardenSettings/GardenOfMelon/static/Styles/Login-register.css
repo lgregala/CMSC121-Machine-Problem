@@ -63,14 +63,3 @@ body {
 #login-error-messages {
     color: red;
 }
-
-/* ----------- NAVBAR CSS ----------- */
-header {
-    margin: 0;
-    padding: 0;
-  }
-
-h1 {
-    font-family: "Oleo Script", system-ui;
-    font-size: 20px;
-}
