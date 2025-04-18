@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Login-register.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Styles/Footer.css' %}">
     <script src="{% static 'Scripts/Navbar.js' %}"></script>
 </head>
 
@@ -46,7 +47,7 @@
             <a href="{% url 'contact' %}" class="nav-link mx-2">
               <img src="{% static 'Logos/Contacts.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
-            <a href="#" class="nav-link mx-2">
+            <a href="{% url 'login' %}" class="nav-link mx-2">
               <img src="{% static 'Logos/Account.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
             <a href="#" class="nav-link mx-2">
@@ -63,7 +64,17 @@
         <div id="login-form">
             <div id="login-form-title">
                 <p style="font-size: 25px; font-weight: bold;">Login</p>
-                <p style="font-size: 15px;">Nice to see you again!</p><br>
+                {% if messages %}
+                <div class="mb-2">
+                    {% for message in messages %}
+                        <span class="alert alert-{{ message.tags }}" id="login-error-messages">ⓘ {{ message }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="mb-2">
+                        <span> Nice to see you again! </span>
+                </div>
+                {% endif %}
             </div>
     
             <form method="post">
@@ -85,14 +96,6 @@
                     </div>
                 </div>
     
-                {% if messages %}
-                    <div class="mb-2">
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }}" id="login-error-messages">ⓘ {{ message }}</div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-    
                 <div class="d-grid mb-3">
                     <button type="submit" class="btn btn-primary" id="login-btn">Login →</button>
                 </div>
@@ -103,6 +106,10 @@
                 </p>
             </form>
         </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-text-container"></div>
     </div>
 
     <!-- Bootstrap JS -->

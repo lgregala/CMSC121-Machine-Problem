@@ -18,6 +18,7 @@
     <script src="{% static 'Scripts/Navbar.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Navbar.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/About.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Styles/Footer.css' %}">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg" style="background-color: #e1eebc; height: 100px;">
@@ -49,7 +50,7 @@
             <a href="{% url 'contact' %}" class="nav-link mx-2">
               <img src="{% static 'Logos/Contacts.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
-            <a href="#" class="nav-link mx-2">
+            <a href="{% url 'login' %}" class="nav-link mx-2">
               <img src="{% static 'Logos/Account.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
             </a>
             <a href="#" class="nav-link mx-2">
