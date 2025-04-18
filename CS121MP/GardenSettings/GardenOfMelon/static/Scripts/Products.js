@@ -5,11 +5,13 @@ let listCart = document.querySelector('.listCart');
 let body = document.querySelector('body');
 let total = document.querySelector('.total');
 let quantity = document.querySelector('.quantity');
+let searchInput = document.querySelector('#searchInput');
 let staticPath = document.body.dataset.staticPath;
 
 openShopping.addEventListener('click', ()=>{
     body.classList.add('active');
 })
+
 closeShopping.addEventListener('click', ()=>{
     body.classList.remove('active');
 })
@@ -54,20 +56,44 @@ let products = [
     }
 ];
 
+let filteredProducts = [...products];
 let listCarts  = [];
-function initApp(){
-    products.forEach((value, key) =>{
+
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase().trim();
+    
+    if (query === '') {
+        // Show all products when search is empty
+        filteredProducts = [...products];
+    } else {
+        // Filter products based on search query
+        filteredProducts = products.filter(product => 
+            product.name.toLowerCase().includes(query)
+        );
+    }
+    
+    renderProducts(filteredProducts);
+});
+
+function renderProducts(productArray){
+    list.innerHTML = ''; // clear existing list
+
+    if (productArray.length === 0) {
+        list.innerHTML = '<div class="no-results">⌕ No products found matching your search.</div>';
+        return;
+    }
+
+    productArray.forEach((value, key) =>{
         let newDiv = document.createElement('div');
         newDiv.classList.add('item');
         newDiv.innerHTML = `
             <img src="${staticPath}${value.image}">
             <h4 class="title">${value.name}</h4>
             <div class="price">${value.price.toLocaleString()}</div>
-            <button onclick="addToCart(${key})">Add To Cart</button>`;
+            <button onclick="addToCart(${value.id - 1})">Add To Cart</button>`;
         list.appendChild(newDiv);
-    })
+    });
 }
-initApp();
 
 function addToCart(key){
     if(listCarts[key] == null){
@@ -111,3 +137,12 @@ function changeQuantity(key, quantity){
     }
     reloadCart();
 }
+
+function initApp() {
+    filteredProducts = [...products];
+    renderProducts(filteredProducts);
+    reloadCart();
+}
+
+// Start the application
+initApp();

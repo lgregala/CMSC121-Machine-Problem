@@ -157,3 +157,16 @@
 .listCart .count {
     margin: 0 10px;
 }
+
+.no-results {
+    display: flex;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: #000000;
+    font-size: 15px;
+    margin-left: 490px;
+    padding-top: 244px;
+}
