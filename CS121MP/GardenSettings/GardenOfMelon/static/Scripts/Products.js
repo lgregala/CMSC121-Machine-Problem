@@ -18,37 +18,37 @@ closeShopping.addEventListener('click', ()=>{
 let products = [
     {
         id: 1,
-        name: 'PLANT 1',
+        name: 'Spathiphyllum',
         image: 'AWPlant2.jpg',
         price: 120000
     },
     {
         id: 2,
-        name: 'PLANT 2',
+        name: 'Saintpaulia',
         image: 'AWPlant3.jpg',
         price: 130000
     },
     {
         id: 3,
-        name: 'PLANT 3',
+        name: 'Monstera Deliciosa',
         image: 'AWPlant4.jpg',
         price: 220000
     },
     {
         id: 4,
-        name: 'PLANT 4',
+        name: 'Unknown Plant',
         image: 'Gardening.png',
         price: 130000
     },
     {
         id: 5,
-        name: 'PLANT 5',
+        name: 'Snake Plant',
         image: 'SnakePlant.jpg',
         price: 100000
     },
     {
         id: 6,
-        name: 'PLANT 6',
+        name: 'Prayer Plant',
         image: 'AWPlant1.webp',
         price: 110000
     }
@@ -73,8 +73,12 @@ function addToCart(key){
     if(listCarts[key] == null){
         listCarts[key] = JSON.parse(JSON.stringify(products[key]));
         listCarts[key].quantity = 1;
+        reloadCart();
     }
-    reloadCart();
+    else{ // Added logic for increasing quantity to an already existing item in the card
+        listCarts[key].quantity += 1;
+        changeQuantity(key, listCarts[key].quantity);
+    }
 }
 
 function reloadCart(){
@@ -84,13 +88,13 @@ function reloadCart(){
     listCarts.forEach((value, key)=>{
         totalPrice = totalPrice + value.price;
         count = count + value.quantity;
-        if(value != null){
+        if(value != null){ // Added classnames and implemented css for better design
             let newDiv = document.createElement('li');
             newDiv.innerHTML = `
-                <div><img src="${staticPath}${value.image}"/></div>
-                <div>${value.name}</div>
-                <div>${value.price.toLocaleString()}</div>
-                <div>
+                <div><img src="${staticPath}${value.image}" class="ordered-item-img"></div>
+                <div class="ordered-item-name">${value.name}</div>
+                <div class="ordered-item-price">${value.price.toLocaleString()}</div>
+                <div class="ordered-item-quantity-changer">
                     <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
                     <div class="count">${value.quantity}</div>
                     <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
@@ -105,7 +109,7 @@ function reloadCart(){
 function changeQuantity(key, quantity){
     if(quantity == 0){
         delete listCarts[key];
-    }else{
+    }else{ 
         listCarts[key].quantity = quantity;
         listCarts[key].price = quantity * products[key].price;
     }

@@ -12,7 +12,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'Styles/Home.css' %}">
-  <script src="{% static 'Scripts/Navbar.js' %}"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'Styles/Navbar.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'Styles/Footer.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'Styles/Products.css' %}">
@@ -66,7 +65,7 @@
       <div class="hero-section">
         <div class="overlay"></div>
         <div class="plant-text">
-          <h1>Welcome to the Garden of Melon!</h1>
+          <h1 class="plant-text-h1">Welcome to the Garden of Melon!</h1>
         </div>
       </div>
 
@@ -100,13 +99,15 @@
   
       <div class="cart">
           <div class="cart-headings">
-            <h1>Shopping Cart</h1>
+            <h1>Shopping Cart </h1>
             <span class="closeShopping">✕</span>
           </div>
           <ul class="listCart">
+            <img src="{% static 'Images/Empty-Cart.png' %}" class="emptyCartImg">
+            <div class="emptyCartMsg"> There are currently no items in your cart. </div>
           </ul>
           <div class="checkOut">
-              <div class="total">0</div>
+              <div class="total">₱ 0</div>
               <div class="checkout-btn">CHECK OUT</div>
           </div>
       </div>

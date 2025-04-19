@@ -21,7 +21,7 @@
 
 </head>
 
-<body data-static-path="{% static 'Images/' %}"> <!-- I added this -->
+<body data-static-path="{% static 'Images/' %}">
     <header>
         <nav class="navbar navbar-expand-lg" style="background-color: #e1eebc; height: 100px;">
             <div class="container-fluid d-flex align-items-center justify-content-between">
@@ -192,9 +192,11 @@
           <span class="closeShopping">✕</span>
         </div>
         <ul class="listCart">
+            <img src="{% static 'Images/Empty-Cart.png' %}" class="emptyCartImg">
+            <div class="emptyCartMsg"> There are currently no items in your cart. </div>
         </ul>
         <div class="checkOut">
-            <div class="total">0</div>
+            <div class="total">₱ 0</div>
             <div class="checkout-btn">CHECK OUT</div>
         </div>
     </div>
