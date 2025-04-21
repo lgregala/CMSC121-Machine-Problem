@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from django.http import HttpResponse
-from .models import User
+from django.http import JsonResponse
+from .models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.messages import get_messages
-
+from django.core import serializers
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 
 def registerPage(request):
     if request.method == "POST":
@@ -67,4 +70,6 @@ def contactPage(request):
     return render(request, 'contact.html')
 
 def productsPage(request):
-    return render(request, 'products.html')
+    products = Product.objects.all()
+    context = {'products': products}
+    return render(request, 'products.html', context)
