@@ -59,6 +59,28 @@ function clearSearch() {
     performSearch();
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const items = document.querySelectorAll(".item");
+  
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const category = btn.getAttribute("data-category");
+  
+        items.forEach(item => {
+          const itemCategory = item.getAttribute("data-category");
+  
+          if (category === "all" || itemCategory === category) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      });
+    });
+  });
+  
+
 // For displaying products (All products or filtered products based on search)
 // function renderProducts(productArray){
 //     list.innerHTML = ''; // clear existing list
