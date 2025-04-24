@@ -287,3 +287,30 @@ button {
     margin-left: 490px;
     padding-top: 244px;
 }
+
+/* ===== For clearing search button (updated search button that fetches data from the database) ===== */
+#clear-search-btn {
+    color: black !important;              
+    background-color: #90c67c !important; 
+    border-color: #90c67c !important;     
+}
+
+#clear-search-btn:hover {
+    color: white !important;           
+}
+
+#no-results-msg {
+    background-color: white;
+    border-color: white;
+    color:#328e62
+}
+
+#view-all-products-btn {
+    color:#328e62 !important;              
+    background-color: #90c67c !important; 
+    border-color: #90c67c !important;   
+}
+
+#view-all-products-btn:hover {
+    color: white !important; 
+}

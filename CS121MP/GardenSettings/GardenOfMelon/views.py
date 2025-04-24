@@ -9,6 +9,7 @@ from django.contrib.messages import get_messages
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 import json
+from django.db.models import Q # for database queries
 
 def registerPage(request):
     if request.method == "POST":
@@ -70,6 +71,31 @@ def contactPage(request):
     return render(request, 'contact.html')
 
 def productsPage(request):
-    products = Product.objects.all()
-    context = {'products': products}
+    query = request.GET.get('search', '')
+    
+    if query:
+        # Search in name, scientific_name, category, subcategory, or description
+        products = Product.objects.filter(
+            Q(name__icontains=query) |
+            Q(scientific_name__icontains=query) |
+            Q(category__icontains=query) |
+            Q(subcategory__icontains=query) |
+            Q(description__icontains=query)
+        ).distinct()
+        
+        # Add information about whether the search returned results
+        search_performed = True
+        no_results = products.count() == 0
+    else:
+        products = Product.objects.all()
+        search_performed = False
+        no_results = False
+    
+    context = {
+        'products': products,
+        'search_performed': search_performed,
+        'no_results': no_results,
+        'search_query': query
+    }
+    
     return render(request, 'products.html', context)

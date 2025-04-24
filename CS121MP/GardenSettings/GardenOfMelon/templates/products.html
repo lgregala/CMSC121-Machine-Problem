@@ -20,7 +20,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Products.css' %}">
     <script src="{% static 'Scripts/Navbar.js' %}"></script>
     <script src="{% static 'Scripts/Products.js' %}" defer></script>
-
   </head>
 <body data-static-path="{% static 'Product-Images/' %}">
     <nav class="navbar navbar-expand-lg" style="background-color: #e1eebc; height: 100px;">
@@ -31,13 +30,16 @@
         </a>
 
         <div class="d-flex flex-row justify-content-center align-items-center flex-wrap">
-          <form id="searchForm" class="d-flex mx-2 search-form" style=" width: 330px; display: none;" onsubmit="return false;">
-            <input id="searchInput" class="form-control me-1" type="search" placeholder="Search..." aria-label="Search">
+          <form id="searchForm" class="d-flex mx-2 search-form" style="width: 330px; display: none;" method="GET" action="{% url 'products' %}">
+            <input id="searchInput" name="search" class="form-control me-1" type="search" placeholder="Search..." aria-label="Search" value="{{ request.GET.search }}">
             <button class="btn btn-info" type="submit" style="background-color: #90c67c; border:none;">
-              <i class="fas fa-search"></i>
+                <i class="fas fa-search"></i>
             </button>
+            {% if request.GET.search %}
+                <a href="{% url 'products' %}" id="clear-search-btn" class="btn btn-outline-danger ms-2">Clear</a>
+            {% endif %}
           </form>
-            
+           
           <button id="searchToggle" class="btn nav-link mx-2">
             <img src="{% static 'Logos/Search.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
           </button>
@@ -93,19 +95,27 @@
     </div>
     
     <div class="product-container">
-      <div class="list">
-        {% for product in products %}
-        <div class="item" data-category="{{ product.subcategory }}" style="width: 300px; text-align: center;">
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 80%; height: 230px;">
-            <h4 class="title">{{ product.name }}</h4>
-            <div class="price">₱{{ product.price }}</div>
-            <button class="add-to-cart-btn" data-id="{{ forloop.counter0 }}">Add To Cart</button>
-          </div>
-        {% endfor %}
-      </div>
+      {% if search_performed and no_results %}
+        <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
+          <h4>🔍︎ No products found</h4>
+          <p>No products match your search for "{{ search_query }}"</p>
+          <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
+        </div>
+      {% else %}
+        <div class="list">
+          {% for product in products %}
+          <div class="item" data-category="{{ product.subcategory }}" style="width: 300px; text-align: center;">
+              <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 80%; height: 230px;">
+              <h4 class="title">{{ product.name }}</h4>
+              <div class="price">₱{{ product.price }}</div>
+              <button class="add-to-cart-btn" data-id="{{ forloop.counter0 }}">Add To Cart</button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
   </div>
-        <!-- logic for inserting products is on Products.js -->
+  
     <div class="navbar-border"></div>
     <div class="footer-container">
         <div class="footer-content">

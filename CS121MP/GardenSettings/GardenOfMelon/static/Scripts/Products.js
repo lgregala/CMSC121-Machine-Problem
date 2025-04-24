@@ -1,14 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Check for search parameter in URL (important for redirecting from other non-product pages)
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchQuery = urlParams.get('search');
-    
-    if (searchQuery && searchInput) {
-        searchInput.value = searchQuery;
-        performSearch(); // This will automatically filter products
-    }
-});
-
 let openShopping = document.querySelector('#shopping');
 let closeShopping = document.querySelector('.closeShopping');
 let list = document.querySelector('.list');
@@ -31,33 +20,6 @@ closeShopping.addEventListener('click', ()=>{
 let products = [];
 let filteredProducts = [];
 let listCarts = [];
-
-// Search functionality
-document.querySelector('#searchForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    performSearch();
-});
-
-searchInput.addEventListener('input', performSearch);
-
-function performSearch() {
-    const query = searchInput.value.toLowerCase().trim();
-    
-    if (query === '') {
-        filteredProducts = [...products];
-    } else {
-        filteredProducts = products.filter(product => 
-            product.name.toLowerCase().includes(query)
-        );
-    }
-    
-    renderProducts(filteredProducts);
-}
-
-function clearSearch() {
-    searchInput.value = '';
-    performSearch();
-}
 
 document.addEventListener("DOMContentLoaded", function () {
     const filterButtons = document.querySelectorAll(".filter-btn");

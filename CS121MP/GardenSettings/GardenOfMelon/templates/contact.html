@@ -19,11 +19,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Navbar.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Footer.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Products.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'Styles/Search.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Contacts.css' %}">
     <script src="{% static 'Scripts/Navbar.js' %}"></script>
     <script src="{% static 'Scripts/Products.js' %}" defer></script>
-    <script src="{% static 'Scripts/Search.js' %}" defer></script>
 </head>
 <body data-static-path="{% static 'Images/' %}">
     <nav class="navbar navbar-expand-lg" style="background-color: #e1eebc; height: 100px;">
@@ -35,12 +33,15 @@
       
           <div class="d-flex flex-row justify-content-center align-items-center flex-wrap">
          
-            <form id="searchForm" class="d-flex mx-2 search-form" style=" width: 330px; display: none;">
-                <input class="form-control me-1" type="search" placeholder="Search..." aria-label="Search">
-                <button class="btn btn-info" type="submit" style="background-color: #90c67c; border:none;">
-                    <i class="fas fa-search"></i>
-                </button>
-              </form>
+            <form id="searchForm" class="d-flex mx-2 search-form" style="width: 330px; display: none;" method="GET" action="{% url 'products' %}">
+              <input id="searchInput" name="search" class="form-control me-1" type="search" placeholder="Search..." aria-label="Search" value="{{ request.GET.search }}">
+              <button class="btn btn-info" type="submit" style="background-color: #90c67c; border:none;">
+                  <i class="fas fa-search"></i>
+              </button>
+              {% if request.GET.search %}
+                  <a href="{% url 'products' %}" id="clear-search-btn" class="btn btn-outline-danger ms-2">Clear</a>
+              {% endif %}
+            </form>
               
             <button id="searchToggle" class="btn nav-link mx-2">
               <img src="{% static 'Logos/Search.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
