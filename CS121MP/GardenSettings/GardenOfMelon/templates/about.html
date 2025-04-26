@@ -26,47 +26,62 @@
 </head>
 
 <body data-static-path="{% static 'Images/' %}">
-    <nav class="navbar navbar-expand-lg" style="background-color: #e1eebc; height: 100px;">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
-  
-          <a href="{% url 'home' %}" class="nav-link">
-            <img src="{% static 'Logos/GoM-Horizontal-Logo.png' %}" class="img-fluid rounded-start" alt="..." style="height: 90px; width: auto;">
-          </a>
-      
-          <div class="d-flex flex-row justify-content-center align-items-center flex-wrap">
-         
-            <form id="searchForm" class="d-flex mx-2 search-form" style=" width: 330px; display: none;">
-                <input id="searchInput" class="form-control me-1" type="search" placeholder="Search..." aria-label="Search">
+    <!-------------- NAVIGATION BAR START -------------->
+    <nav class="navbar">
+
+        <a href="{% url 'home' %}" class="nav-link">
+          <img src="{% static 'Logos/GoM-Horizontal-Logo.png' %}" class="home-logo img-fluid rounded-start" alt="...">
+        </a>
+          
+          <div class="nav-elements">
+            <div id="search-bar">
+              <form id="searchForm" class="d-flex mx-2 search-form" style="width: 330px; display: none;" method="GET" action="{% url 'products' %}">
+                <input id="searchInput" name="search" class="form-control me-1" type="search" placeholder="Search..." aria-label="Search" value="{{ request.GET.search }}">
                 <button class="btn btn-info" type="submit" style="background-color: #90c67c; border:none;">
                     <i class="fas fa-search"></i>
                 </button>
-                <div class="search-preview-results"></div>
+                {% if request.GET.search %}
+                    <a href="{% url 'products' %}" id="clear-search-btn" class="btn btn-outline-danger ms-2">Clear</a>
+                {% endif %}
               </form>
+                
+              <button id="searchToggle" class="btn nav-link mx-2">
+                <img src="{% static 'Logos/Search.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
+              </button>
+        
+            </div>
+            
+            <ul>
+              <li><a href="{% url 'about' %}" class="nav-link mx-2">
+                <img src="{% static 'Logos/About-Us.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
+              </a></li>
+  
+              <li><a href="{% url 'products' %}" class="nav-link mx-2">
+                <img src="{% static 'Logos/Products.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
+              </a></li>
+  
+              <li><a href="{% url 'contact' %}" class="nav-link mx-2">
+                <img src="{% static 'Logos/Contacts.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
+              </a></li>
+  
+              <li><a href="{% url 'login' %}" class="nav-link mx-2">
+                <img src="{% static 'Logos/Account.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
+              </a></li>
+  
+              <li>
+                <a href="#" class="nav-link mx-2" id="shopping">
+                  <div class="cart-container">
+                    <img src="{% static 'Logos/Shopping-Cart.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
+                    <span class="quantity" style="position: absolute; top: -6px; right: 20px;">0</span>
+                  </div>
+                </a>
+              </li>
               
-            <button id="searchToggle" class="btn nav-link mx-2">
-              <img src="{% static 'Logos/Search.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-            </button>
-      
-            <a href="{% url 'about' %}" class="nav-link mx-2">
-              <img src="{% static 'Logos/About-Us.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-            </a>
-            <a href="{% url 'products' %}" class="nav-link mx-2">
-              <img src="{% static 'Logos/Products.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-            </a>
-            <a href="{% url 'contact' %}" class="nav-link mx-2">
-              <img src="{% static 'Logos/Contacts.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-            </a>
-            <a href="{% url 'login' %}" class="nav-link mx-2">
-              <img src="{% static 'Logos/Account.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-            </a>
-            <a href="#" class="nav-link mx-2" id="shopping">
-                <img src="{% static 'Logos/Shopping-Cart.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-                <span class="quantity">0</span>
-            </a>
+            </ul>
           </div>
-        </div>
       </nav>
-
+      
+                    <!-------------- NAVIGATION BAR END -------------->
       <div class="navbar-border"></div>
 
     <div id="background-img"> </div>
@@ -143,70 +158,6 @@
                     continuous growth.</p>
                 </div>
               </div>
-            </div>
-        </div>
-
-        <div class="about" id="awp-text"> AWARD-WINNING PLANTS </div>
-        <div class="awp-container">
-            <div class="awp-card">
-                <div class="img-box">
-                    <img src="{% static 'Images/AWPlant1.webp' %}">
-                </div>
-                <div class="content-box">
-                    <h4> 1. Calathea </h4>
-                    <p> A group of tropical plants known for their stunning, patterned leaves that often have a purplish underside. 
-                        Nicknamed the <i>Prayer Plant</i> because many species close their leaves at night, like they're praying. 
-                        They're a bit fussy but totally worth it for looks.</p>
-                    <button href=""  class="view-btn"> VIEW </button>
-                </div>
-            </div>
-            <div class="awp-card">
-                <div class="img-box">
-                    <img src="{% static 'Images/AWPlant2.jpg' %}">
-                </div>
-                <div class="content-box">
-                    <h4> 2. Peace Lily </h4>
-                    <p> Also known as <i>Spathiphyllum</i>, a graceful houseplant known for its dark green leaves and elegant white, 
-                        sail-like flowers. It’s not a true lily but is prized for its beauty and air-purifying abilities. 
-                        Peace Lilies also symbolize peace and healing. </p>
-                    <button href=""  class="view-btn"> VIEW </button>
-                </div>
-            </div>
-            <div class="awp-card">
-                <div class="img-box">
-                    <img src="{% static 'Images/AWPlant3.jpg' %}">
-                </div>
-                <div class="content-box">
-                    <h4> 3. African Violet </h4>
-                    <p> Also known as <i>Saintpaulia</i>, a compact flowering plant with fuzzy, dark green leaves and clusters of small, 
-                        colorful blooms (purple, pink, white, etc.). They’re popular for their long blooming period and are easy 
-                        to grow on windowsills. </p>
-                    <button href=""  class="view-btn"> VIEW </button>
-                </div>
-            </div>
-            <div class="awp-card">
-                <div class="img-box">
-                    <img src="{% static 'Images/AWPlant4.jpg' %}">
-                </div>
-                <div class="content-box">
-                    <h4> 4. Monstera Deliciosa </h4>
-                    <p> Also known as the <i>Swiss Cheese Plant</i>, it's a tropical vine native to Central America, famous for its large,
-                        glossy green leaves with natural holes or slits. It's fast-growing and gives off major jungle vibes, making 
-                        it a favorite statement plant.</p>
-                    <button href=""  class="view-btn"> VIEW </button>
-                </div>
-            </div>
-            <div class="awp-card">
-                <div class="img-box">
-                    <img src="{% static 'Images/AWPlant5.jpg' %}">
-                </div>
-                <div class="content-box">
-                    <h4> 5. Bird of Paradise </h4>
-                    <p> It is a striking tropical plant native to South Africa, known for its large, banana-like leaves and 
-                        extraordinary flowers that resemble the shape of a colorful bird in flight. The vibrant orange and 
-                        blue blooms make it a show-stopper. </p>
-                        <button href=""  class="view-btn"> VIEW </button>
-                </div>
             </div>
         </div>
 

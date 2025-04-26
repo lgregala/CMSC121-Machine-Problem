@@ -1,6 +1,111 @@
-.nav-link img {
-    transition: transform 0.2s ease, filter 0.2s ease;
+@media (max-width: 1270px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        padding: 1rem 0;
+    }
+
+    .navbar > .nav-link {
+        display: flex;
+        justify-content: center;
+        width: 100%;           /* Allows centering inside the full width */
+   }
+   
+   .nav.link > img {
+        width:auto;
+        height: 100px;
+   }
+
+    .nav-elements {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+             /* Adds space between each stacked item */
+    }
+
+    .nav-elements ul {
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        gap: 0.75rem;          /* Space between icons */
+    }
+
+    .nav-elements ul li {
+        margin: 0;             /* Reset default margins that might squash layout */
+    }
+
+    #search-bar {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;           /* Space between search input and toggle */
+    }
+
+    #searchForm {
+        width: 100%;           /* Makes search bar full width */
+        max-width: 330px;
+    }
 }
+
+.home-logo {
+    height: 90px; 
+    width: auto;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 10px;
+    
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+.navbar {
+    margin: 0;
+    padding: 0;    
+    background-color: #e1eebc;
+    height: fit-content;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+
+.nav-elements {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#search-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center
+    
+}
+
+.cart-container {
+    position: relative;
+    display: inline-block;
+}
+
+.quantity {
+    position: absolute;
+    top: -6px;
+    right: 20px;
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+    z-index: 10;
+}
+
 .nav-link img:hover {
     background-color: #90c67c;
     transform: scale(1.1);

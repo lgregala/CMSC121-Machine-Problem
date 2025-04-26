@@ -1,14 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Check for search parameter in URL (important for redirecting from other non-product pages)
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchQuery = urlParams.get('search');
-    
-    if (searchQuery && searchInput) {
-        searchInput.value = searchQuery;
-        performSearch(); // This will automatically filter products
-    }
-});
-
 let openShopping = document.querySelector('#shopping');
 let closeShopping = document.querySelector('.closeShopping');
 let list = document.querySelector('.list');
@@ -28,95 +17,63 @@ closeShopping.addEventListener('click', ()=>{
 })
 
 // Placeholder for products
-let products = [
-    {
-        id: 1,
-        name: 'Spathiphyllum',
-        image: 'AWPlant2.jpg',
-        price: 120000
-    },
-    {
-        id: 2,
-        name: 'Saintpaulia',
-        image: 'AWPlant3.jpg',
-        price: 130000
-    },
-    {
-        id: 3,
-        name: 'Monstera Deliciosa',
-        image: 'AWPlant4.jpg',
-        price: 220000
-    },
-    {
-        id: 4,
-        name: 'Unknown Plant',
-        image: 'Gardening.png',
-        price: 130000
-    },
-    {
-        id: 5,
-        name: 'Snake Plant',
-        image: 'SnakePlant.jpg',
-        price: 100000
-    },
-    {
-        id: 6,
-        name: 'Prayer Plant',
-        image: 'AWPlant1.webp',
-        price: 110000
-    }
-];
+let products = [];
+let filteredProducts = [];
+let listCarts = [];
 
-let filteredProducts = [...products];
-let listCarts  = [];
-
-// Search functionality
-document.querySelector('#searchForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    performSearch();
-});
-
-searchInput.addEventListener('input', performSearch);
-
-function performSearch() {
-    const query = searchInput.value.toLowerCase().trim();
-    
-    if (query === '') {
-        filteredProducts = [...products];
-    } else {
-        filteredProducts = products.filter(product => 
-            product.name.toLowerCase().includes(query)
-        );
-    }
-    
-    renderProducts(filteredProducts);
-}
-
-function clearSearch() {
-    searchInput.value = '';
-    performSearch();
-}
+document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const items = document.querySelectorAll(".item");
+  
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const category = btn.getAttribute("data-category");
+  
+        items.forEach(item => {
+          const itemCategory = item.getAttribute("data-category");
+  
+          if (category === "all" || itemCategory === category) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      });
+    });
+  });
+  
 
 // For displaying products (All products or filtered products based on search)
-function renderProducts(productArray){
-    list.innerHTML = ''; // clear existing list
+// function renderProducts(productArray){
+//     list.innerHTML = ''; // clear existing list
 
-    if (productArray.length === 0) {
-        list.innerHTML = '<div class="no-results">⌕ No products found matching your search.</div>';
-        return;
-    }
+//     if (productArray.length === 0) {
+//         list.innerHTML = '<div class="no-results">⌕ No products found matching your search.</div>';
+//         return;
+//     }
 
-    productArray.forEach((value, key) =>{
-        let newDiv = document.createElement('div');
-        newDiv.classList.add('item');
-        newDiv.innerHTML = `
-            <img src="${staticPath}${value.image}">
-            <h4 class="title">${value.name}</h4>
-            <div class="price">${value.price.toLocaleString()}</div>
-            <button onclick="addToCart(${value.id - 1})">Add To Cart</button>`;
-        list.appendChild(newDiv);
+//     productArray.forEach((value, key) =>{
+//         let newDiv = document.createElement('div');
+//         newDiv.classList.add('item');
+//         newDiv.innerHTML = `
+//             <img src="${staticPath}${value.image}">
+//             <h4 class="title">${value.name}</h4>
+//             <div class="price">${value.price.toLocaleString()}</div>
+//             <button onclick="addToCart(${value.id - 1})">Add To Cart</button>`;
+//         list.appendChild(newDiv);
+//     });
+// }
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Attach event listeners to all Add to Cart buttons
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const productIndex = parseInt(this.dataset.id);
+            addToCart(productIndex);
+        });
     });
-}
+});
 
 function addToCart(key){
     if(listCarts[key] == null){

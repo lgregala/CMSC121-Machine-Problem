@@ -8,14 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     searchForm.appendChild(searchResults);
 
     // Sample product data -> in production pa 'to, fetch from backend 'yung data if evs (idk how to implement)
-    const products = [
-        { name: 'Spathiphyllum', url: '/products' },
-        { name: 'Saintpaulia', url: '/products' },
-        { name: 'Monstera Deliciosa', url: '/products' },
-        { name: 'Unknown Plant', url: '/products' },
-        { name: 'Snake Plant', url: '/products' },
-        { name: 'Prayer Plant', url: '/products' }
-    ];
+    4
 
     function initSearch() {
         // Only show preview on non-product pages (dashboard, about, contact, login, register, etc.)
