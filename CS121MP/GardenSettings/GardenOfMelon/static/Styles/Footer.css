@@ -19,7 +19,6 @@
 .qlink-div{
     margin: auto;
     width: 200px;
-    transition: 0.3s;
 }
 .qlink-div:hover{
     background-color: #328e6e;
@@ -28,7 +27,6 @@
 .qlink{
     text-decoration: none;
     color: black;
-    transition: 0.3s;
 }
 .qlink:hover{
     color: white;

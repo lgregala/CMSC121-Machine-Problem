@@ -123,22 +123,21 @@ button {
     align-items: center;
     color: #fff;
     position: absolute;
-    top: -1px;
-    left: 96.5%;
+    left: 80%;
     padding: 3px 10px;
     margin-top: 15px;
+    z-index: 10;
 }
-
-
 
 .cart {
     position: fixed;
-    top:0;
+    top: 0;
     left: 100%;
     width: 500px;
     background-color:#8b8c8c;
     height: 100vh;
     transition: 0.5s;
+    z-index: 150;
 }
 
 .cart .items{
