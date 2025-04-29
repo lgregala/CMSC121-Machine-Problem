@@ -163,7 +163,7 @@ function changeQuantity(key, quantity){
 
 function initApp() {
     filteredProducts = [...products];
-    renderProducts(filteredProducts);
+    // renderProducts(filteredProducts);
     reloadCart();
 }
 

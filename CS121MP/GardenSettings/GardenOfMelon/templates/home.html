@@ -28,7 +28,11 @@
       <div class="hero-section">
         <div class="overlay"></div>
         <div class="plant-text">
-          <h1 class="plant-text-h1">Welcome to the Garden of Melon!</h1>
+          {% if user.is_authenticated %}
+              <h1 class="plant-text-h1">Pleased to have you in Garden of Melon, {{ user.first_name }}!</h1>
+          {% else %}
+              <h1 class="plant-text-h1">Welcome to the Garden of Melon!</h1>
+          {% endif %}
           <p class="catch-phrase">We bring nature’s charm right into your home, one leaf at a time.🍃</p>
           <a href="/products/" class="shop-button">Shop Now</a>
         </div>
