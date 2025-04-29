@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
+from .forms import RegisterForm, ContactForm
 from django.http import HttpResponse
 from django.http import JsonResponse
 from .models import *
@@ -68,7 +68,14 @@ def homePage(request):
     return render(request, 'home.html')
 
 def contactPage(request):
-    return render(request, 'contact.html')
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('contact.html')
+    else:
+        form = ContactForm()
+    return render(request, 'contact.html', {'form': form})
 
 def productsPage(request):
     query = request.GET.get('search', '')
