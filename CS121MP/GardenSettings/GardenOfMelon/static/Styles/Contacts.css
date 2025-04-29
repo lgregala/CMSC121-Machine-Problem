@@ -1,0 +1,68 @@
+body {
+    background-image: url('../Images/contacts-bg.webp');
+    background-size: cover;
+}
+
+#contact-body {
+    padding-bottom: 35px;
+    padding-top: 35px;
+    padding-left: 80px;
+    padding-right: 80px;
+    align-items: center;
+    min-height: 100vh;   
+}
+
+#contact-form-title {
+    text-align: center;
+}
+
+#contact-form, #contact-details {
+    height: 550;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255, 0.7);
+    width: 500px;
+    border-radius: 10px;
+    padding: 30px 20px; 
+}
+
+.input-group {
+    height: 50px;
+}
+
+input {
+    border-bottom: 3px;
+    border-color: #90c67c;
+}
+
+#floatingTextarea {
+    width: 435px;
+    height: 200px;
+    margin-bottom: 10px;
+}
+
+.form-control {
+    width: 390px;
+}
+
+#send-message-btn {
+    width: 435px;
+    background-color: #90c67c;
+    border-radius: 50px; 
+    border-color: #90c67c;
+    text-align: center;
+}
+
+#contact-error-messages {
+    color: red;
+}
+
+#map-frame {
+    width: 435px;
+    height: 409px;
+    border: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}

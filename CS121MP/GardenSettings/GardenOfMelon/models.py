@@ -40,6 +40,12 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True)  # Plant_Name
     scientific_name = models.CharField(max_length=200, null=True)
