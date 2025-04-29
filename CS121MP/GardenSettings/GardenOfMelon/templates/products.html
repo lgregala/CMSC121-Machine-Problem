@@ -26,57 +26,66 @@
     {% include 'navbar.html' %}
 
     <!-- -------------- PRODUCT DISPLAY -------------- -->
+    
+<div class="product-grid">
+  <div class="product-filter">
+    <h2>Filter by Category</h2>
 
-  <div class="product-grid">
-    <div class="product-filter">
-      <h2>Filter by Category</h2>
-    
-      <!-- Ornamentals collapse -->
-      <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#ornamentals-collapse">
-        Ornamentals
-      </button>
-      <div class="collapse mb-3" id="ornamentals-collapse">
-        <button class="btn btn-outline-success filter-btn" data-category="Succulents">Succulents</button>
-        <button class="btn btn-outline-success filter-btn" data-category="Flowering">Flowering</button>
-        <button class="btn btn-outline-success filter-btn" data-category="Indoor">Indoor</button>
-        <button class="btn btn-outline-success filter-btn" data-category="Outdoor">Outdoor</button>
-      </div>
-    
-      <!-- Botanical Collections collapse -->
-      <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#botanical-collapse">
-        Botanical Collections
-      </button>
-      <div class="collapse mb-3" id="botanical-collapse">
-        <button class="btn btn-outline-success filter-btn" data-category="Aglaonema">Aglaonema</button>
-        <button class="btn btn-outline-success filter-btn" data-category="Alocasia">Alocasia</button>
-        <button class="btn btn-outline-success filter-btn" data-category="Ficus">Ficus</button>
-      </div>
+
+    <button class="btn btn-outline-success filter-btn" data-category="all">All Plants</button>
+  
+    <!-- Ornamentals collapse -->
+    <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#ornamentals-collapse">
+      Ornamentals
+    </button>
+    <div class="collapse mb-3" id="ornamentals-collapse">
+      <button class="btn btn-outline-success filter-btn" data-category="Succulents">Succulents</button>
+      <button class="btn btn-outline-success filter-btn" data-category="Flowering">Flowering</button>
+      <button class="btn btn-outline-success filter-btn" data-category="Indoor">Indoor</button>
+      <button class="btn btn-outline-success filter-btn" data-category="Outdoor">Outdoor</button>
     </div>
-    
-    <div class="product-container">
-      {% if search_performed and no_results %}
-        <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
-          <h4>🔍︎ No products found</h4>
-          <p>No products match your search for "{{ search_query }}"</p>
-          <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
-        </div>
-      {% else %}
-        <div class="list">
-          {% for product in products %}
-          <div class="item" data-main-category="{{ products.category }}"data-category="{{ product.subcategory }}" style="width: 300px; text-align: center;">
-              <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 80%; height: 230px;">
-              <h4 class="title">{{ product.name }}</h4>
-              <div class="price">₱{{ product.price }}</div>
-              <button class="add-to-cart-btn" data-id="{{ forloop.counter0 }}">Add To Cart</button>
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
-      <br><br>
+  
+    <!-- Botanical Collections collapse -->
+    <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#botanical-collapse">
+      Botanical Collections
+    </button>
+    <div class="collapse mb-3" id="botanical-collapse">
+      <button class="btn btn-outline-success filter-btn" data-category="Aglaonema">Aglaonema</button>
+      <button class="btn btn-outline-success filter-btn" data-category="Alocasia">Alocasia</button>
+      <button class="btn btn-outline-success filter-btn" data-category="Ficus">Ficus</button>
     </div>
-    
   </div>
+  
+  <div class="product-container">
+    {% if search_performed and no_results %}
+      <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
+        <h4>🔍︎ No products found</h4>
+        <p>No products match your search for "{{ search_query }}"</p>
+        <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
+      </div>
+    {% else %}
+      <div class="list">
+        {% for product in products %}
+        <div class="item" data-main-category="{{ products.category }}"data-category="{{ product.subcategory }}" style="width: 300px; text-align: center;">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 80%; height: 230px;">
+            <h4 class="title">{{ product.name }}</h4>
+            <div class="price">₱{{ product.price }}</div>
+            <button class="add-to-cart-btn" data-id="{{ forloop.counter0 }}">Add To Cart</button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <br><br>
   </div>
+  
+</div>
+</div>
+
+
+
+
+
+  
         <!-- logic for inserting products is on Products.js -->
    {% include 'footer.html' %}
 </body>
