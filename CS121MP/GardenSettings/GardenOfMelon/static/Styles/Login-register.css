@@ -63,3 +63,8 @@ body {
 #login-error-messages {
     color: red;
 }
+
+#admin-login {
+    text-align: center;
+    font-size: 15px;
+}

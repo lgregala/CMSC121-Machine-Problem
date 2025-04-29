@@ -19,16 +19,93 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Navbar.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Footer.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Products.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'Styles/Search.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Contacts.css' %}">
     <script src="{% static 'Scripts/Navbar.js' %}"></script>
     <script src="{% static 'Scripts/Products.js' %}" defer></script>
-    <script src="{% static 'Scripts/Search.js' %}" defer></script>
 </head>
 <body data-static-path="{% static 'Images/' %}">
-    {% include 'navbar.html' %}
-    <h1> HELLO CONTACT PAGE </h1>
-
+    <header>
+        {% include 'navbar.html' %}
+    </header>
+  
+    <div id="contact-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div id="contact-form">
+                        <div id="contact-form-title">
+                            <p style="font-size: 25px; font-weight: bold;">Message Us</p>
+                            <div class="mb-2">
+                                <span> Plant your message and help us grow! </span>
+                            </div>
+                        </div>
+                          
+                        <form method="post">
+                            {% csrf_token %}
+                              
+                            <div id="contact-fields"> 
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="name-addon">👤</span>
+                                    <div class="form-floating">
+                                        <input type="text" name="{{ form.name.name }}" class="form-control form-control-names" 
+                                                id="{{ form.name.id_for_label }}" placeholder="Name"
+                                                {% if form.name.field.required %}required{% endif %}
+                                                {% if form.name.value %}value="{{ form.name.value }}"{% endif %}>
+                                        <label for="{{ form.name.id_for_label }}">Name</label>
+                                    </div>
+                                </div>
+            
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="email-addon">✉</span>
+                                    <div class="form-floating">
+                                        <input type="email" name="{{ form.email.name }}" class="form-control" 
+                                                id="{{ form.email.id_for_label }}" placeholder="Email"
+                                                {% if form.email.field.required %}required{% endif %}
+                                                {% if form.email.value %}value="{{ form.email.value }}"{% endif %}>
+                                        <label for="{{ form.email.id_for_label }}">Email</label>
+                                    </div>
+                                </div>
+            
+                                {% if form.email.errors %}
+                                    <div class="mb-2">
+                                        {% for error in form.email.errors %}
+                                            <span class="alert alert" id="contact-error-messages">ⓘ {{ error }}</span><br>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+            
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <label for="floatingTextarea">Message</label>
+                                  </div>
+                            </div>
+                              
+                            <div class="d-grid mb-3">
+                                <button type="submit" class="btn btn-primary" id="send-message-btn">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div id="contact-details">
+                        <div id="contact-form-title">
+                            <p style="font-size: 25px; font-weight: bold;">Contact Us</p>
+                            <div class="mb-2">
+                                <span style="margin-right: 25px;"> <i class="fa fa-phone"></i>  (+632) 1234-5678 </span>
+                                <span> <i class="fa fa-envelope"></i>  gardenofmelon@gmail.com </span>
+                            </div>
+                        </div>
+                        <div class="map">
+                            <iframe id="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.374079849834!2d120.98536659999999!3d14.577747700000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ca285d4cad0f%3A0x4e8b222e8f1d7b74!2sUniversity%20of%20the%20Philippines%20Manila!5e0!3m2!1sen!2sph!4v1745888977890!5m2!1sen!2sph" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
     {% include 'footer.html' %}
 </body>
 </html>
