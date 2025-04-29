@@ -58,7 +58,7 @@ body {
 
 .hero-section {
   position: relative;
-  background-image: url('/GardenOfMelon/static/Images/Gardening.png');
+  background-image: url('/static/Images/Gardening.png');
   background-size: cover;
   background-position: center;
   height: 500px;
@@ -410,7 +410,7 @@ body {
 }
 .awp-container{
   background-image: url('../Images/featured-plants.jpg');
-  background-size: cover;
+  background-image: cover;
   position: relative;
   display: flex;
   justify-content: center;
@@ -419,7 +419,6 @@ body {
   text-align: center;
   gap: 55px;
   padding: 15px;
-  max-width: 100%;
   width: 1493px;
   
 }
