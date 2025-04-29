@@ -22,50 +22,7 @@
 
 <body data-static-path="{% static 'Images/' %}">
     <header>
-      <nav class="navbar navbar-expand-lg" style="background-color: #e1eebc; height: 100px;">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
-  
-          <a href="{% url 'home' %}" class="nav-link">
-            <img src="{% static 'Logos/GoM-Horizontal-Logo.png' %}" class="img-fluid rounded-start" alt="..." style="height: 90px; width: auto;">
-          </a>
-      
-          <div class="d-flex flex-row justify-content-center align-items-center flex-wrap">
-         
-            <form id="searchForm" class="d-flex mx-2 search-form" style="width: 330px; display: none;" method="GET" action="{% url 'products' %}">
-              <input id="searchInput" name="search" class="form-control me-1" type="search" placeholder="Search..." aria-label="Search" value="{{ request.GET.search }}">
-              <button class="btn btn-info" type="submit" style="background-color: #90c67c; border:none;">
-                  <i class="fas fa-search"></i>
-              </button>
-              {% if request.GET.search %}
-                  <a href="{% url 'products' %}" id="clear-search-btn" class="btn btn-outline-danger ms-2">Clear</a>
-              {% endif %}
-            </form>
-              
-            <button id="searchToggle" class="btn nav-link mx-2">
-              <img src="{% static 'Logos/Search.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-            </button>
-      
-            <a href="{% url 'about' %}" class="nav-link mx-2">
-              <img src="{% static 'Logos/About-Us.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-            </a>
-            <a href="{% url 'products' %}" class="nav-link mx-2">
-              <img src="{% static 'Logos/Products.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-            </a>
-            <a href="{% url 'contact' %}" class="nav-link mx-2">
-              <img src="{% static 'Logos/Contacts.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-            </a>
-            <a href="{% url 'login' %}" class="nav-link mx-2">
-              <img src="{% static 'Logos/Account.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-            </a>
-            <a href="#" class="nav-link mx-2" id="shopping">
-              <img src="{% static 'Logos/Shopping-Cart.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
-              <span class="quantity">0</span>
-            </a>
-          </div>
-        </div>
-      </nav>
-
-      <div class="navbar-border"></div>
+      {% include 'navbar.html' %}
     </header>
 
     <div id="login-body">
@@ -112,51 +69,11 @@
                     Don’t have an account?
                     <a href="{% url 'register' %}" style="color: #90c67c; text-decoration: none;">Register here</a>
                 </p>
+                <p id="admin-login"><a href="/admin/login/" style="color: #90c67c;">Login as Admin</a></p>
             </form>
         </div>
     </div>
 
-    <div class="navbar-border"></div>
-    <div class="footer-container">
-        <div class="footer-content">
-            <img src="{% static 'Logos/GoM-Horizontal-Logo.png' %}" class="img-fluid rounded-start" alt="..." style="height: 75px; width: auto;">
-            <p style="margin-top: 8px;"> Garden of Melon is a favorite among plant lovers in the Philippines.
-                We bring nature’s charm right into your home, one leaf at a time.</p>
-        </div>    
-        <div class="footer-content"> 
-            <h3 class="footer-content-categ"> Quick Links </h3>
-            <div class="qlink-div"><a href="{% url 'home' %}" class="qlink">HOME</a></div>
-            <div class="qlink-div"><a href="{% url 'about' %}" class="qlink">ABOUT</a></div>
-            <div class="qlink-div"><a href="{% url 'products' %}" class="qlink">PRODUCTS</a></div>
-            <div class="qlink-div"><a href="{% url 'contact' %}" class="qlink">CONTACT</a></div>
-            <div class="qlink-div"><a href="{% url 'login' %}" class="qlink">LOGIN</a></div>
-        </div>
-        <div class="footer-content"> 
-            <h3 class="footer-content-categ"> Follow Us</h3>
-            <div style="margin-top: 15px;">
-                <a href="https://www.facebook.com/loi.melona" class="fab fa-facebook fa-2x icon"></a>
-                <a href="https://www.instagram.com/thisismelon_/?hl=en" class="fab fa-instagram fa-2x icon"></a>
-                <a href="https://youtube.com/shorts/XM-XiowQ9Sk?si=medAWuhISfLJOWvw" class="fab fa-youtube fa-2x icon"></a>
-                <a href="https://x.com/melon?lang=en" class="fab fa-twitter fa-2x icon"></a>
-                <a href="https://www.tiktok.com/tag/melon?lang=en" class="fab fa-tiktok fa-2x icon"></a>
-            </div>
-            <p style="margin-top: 15px;"> © 2025 Garden of Melon. All rights reserved.</p>
-        </div>
-    </div>
-
-    <div class="cart">
-        <div class="cart-headings">
-          <h1>Shopping Cart</h1>
-          <span class="closeShopping">✕</span>
-        </div>
-        <ul class="listCart">
-          <img src="{% static 'Images/Empty-Cart.png' %}" class="emptyCartImg">
-          <div class="emptyCartMsg"> There are currently no items in your cart. </div>
-        </ul>
-        <div class="checkOut">
-            <div class="total">₱ 0</div>
-            <div class="checkout-btn">CHECK OUT</div>
-        </div>
-    </div>
+    {% include 'footer.html' %}
 </body>
 </html>

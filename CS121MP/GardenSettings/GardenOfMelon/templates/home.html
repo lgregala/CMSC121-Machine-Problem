@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  {% load static %}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'Styles/Home.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'Styles/Navbar.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'Styles/Footer.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'Styles/Products.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'Styles/Search.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'Scripts/Navbar.js' %}"></script>
+  <script src="{% static 'Scripts/Products.js' %}" defer></script>
+  <script src="{% static 'Scripts/Search.js' %}" defer></script>
+  <script src="{% static 'Scripts/Slider.js' %}" defer></script>
+</head>
+<body data-static-path="{% static 'Images/' %}">
+      {% include 'navbar.html' %}
+
+      <div class="hero-section">
+        <div class="overlay"></div>
+        <div class="plant-text">
+          <h1 class="plant-text-h1">Welcome to the Garden of Melon!</h1>
+          <p class="catch-phrase">We bring nature’s charm right into your home, one leaf at a time.🍃</p>
+          <a href="/products/" class="shop-button">Shop Now</a>
+        </div>
+      </div>
+
+      <div class="navbar-border"></div>
+
+      <br> <br> <br>
+
+
+      <div class="plant-slider">
+        <div class="plant-list">
+          <div class="slider-item">
+            <img src="{% static 'Images/ornamental-plant.jpg' %}" alt="flowering">
+
+            <div class="slider-content">
+              <div class="slider-title">CATEGORIES</div>
+              <div class="type">ORNAMENTALS</div>
+              <div class="description">
+                Add life and beauty to your space with our ornamental plants, featuring vibrant flowers, lush indoor greens, and charming succulents. Perfect for creating elegant and colorful displays, both indoors and out.
+              </div>
+              <div class="see-more-button">
+                <button class="see-more-btn" data-main-category="Ornamentals">SEE MORE</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="slider-item">
+            <img src="{% static 'Images/botanical-plant.jpg' %}" alt="botanical">
+
+            <div class="slider-content">
+              <div class="slider-title">CATEGORIES</div>
+              <div class="type">BOTANICAL</div>
+              <div class="description">
+                Discover rare and unique plants curated by genus and species in our botanical collections. Ideal for collectors and enthusiasts who appreciate the diversity and beauty of nature.  
+              </div>
+              <div class="see-more-button">
+                <button class="see-more-btn" data-main-category="Botanical Collections">SEE MORE</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="slider-item">
+            <img src="{% static 'Images/functional-plant.jpg' %}" alt="functional">
+
+            <div class="slider-content">
+              <div class="slider-title">CATEGORIES</div>
+              <div class="type">FUNCTIONAL</div>
+              <div class="description">
+                Grow herbs, healing plants, and fruit-bearing varieties that bring both beauty and purpose to your home. These functional plants offer fresh harvests and natural wellness benefits year-round.
+              </div>
+              <div class="see-more-button">
+                <button class="see-more-btn" data-main-category="Functional Plants">SEE MORE</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="thumbnail">
+          <div class="slider-item">
+            <img src="{% static 'Images/ornamental-plant.jpg' %}" alt="">
+          </div>
+
+          <div class="slider-item">
+            <img src="{% static 'Images/botanical-plant.jpg' %}" alt="">
+          </div>
+
+          <div class="slider-item">
+            <img src="{% static 'Images/functional-plant.jpg' %}" alt="">
+          </div>
+        </div>
+
+        <div class="nextPrevArrows">
+          <button class="prev">←</button>
+          <button class="next">→</button>
+        </div>
+      </div>
+
+      <div class="about" id="awp-text"> AWARD-WINNING PLANTS </div>
+        <div class="awp-container">
+            <div class="awp-card">
+                <div class="img-box">
+                    <img src="{% static 'Images/AWPlant1.webp' %}">
+                </div>
+                <div class="content-box">
+                    <h4> 1. Calathea </h4>
+                    <p> A group of tropical plants known for their stunning, patterned leaves that often have a purplish underside. 
+                        Nicknamed the <i>Prayer Plant</i> because many species close their leaves at night, like they're praying. 
+                        They're a bit fussy but totally worth it for looks.</p>
+                    <button href=""  class="view-btn"> VIEW </button>
+                </div>
+            </div>
+            <div class="awp-card">
+                <div class="img-box">
+                    <img src="{% static 'Images/AWPlant2.jpg' %}">
+                </div>
+                <div class="content-box">
+                    <h4> 2. Peace Lily </h4>
+                    <p> Also known as <i>Spathiphyllum</i>, a graceful houseplant known for its dark green leaves and elegant white, 
+                        sail-like flowers. It’s not a true lily but is prized for its beauty and air-purifying abilities. 
+                        Peace Lilies also symbolize peace and healing. </p>
+                    <button href=""  class="view-btn"> VIEW </button>
+                </div>
+            </div>
+            <div class="awp-card">
+                <div class="img-box">
+                    <img src="{% static 'Images/AWPlant3.jpg' %}">
+                </div>
+                <div class="content-box">
+                    <h4> 3. African Violet </h4>
+                    <p> Also known as <i>Saintpaulia</i>, a compact flowering plant with fuzzy, dark green leaves and clusters of small, 
+                        colorful blooms (purple, pink, white, etc.). They’re popular for their long blooming period and are easy 
+                        to grow on windowsills. </p>
+                    <button href=""  class="view-btn"> VIEW </button>
+                </div>
+            </div>
+            <div class="awp-card">
+                <div class="img-box">
+                    <img src="{% static 'Images/AWPlant4.jpg' %}">
+                </div>
+                <div class="content-box">
+                    <h4> 4. Monstera Deliciosa </h4>
+                    <p> Also known as the <i>Swiss Cheese Plant</i>, it's a tropical vine native to Central America, famous for its large,
+                        glossy green leaves with natural holes or slits. It's fast-growing and gives off major jungle vibes, making 
+                        it a favorite statement plant.</p>
+                    <button href=""  class="view-btn"> VIEW </button>
+                </div>
+            </div>
+            <div class="awp-card">
+                <div class="img-box">
+                    <img src="{% static 'Images/AWPlant5.jpg' %}">
+                </div>
+                <div class="content-box">
+                    <h4> 5. Bird of Paradise </h4>
+                    <p> It is a striking tropical plant native to South Africa, known for its large, banana-like leaves and 
+                        extraordinary flowers that resemble the shape of a colorful bird in flight. The vibrant orange and 
+                        blue blooms make it a show-stopper. </p>
+                        <button href=""  class="view-btn"> VIEW </button>
+                </div>
+          </div>
+      </div> 
+
+      <section class="credentials">
+        <br>
+        <h2>Was Featured In</h2>
+        <div class="credential-logos">
+          <img src="{% static 'Images/Featured/GMA.png' %}" alt="GMA Integrated News" style="height: 150px; width: auto"/>
+          <img src="{% static 'Images/Featured/KMJS.png' %}" alt="Kapuso Mo Jessica Soho"  style="height: 150px; width: auto"/>
+          <img src="{% static 'Images/Featured/TV_Patrol.png' %}" alt="TV Patrol"  style="height: 150px; width: auto"/>
+          <img src="{% static 'Images/Featured/When_Manila.png' %}" alt="When in Manila"  style="height: 150px; width: auto"/>
+          
+          <img src="{% static 'Images/Featured/Manila_Standard.png' %}" alt="Manila Standard"  style="height: 150px; width: auto"/>
+          <img src="{% static 'Images/Featured/Tatler.png' %}" alt="Tatler"  style="height: 150px; width: auto"/>
+          <img src="{% static 'Images/Featured/Manila_Times.png' %}" alt="Manila Times"  style="height: 150px; width: auto"/>
+          <img src="{% static 'Images/Featured/Inquirer.png' %}" alt="Inquirer net" style="height: 150px; width: auto" />  
+        </div>
+      </section>
+
+      {% include 'footer.html' %}
+</body>
+</html>
