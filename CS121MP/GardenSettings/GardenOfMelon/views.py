@@ -81,35 +81,29 @@ def productsPage(request):
     query = request.GET.get('search', '')
     main_category = request.GET.get('category', '')
     
+    # Start with all products
     products = Product.objects.all()
     
+    # Apply search filter if a search query exists
     if query:
-        # Search in name, scientific_name, category, subcategory, or description
-        products = Product.objects.filter(
+        products = products.filter(
             Q(name__icontains=query) |
             Q(scientific_name__icontains=query) |
             Q(category__icontains=query) |
             Q(subcategory__icontains=query) |
             Q(description__icontains=query)
         ).distinct()
-        
-        # Add information about whether the search returned results
-        search_performed = True
-        no_results = products.count() == 0
-    elif main_category:
-        products = products.filter(category__iexact=main_category)
-        search_performed = False
-        no_results = products.count() == 0
-    else:
-        products = Product.objects.all()
-        search_performed = False
-        no_results = False
+
+    # Apply category filter if a category is specified
+    if main_category:
+        products = products.filter(subcategory__iexact=main_category)
     
     context = {
         'products': products,
-        'search_performed': search_performed,
-        'no_results': no_results,
-        'search_query': query
+        'search_performed': bool(query),
+        'no_results': not products.exists(),
+        'search_query': query,
+        'current_category': main_category
     }
     
     return render(request, 'products.html', context)

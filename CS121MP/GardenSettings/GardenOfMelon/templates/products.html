@@ -20,39 +20,37 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Products.css' %}">
     <script src="{% static 'Scripts/Navbar.js' %}"></script>
     <script src="{% static 'Scripts/Products.js' %}" defer></script>
-
   </head>
 <body data-static-path="{% static 'Product-Images/' %}">
     {% include 'navbar.html' %}
 
     <!-- -------------- PRODUCT DISPLAY -------------- -->
-
-  <div class="product-grid">
+    <!-- NEW CODE: from filter buttons to filter anchor tags -->
+    <div class="product-grid">
     <div class="product-filter">
       <h2>Filter by Category</h2>
-    
-      <!-- Ornamentals collapse -->
-      <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#ornamentals-collapse">
-        Ornamentals
-      </button>
-      <div class="collapse mb-3" id="ornamentals-collapse">
-        <button class="btn btn-outline-success filter-btn" data-category="Succulents">Succulents</button>
-        <button class="btn btn-outline-success filter-btn" data-category="Flowering">Flowering</button>
-        <button class="btn btn-outline-success filter-btn" data-category="Indoor">Indoor</button>
-        <button class="btn btn-outline-success filter-btn" data-category="Outdoor">Outdoor</button>
-      </div>
-    
-      <!-- Botanical Collections collapse -->
-      <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#botanical-collapse">
-        Botanical Collections
-      </button>
-      <div class="collapse mb-3" id="botanical-collapse">
-        <button class="btn btn-outline-success filter-btn" data-category="Aglaonema">Aglaonema</button>
-        <button class="btn btn-outline-success filter-btn" data-category="Alocasia">Alocasia</button>
-        <button class="btn btn-outline-success filter-btn" data-category="Ficus">Ficus</button>
-      </div>
+
+    <!-- Ornamentals collapse -->
+    <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#ornamentals-collapse">
+      Ornamentals
+    </button>
+    <div class="collapse mb-3" id="ornamentals-collapse">
+      <a href="{% url 'products' %}?category=Succulents" class="btn btn-outline-success filter-btn">Succulents</a>
+      <a href="{% url 'products' %}?category=Flowering" class="btn btn-outline-success filter-btn">Flowering</a>
+      <a href="{% url 'products' %}?category=Indoor" class="btn btn-outline-success filter-btn">Indoor</a>
+      <a href="{% url 'products' %}?category=Outdoor" class="btn btn-outline-success filter-btn">Outdoor</a>
     </div>
-    
+
+    <!-- Botanical Collections collapse -->
+    <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#botanical-collapse">
+      Botanical Collections
+    </button>
+    <div class="collapse mb-3" id="botanical-collapse">
+      <a href="{% url 'products' %}?category=Aglaonema" class="btn btn-outline-success filter-btn">Aglaonema</a>
+      <a href="{% url 'products' %}?category=Alocasia" class="btn btn-outline-success filter-btn">Alocasia</a>
+      <a href="{% url 'products' %}?category=Ficus" class="btn btn-outline-success filter-btn">Ficus</a>
+    </div>
+
     <div class="product-container">
       {% if search_performed and no_results %}
         <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
@@ -63,7 +61,7 @@
       {% else %}
         <div class="list">
           {% for product in products %}
-          <div class="item" data-main-category="{{ products.category }}"data-category="{{ product.subcategory }}" style="width: 300px; text-align: center;">
+          <div class="item" data-main-category="{{ product.category }}"data-category="{{ product.subcategory }}" style="width: 300px; text-align: center;">
               <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 80%; height: 230px;">
               <h4 class="title">{{ product.name }}</h4>
               <div class="price">₱{{ product.price }}</div>
@@ -77,7 +75,6 @@
     
   </div>
   </div>
-        <!-- logic for inserting products is on Products.js -->
    {% include 'footer.html' %}
 </body>
 </html>
