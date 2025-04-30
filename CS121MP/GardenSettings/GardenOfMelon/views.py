@@ -8,8 +8,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.messages import get_messages
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Q
 import json
-from django.db.models import Q # for database queries
 
 def registerPage(request):
     if request.method == "POST":
@@ -36,7 +36,10 @@ def registerPage(request):
     else:
         form = RegisterForm()
     
-    return render(request, 'register.html', {'form': form})
+    context1 = {'form': form}
+    context2 = get_cart_data(request)
+    context = {**context1, **context2}
+    return render(request, 'register.html', context)
 
 def loginPage(request):
     if request.method == "POST":
@@ -58,17 +61,22 @@ def loginPage(request):
         else:
             messages.error(request, "Incorrect password.")
             return redirect('login')
-
-    return render(request, 'login.html')
+    
+    context = get_cart_data(request)
+    return render(request, 'login.html', context)
 
 def aboutPage(request):
-    return render(request, 'about.html')
+    context = get_cart_data(request)
+    return render(request, 'about.html', context)
 
 def homePage(request):
-    context = {}
+    context1 = {}
     
     if request.user.is_authenticated:
-        context['user'] = request.user
+        context1['user'] = request.user
+    
+    context2 = get_cart_data(request)
+    context = {**context1, **context2}
     
     return render(request, 'home.html', context)
 
@@ -80,7 +88,11 @@ def contactPage(request):
             return redirect('contact.html')
     else:
         form = ContactForm()
-    return render(request, 'contact.html', {'form': form})
+
+    context1 = {'form': form}
+    context2 = get_cart_data(request)
+    context = {**context1, **context2}
+    return render(request, 'contact.html', context)
 
 def productsPage(request):
     query = request.GET.get('search', '')
@@ -103,24 +115,56 @@ def productsPage(request):
     if main_category:
         products = products.filter(subcategory__iexact=main_category)
     
-    context = {
+    context1 = {
         'products': products,
         'search_performed': bool(query),
         'no_results': not products.exists(),
         'search_query': query,
-        'current_category': main_category
+        'current_category': main_category,
     }
-    
+
+    context2 = get_cart_data(request)
+    context = {**context1, **context2}
+
     return render(request, 'products.html', context)
 
 def cart(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=request.user, complete=False)
-        items = order.orderitem_set.all()
-    else:
-        order = {'get_cart_total':0, 'get_cart_items':0}
-        items = []
-
-    context = {'items': items, 'order': order}
+    context = get_cart_data(request)
     return render(request, 'cart.html', context)
+
+def get_cart_data(request):
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items = []
+        order = {'get_cart_total': 0, 'get_cart_items': 0}
+        cartItems = order['get_cart_items']
+
+    return {'items': items, 'order': order, 'cartItems': cartItems}
+
+def updateItem(request):
+    data = json.loads(request.body)
+    productId = data['productId']
+    action = data['action']
+
+    print('Action:', action)
+    print('productId:', productId)
+
+    customer = request.user
+    product = Product.objects.get(id=productId)
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+ 
+    if action == 'add':
+        orderItem.quantity += 1
+    elif action == 'remove':
+        orderItem.quantity -= 1
+
+    orderItem.save()
+    if orderItem.quantity <= 0:
+        orderItem.delete()
+
+    return JsonResponse('Item was added', safe=False)

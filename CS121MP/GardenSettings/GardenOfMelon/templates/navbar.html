@@ -41,6 +41,7 @@
               <a href="{% url 'cart' %}" class="nav-link mx-2" id="shopping">
                 <div class="cart-container">
                   <img src="{% static 'Logos/Shopping-Cart.png' %}" class="img-fluid rounded-start" alt="..." style="height: 80px; width: auto;">
+                  <span style="position: absolute; top: -6px; right: 20px;"> {{ cartItems }} </span>
                 </div>
               </a>
             </li>
