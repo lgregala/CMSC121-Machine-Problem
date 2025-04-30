@@ -8,14 +8,6 @@ let quantity = document.querySelector('.quantity');
 let searchInput = document.querySelector('#searchInput');
 let staticPath = document.body.dataset.staticPath;
 
-openShopping.addEventListener('click', ()=>{
-    body.classList.add('active');
-})
-
-closeShopping.addEventListener('click', ()=>{
-    body.classList.remove('active');
-})
-
 // Placeholder for products
 let products = [];
 let filteredProducts = [];
@@ -102,70 +94,3 @@ document.addEventListener("DOMContentLoaded", function () {
 //         list.appendChild(newDiv);
 //     });
 // }
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Attach event listeners to all Add to Cart buttons
-    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const productIndex = parseInt(this.dataset.id);
-            addToCart(productIndex);
-        });
-    });
-});
-
-function addToCart(key){
-    if(listCarts[key] == null){
-        listCarts[key] = JSON.parse(JSON.stringify(products[key]));
-        listCarts[key].quantity = 1;
-        reloadCart();
-    }
-    else{ // Added logic for increasing quantity to an already existing item in the card
-        listCarts[key].quantity += 1;
-        changeQuantity(key, listCarts[key].quantity);
-    }
-}
-
-function reloadCart(){
-    listCart.innerHTML = '';
-    let count = 0;
-    let totalPrice = 0;
-    listCarts.forEach((value, key)=>{
-        totalPrice = totalPrice + value.price;
-        count = count + value.quantity;
-        if(value != null){ // Added classnames and implemented css for better design
-            let newDiv = document.createElement('li');
-            newDiv.innerHTML = `
-                <div><img src="${staticPath}${value.image}" class="ordered-item-img"></div>
-                <div class="ordered-item-name">${value.name}</div>
-                <div class="ordered-item-price">${value.price.toLocaleString()}</div>
-                <div class="ordered-item-quantity-changer">
-                    <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
-                    <div class="count">${value.quantity}</div>
-                    <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
-                </div>`;
-                listCart.appendChild(newDiv);
-        }
-    })
-    total.innerText = "₱ " + totalPrice.toLocaleString();
-    quantity.innerText = count;
-}
-
-function changeQuantity(key, quantity){
-    if(quantity == 0){
-        delete listCarts[key];
-    }else{ 
-        listCarts[key].quantity = quantity;
-        listCarts[key].price = quantity * products[key].price;
-    }
-    reloadCart();
-}
-
-function initApp() {
-    filteredProducts = [...products];
-    // renderProducts(filteredProducts);
-    reloadCart();
-}
-
-// Start the application
-initApp();
