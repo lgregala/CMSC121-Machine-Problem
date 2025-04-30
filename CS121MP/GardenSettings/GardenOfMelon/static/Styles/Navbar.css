@@ -95,6 +95,21 @@
     display: inline-block;
 }
 
+#shopping span {
+    background: #851616;
+    border-radius: 50%;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: absolute;
+    left: 75%;
+    padding: 3px 10px;
+    margin-top: 15px;
+    z-index: 10;
+}
+
 .quantity {
     position: absolute;
     top: -6px;

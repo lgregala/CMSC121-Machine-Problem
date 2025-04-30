@@ -1,3 +1,23 @@
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.pagination-controls .btn{
+    background-color:#90c67c;
+    color:#328e62;
+    border-color: #328e62;
+}
+
+.pagination-controls .btn:hover{
+    background-color:#328e62;
+    color:white;
+    border-color: #328e62;
+}
+
+
 .btn-success {
     font-family: 'Winky rough';
     font-weight: bold;
@@ -63,6 +83,7 @@ button {
 }
 
 .list .item {
+    position: relative; 
     text-align: center;
     background-color: #ffffff;
     border-radius: 1px;
@@ -72,12 +93,17 @@ button {
     padding: 20px;
     box-shadow: 0 5px 15px #757676;
     letter-spacing: 1px;
+    transition: all 0.3s ease; 
+    overflow: hidden;
 }
 
 .list .item img {
     width: 90%;
     height: 250px;
+    border-radius: 10px;
     object-fit: cover;
+    transition: all 0.3s ease; 
+    transform: translateY(0);
 }
 
 .list .item .title {
@@ -96,6 +122,46 @@ button {
     width: 50%;
     padding: 10px;
 }
+
+.list .item:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 20px #5a5a5a;
+}
+
+.list .item:hover img {
+    transform: translateY(-10px);
+    filter: brightness(0.5);
+}
+
+.view-btn {
+    position: absolute;
+    width: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #90c67c;
+    border: 3px solid #16330c;
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.list .item:hover .view-btn {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+
+.list .item:hover::after {
+    opacity: 1;
+}
+
+
 
 .no-results {
     display: flex;
@@ -124,7 +190,9 @@ button {
 #no-results-msg {
     background-color: white;
     border-color: white;
-    color:#328e62
+    color:#328e62;
+    height: 268px;
+    padding-top: 87px;
 }
 
 #view-all-products-btn {
@@ -135,4 +203,10 @@ button {
 
 #view-all-products-btn:hover {
     color: white !important; 
+}
+
+.search-results {
+    color: #328e62;
+    text-align: center;
+    font-size: 17px;
 }

@@ -19,6 +19,24 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'Styles/Cart.css' %}">
     <script src="{% static 'Scripts/Navbar.js' %}"></script>
     <script src="{% static 'Scripts/Products.js' %}" defer></script>
+	<script type="text/javascript"> 
+        var user = '{{request.user}}'
+        function getToken(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getToken('csrftoken')
+    </script>
 </head>
 <body>
 	{% include 'navbar.html' %}
@@ -54,9 +72,11 @@
 						<div style="flex:1"><p>₱{{ item.product.price | floatformat:2 }}</p></div>
 						<div style="flex:1">
 							<div class="quantity-arrow-wrapper">
-								<img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static 'images/arrow-left.png' %}">
+								<img data-product="{{item.product.id}}" data-action="remove" class="update-cart chg-quantity"
+									src="{% static 'images/arrow-left.png' %}">
 								<div class="item-quantity"> {{ item.quantity }} </div>
-								<img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static 'images/arrow-right.png' %}">
+								<img data-product="{{item.product.id}}" data-action="add" class="update-cart chg-quantity"
+									src="{% static 'images/arrow-right.png' %}">
 							</div>
 						</div>
 						<div style="flex:1"><p>₱{{ item.get_total | floatformat:2 }}</p></div>
@@ -73,5 +93,6 @@
 	</div>
 
 	{% include 'footer.html' %}
+	<script type="text/javascript" src="{% static 'Scripts/Cart.js' %}"> </script>
 </body>
 </html>
