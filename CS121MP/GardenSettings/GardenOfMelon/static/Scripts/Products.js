@@ -41,7 +41,46 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
-  
+
+// document.addEventListener("DOMContentLoaded", function () {
+//   const filterButtons = document.querySelectorAll(".filter-btn");
+//   const searchForm = document.getElementById("searchForm");
+//   const searchInput = document.getElementById("searchInput");
+
+//   filterButtons.forEach(btn => {
+//       btn.addEventListener("click", () => {
+//           const category = btn.getAttribute("data-category");
+//           const url = new URL(window.location.href);
+          
+//           // Always clear search when applying category filter
+//           url.searchParams.delete('search');
+          
+//           if (category === "all") {
+//               // Remove category parameter to show all
+//               url.searchParams.delete('category');
+//           } else {
+//               // Set the specific category filter
+//               url.searchParams.set('category', category);
+//           }
+          
+//           // Update URL and reload
+//           window.location.href = url.toString();
+//       });
+//   });
+
+//   // Optional: Clear URL search param when search input is emptied
+//   if (searchInput) {
+//       searchInput.addEventListener('input', function() {
+//           if (this.value === "") {
+//               const url = new URL(window.location.href);
+//               url.searchParams.delete('search');
+//               // Update URL without reload
+//               window.history.replaceState({}, '', url);
+//           }
+//       });
+//   }
+// });
+
 
 // For displaying products (All products or filtered products based on search)
 // function renderProducts(productArray){
@@ -124,7 +163,7 @@ function changeQuantity(key, quantity){
 
 function initApp() {
     filteredProducts = [...products];
-    renderProducts(filteredProducts);
+    // renderProducts(filteredProducts);
     reloadCart();
 }
 

@@ -54,7 +54,7 @@ def loginPage(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponse('Logged in successfully!')
+            return redirect('home')
         else:
             messages.error(request, "Incorrect password.")
             return redirect('login')
@@ -65,7 +65,12 @@ def aboutPage(request):
     return render(request, 'about.html')
 
 def homePage(request):
-    return render(request, 'home.html')
+    context = {}
+    
+    if request.user.is_authenticated:
+        context['user'] = request.user
+    
+    return render(request, 'home.html', context)
 
 def contactPage(request):
     if request.method == "POST":
@@ -107,3 +112,15 @@ def productsPage(request):
     }
     
     return render(request, 'products.html', context)
+
+def cart(request):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=request.user, complete=False)
+        items = order.orderitem_set.all()
+    else:
+        order = {'get_cart_total':0, 'get_cart_items':0}
+        items = []
+
+    context = {'items': items, 'order': order}
+    return render(request, 'cart.html', context)

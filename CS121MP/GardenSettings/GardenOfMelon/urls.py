@@ -10,5 +10,5 @@ urlpatterns = [
     path("", views.homePage, name="home"),
     path("contact/", views.contactPage, name="contact"),
     path("products/", views.productsPage, name="products"),
-    path('admin/', admin.site.urls),
+    path("cart/", views.cart, name="cart")
 ]
