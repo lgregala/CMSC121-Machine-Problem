@@ -27,28 +27,30 @@
     <!-- -------------- PRODUCT DISPLAY -------------- -->
     <!-- NEW CODE: from filter buttons to filter anchor tags -->
     <div class="product-grid">
-    <div class="product-filter">
-      <h2>Filter by Category</h2>
+      <div class="product-filter">
+        <h2>Filter by Category</h2>
 
-    <!-- Ornamentals collapse -->
-    <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#ornamentals-collapse">
-      Ornamentals
-    </button>
-    <div class="collapse mb-3" id="ornamentals-collapse">
-      <a href="{% url 'products' %}?category=Succulents" class="btn btn-outline-success filter-btn">Succulents</a>
-      <a href="{% url 'products' %}?category=Flowering" class="btn btn-outline-success filter-btn">Flowering</a>
-      <a href="{% url 'products' %}?category=Indoor" class="btn btn-outline-success filter-btn">Indoor</a>
-      <a href="{% url 'products' %}?category=Outdoor" class="btn btn-outline-success filter-btn">Outdoor</a>
-    </div>
+        <!-- Ornamentals collapse -->
+        <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#ornamentals-collapse">
+          Ornamentals
+        </button>
+        <div class="collapse mb-3" id="ornamentals-collapse">
+          <a href="{% url 'products' %}?category=Succulents" class="btn btn-outline-success filter-btn">Succulents</a>
+          <a href="{% url 'products' %}?category=Flowering" class="btn btn-outline-success filter-btn">Flowering</a>
+          <a href="{% url 'products' %}?category=Indoor Ornamentals" class="btn btn-outline-success filter-btn">Indoor</a>
+          <a href="{% url 'products' %}?category=Outdoor" class="btn btn-outline-success filter-btn">Outdoor</a>
+        </div>
 
-    <!-- Botanical Collections collapse -->
-    <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#botanical-collapse">
-      Botanical Collections
-    </button>
-    <div class="collapse mb-3" id="botanical-collapse">
-      <a href="{% url 'products' %}?category=Aglaonema" class="btn btn-outline-success filter-btn">Aglaonema</a>
-      <a href="{% url 'products' %}?category=Alocasia" class="btn btn-outline-success filter-btn">Alocasia</a>
-      <a href="{% url 'products' %}?category=Ficus" class="btn btn-outline-success filter-btn">Ficus</a>
+      <!-- Botanical Collections collapse -->
+      <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#botanical-collapse">
+        Botanical Collections
+      </button>
+      <div class="collapse mb-3" id="botanical-collapse">
+        <a href="{% url 'products' %}?category=Aglaonema" class="btn btn-outline-success filter-btn">Aglaonema</a>
+        <a href="{% url 'products' %}?category=Alocasia" class="btn btn-outline-success filter-btn">Alocasia</a>
+        <a href="{% url 'products' %}?category=Ficus" class="btn btn-outline-success filter-btn">Ficus</a>
+      </div>
+      
     </div>
 
     <div class="product-container">
@@ -72,8 +74,6 @@
       {% endif %}
       <br><br>
     </div>
-    
-  </div>
   </div>
    {% include 'footer.html' %}
 </body>
