@@ -64,6 +64,10 @@
           <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
         </div>
       {% else %}
+        {% if search_performed %}
+          <br>
+          <p class="search-results">🔍︎ Search results for "<strong>{{ search_query }}</strong>"</p>
+        {% endif %}
         <div class="list">
           {% for product in products %}
           <div class="item" data-main-category="{{ product.category }}"data-category="{{ product.subcategory }}" style="width: 300px; text-align: center;">

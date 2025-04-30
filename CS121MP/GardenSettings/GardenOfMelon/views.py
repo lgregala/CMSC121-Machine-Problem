@@ -98,10 +98,8 @@ def productsPage(request):
     query = request.GET.get('search', '')
     main_category = request.GET.get('category', '')
     
-    # Start with all products
     products = Product.objects.all()
     
-    # Apply search filter if a search query exists
     if query:
         products = products.filter(
             Q(name__icontains=query) |
@@ -111,7 +109,6 @@ def productsPage(request):
             Q(description__icontains=query)
         ).distinct()
 
-    # Apply category filter if a category is specified
     if main_category:
         products = products.filter(subcategory__iexact=main_category)
     

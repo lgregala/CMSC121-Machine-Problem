@@ -124,7 +124,9 @@ button {
 #no-results-msg {
     background-color: white;
     border-color: white;
-    color:#328e62
+    color:#328e62;
+    height: 268px;
+    padding-top: 87px;
 }
 
 #view-all-products-btn {
@@ -135,4 +137,10 @@ button {
 
 #view-all-products-btn:hover {
     color: white !important; 
+}
+
+.search-results {
+    color: #328e62;
+    text-align: center;
+    font-size: 17px;
 }
