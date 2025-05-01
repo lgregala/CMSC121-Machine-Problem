@@ -14,6 +14,8 @@ from django.db.models import Q
 import datetime
 from django.core.paginator import Paginator
 import json
+from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
 
 
 def registerPage(request):
@@ -99,15 +101,51 @@ def contactPage(request):
     context = {**context1, **context2}
     return render(request, 'contact.html', context)
 
+# def productsPage(request):
+#     query = request.GET.get('search', '')
+#     main_category = request.GET.get('category', '')
+#     page_number = request.GET.get('page', 1)  # Get current page number from URL
+    
+#     # Start with all products
+#     products = Product.objects.all()
+    
+#     # Apply search filter if a search query exists
+#     if query:
+#         products = products.filter(
+#             Q(name__icontains=query) |
+#             Q(scientific_name__icontains=query) |
+#             Q(category__icontains=query) |
+#             Q(subcategory__icontains=query) |
+#             Q(description__icontains=query)
+#         ).distinct()
+
+#     # Apply category filter if a category is specified
+#     if main_category:
+#         products = products.filter(subcategory__iexact=main_category)
+    
+#     # Paginate the products - 9 per page
+#     paginator = Paginator(products, 9)
+#     page_obj = paginator.get_page(page_number)
+    
+#     context1 = {
+#         'products': page_obj,  # Now passing the paginated page object instead of queryset
+#         'search_performed': bool(query),
+#         'no_results': not products.exists(),  # Still check original queryset for existence
+#         'search_query': query,
+#         'current_category': main_category
+#     }
+
+#     context2 = get_cart_data(request)
+#     context = {**context1, **context2}
+#     return render(request, 'products.html', context)
+
 def productsPage(request):
     query = request.GET.get('search', '')
     main_category = request.GET.get('category', '')
-    page_number = request.GET.get('page', 1)  # Get current page number from URL
+    page_number = request.GET.get('page', 1)
     
-    # Start with all products
     products = Product.objects.all()
     
-    # Apply search filter if a search query exists
     if query:
         products = products.filter(
             Q(name__icontains=query) |
@@ -117,18 +155,16 @@ def productsPage(request):
             Q(description__icontains=query)
         ).distinct()
 
-    # Apply category filter if a category is specified
     if main_category:
         products = products.filter(subcategory__iexact=main_category)
     
-    # Paginate the products - 9 per page
     paginator = Paginator(products, 9)
     page_obj = paginator.get_page(page_number)
     
     context1 = {
-        'products': page_obj,  # Now passing the paginated page object instead of queryset
+        'products': page_obj,
         'search_performed': bool(query),
-        'no_results': not products.exists(),  # Still check original queryset for existence
+        'no_results': not products.exists(),
         'search_query': query,
         'current_category': main_category
     }
@@ -136,6 +172,20 @@ def productsPage(request):
     context2 = get_cart_data(request)
     context = {**context1, **context2}
     return render(request, 'products.html', context)
+
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    data = {
+        'name': product.name,
+        'price': product.price,
+        'description': product.description,
+        'image_url': product.image.url,
+        'scientific_name': product.scientific_name,
+        'category': product.category,
+        'subcategory': product.subcategory
+    }
+    return JsonResponse(data)
+
 
 def cart(request):
     context = get_cart_data(request)
