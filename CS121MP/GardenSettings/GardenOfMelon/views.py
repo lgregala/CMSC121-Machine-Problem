@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from .forms import RegisterForm, ContactForm
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -9,6 +11,7 @@ from django.contrib.messages import get_messages
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q
+import datetime
 import json
 
 def registerPage(request):
@@ -162,9 +165,30 @@ def updateItem(request):
         orderItem.quantity += 1
     elif action == 'remove':
         orderItem.quantity -= 1
+    elif action == 'setzero':
+        orderItem.quantity = 0
 
     orderItem.save()
     if orderItem.quantity <= 0:
         orderItem.delete()
 
-    return JsonResponse('Item was added', safe=False)
+    return JsonResponse('Item added', safe=False)
+
+def processOrder(request):
+    transaction_id = datetime.datetime.now().timestamp()
+
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        order.transaction_id = transaction_id
+
+        if order.get_cart_items != 0 and order.get_cart_total != 0:
+            order.complete = True
+            order.save()
+        else:
+            return
+
+    else:
+        print('User is not logged in...')
+
+    return JsonResponse('Items have been checked out!', safe=False)

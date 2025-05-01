@@ -2,23 +2,9 @@
 <html lang="en">
 <head>
 	{% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'Styles/Navbar.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'Styles/Footer.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'Styles/Products.css' %}">
+    {% include 'head.html' %}
 	<link rel="stylesheet" type="text/css" href="{% static 'Styles/Cart.css' %}">
-    <script src="{% static 'Scripts/Navbar.js' %}"></script>
-    <script src="{% static 'Scripts/Products.js' %}" defer></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 	<script type="text/javascript"> 
         var user = '{{request.user}}'
         function getToken(name) {
@@ -41,58 +27,81 @@
 <body>
 	{% include 'navbar.html' %}
 
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="box-element box1">
-				<a class="cart-btn btn-outline-light" href="{% url 'products' %}">&#x2190; Continue Shopping</a> <br><br>
-				<table class="table">
-					<tr>
-						<th><h5>Items: {{ order.get_cart_items }} </h5></th>
-						<th><h5>Total: ₱{{ order.get_cart_total | floatformat:2 }} </h5></th>
-						<th>
-							<a style="float:right; margin:5px;" class="cart-btn btn-success" href="{% url 'cart' %}">Checkout</a>
-						</th>
-					</tr>
-				</table>
+	<div class="cart-page">
+		{% if items %}
+		<div class="box-element left-ctnr">
+			<div class="main-cart-text"> <i class="fa fa-shopping-cart fs-1" style="color: #871313; margin-right: 10px;"></i> 
+			 Shopping Cart </div>
+			<div class="cart-row" style="margin-bottom: 20px;">
+				<div style="flex:1"><strong>Image</strong></div>
+				<div style="flex:1.3"><strong>Item Name</strong></div>
+				<div style="flex:0.9"><strong>Price</strong></div>
+				<div style="flex:1"><strong>Quantity</strong></div>
+				<div style="flex:1.1"><strong>Subtotal</strong></div>
+				<div style="flex:0.25;"><p> </p></div>
 			</div>
-
-			{% if items %}
-			<div class="box-element box2">
-				<div class="cart-row">
-					<div style="flex:2"></div>
-					<div style="flex:2"><strong>Item</strong></div>
-					<div style="flex:1"><strong>Price</strong></div>
-					<div style="flex:1"><strong>Quantity</strong></div>
-					<div style="flex:1"><strong>Total</strong></div>
+			{% for item in items %}
+			<div class="product-row">
+				<div style="flex:1"><img class="row-image" src="{{item.product.imageURL}}"></div>
+				<div style="flex:1.3;"><p>{{ item.product.name }}</p></div>
+				<div style="flex:0.9"><p>₱{{ item.product.price | floatformat:2 }}</p></div>
+				<div style="flex:1" class="quantity-arrow-wrapper">
+					<img data-product="{{item.product.id}}" data-action="remove" class="update-cart chg-quantity"
+						src="{% static 'images/arrow-left.png' %}">
+					<div class="item-quantity"> {{ item.quantity }} </div>
+					<img data-product="{{item.product.id}}" data-action="add" class="update-cart chg-quantity"
+						src="{% static 'images/arrow-right.png' %}">
 				</div>
-				{% for item in items %}
-					<div class="cart-row">
-						<div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
-						<div style="flex:2"><p>{{ item.product.name }}</p></div>
-						<div style="flex:1"><p>₱{{ item.product.price | floatformat:2 }}</p></div>
-						<div style="flex:1">
-							<div class="quantity-arrow-wrapper">
-								<img data-product="{{item.product.id}}" data-action="remove" class="update-cart chg-quantity"
-									src="{% static 'images/arrow-left.png' %}">
-								<div class="item-quantity"> {{ item.quantity }} </div>
-								<img data-product="{{item.product.id}}" data-action="add" class="update-cart chg-quantity"
-									src="{% static 'images/arrow-right.png' %}">
-							</div>
-						</div>
-						<div style="flex:1"><p>₱{{ item.get_total | floatformat:2 }}</p></div>
-					</div>
-				{% endfor %}
+				<div style="flex:1.1"><p>₱{{ item.get_total | floatformat:2 }}</p></div>
+				<div style="flex:0.25;"><i class="fa fa-trash trash-icon update-cart" 
+					data-product="{{item.product.id}}" data-action="setzero"></i></div>
 			</div>
-			{% else %}
-				<div class="box-element">
-					<img src="{% static 'Images/Empty-Cart.png' %}" class="emptyCartImg">
-					<div class="emptyCartMsg"> There are currently no items in your cart. </div>
+			{% endfor %}
+		</div>
+		{% else %}
+			<div class="box-element">
+				<img src="{% static 'Images/Empty-cart.png' %}" class="emptyCartImg">
+				<div class="emptyCartMsg"> There are currently no items in your cart. </div>
+			</div>
+		{% endif %}
+	
+		<div class="right-ctnr">
+			<div class="summary-section">
+				<h3 class="summary-title"> 	<i class="bi bi-receipt" style="margin-right: 5px;"></i> Order Summary</h3>
+				<table class="table table-bordered">
+					<tbody>
+					  <tr>
+						<td style="width: 40%; padding-left: 15px;">Items:</td>
+						<td style="padding-left: 15px;">{{ order.get_cart_items }}</td>
+					  </tr>
+					  <tr>
+						<td style="width: 40%; padding-left: 15px;">Grand Total:</td>
+						<td style="padding-left: 15px;">₱{{ order.get_cart_total | floatformat:2 }}</td>
+					  </tr>
+					  <tr>
+						<td style="width: 40%; padding-left: 15px;">Shipping Fee:</td>
+						<td style="padding-left: 15px;">Free of Charge!</td>
+					  </tr>
+					  <tr>
+						<td style="width: 40%; padding-left: 15px;">Deliver to:</td>
+						<td style="padding-left: 15px;">{{ user.first_name }} {{user.last_name}}</td>
+					  </tr>
+					</tbody>
+				</table>				  
+				<div class="summary-btn-container">
+					<a class="summary-btn" href="{% url 'products' %}">Continue Shopping</a>
+					<a id="checkout" class="summary-btn" href="{% url 'cart' %}">Proceed To Checkout</a>
 				</div>
-			{% endif %}
+			</div>
+			<div class="summary-section">
+				<h3 class="summary-title"> <i class="bi bi-cash" style="margin-right: 10px;"></i> Payment Methods</h3>
+				</div>
+			</div>
 		</div>
 	</div>
 
 	{% include 'footer.html' %}
 	<script type="text/javascript" src="{% static 'Scripts/Cart.js' %}"> </script>
+	<script type="text/javascript" src="{% static 'Scripts/Checkout.js' %}"> </script>
 </body>
 </html>
