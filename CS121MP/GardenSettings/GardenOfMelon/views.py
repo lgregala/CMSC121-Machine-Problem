@@ -12,7 +12,9 @@ from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q
 import datetime
+from django.core.paginator import Paginator
 import json
+
 
 def registerPage(request):
     if request.method == "POST":
@@ -100,6 +102,7 @@ def contactPage(request):
 def productsPage(request):
     query = request.GET.get('search', '')
     main_category = request.GET.get('category', '')
+    page_number = request.GET.get('page', 1)  # Get current page number from URL
     
     # Start with all products
     products = Product.objects.all()
@@ -118,17 +121,18 @@ def productsPage(request):
     if main_category:
         products = products.filter(subcategory__iexact=main_category)
     
-    context1 = {
-        'products': products,
+    # Paginate the products - 9 per page
+    paginator = Paginator(products, 9)
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'products': page_obj,  # Now passing the paginated page object instead of queryset
         'search_performed': bool(query),
-        'no_results': not products.exists(),
+        'no_results': not products.exists(),  # Still check original queryset for existence
         'search_query': query,
-        'current_category': main_category,
+        'current_category': main_category
     }
-
-    context2 = get_cart_data(request)
-    context = {**context1, **context2}
-
+    
     return render(request, 'products.html', context)
 
 def cart(request):

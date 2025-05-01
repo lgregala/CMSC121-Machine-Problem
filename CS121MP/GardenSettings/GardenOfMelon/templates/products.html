@@ -33,16 +33,16 @@
       <div class="product-filter">
         <h2>Filter by Category</h2>
 
-        <!-- Ornamentals collapse -->
-        <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#ornamentals-collapse">
-          Ornamentals
-        </button>
-        <div class="collapse mb-3" id="ornamentals-collapse">
-          <a href="{% url 'products' %}?category=Succulents" class="btn btn-outline-success filter-btn">Succulents</a>
-          <a href="{% url 'products' %}?category=Flowering" class="btn btn-outline-success filter-btn">Flowering</a>
-          <a href="{% url 'products' %}?category=Indoor" class="btn btn-outline-success filter-btn">Indoor</a>
-          <a href="{% url 'products' %}?category=Outdoor" class="btn btn-outline-success filter-btn">Outdoor</a>
-        </div>
+    <!-- Ornamentals collapse -->
+    <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#ornamentals-collapse">
+      Ornamentals
+    </button>
+    <div class="collapse mb-3" id="ornamentals-collapse">
+      <a href="{% url 'products' %}?category=Succulents" class="btn btn-outline-success filter-btn">Succulents</a>
+      <a href="{% url 'products' %}?category=Flowering" class="btn btn-outline-success filter-btn">Flowering</a>
+      <a href="{% url 'products' %}?category=Indoor" class="btn btn-outline-success filter-btn">Indoor Ornamentals</a>
+      <a href="{% url 'products' %}?category=Outdoor" class="btn btn-outline-success filter-btn">Outdoor Adventurers</a>
+    </div>
 
       <!-- Botanical Collections collapse -->
       <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#botanical-collapse">
@@ -51,8 +51,25 @@
       <div class="collapse mb-3" id="botanical-collapse">
         <a href="{% url 'products' %}?category=Aglaonema" class="btn btn-outline-success filter-btn">Aglaonema</a>
         <a href="{% url 'products' %}?category=Alocasia" class="btn btn-outline-success filter-btn">Alocasia</a>
+        <a href="{% url 'products' %}?category=Begonia" class="btn btn-outline-success filter-btn">Begonia</a>
+        <a href="{% url 'products' %}?category=Dracaena" class="btn btn-outline-success filter-btn">Dracaena</a>
         <a href="{% url 'products' %}?category=Ficus" class="btn btn-outline-success filter-btn">Ficus</a>
+        <a href="{% url 'products' %}?category=Monstera" class="btn btn-outline-success filter-btn">Monstera</a>
+        <a href="{% url 'products' %}?category=Philodendron" class="btn btn-outline-success filter-btn">Philodendron</a>
+        <a href="{% url 'products' %}?category=Pothos" class="btn btn-outline-success filter-btn">Pothos</a>
+        <a href="{% url 'products' %}?category=Sansevieria" class="btn btn-outline-success filter-btn">Sansevieria</a>
       </div>
+
+      <!-- Functional Plants collapse -->
+      <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#functional-collapse">
+        Functional Plants
+      </button>
+      <div class="collapse mb-3" id="functional-collapse">
+        <a href="{% url 'products' %}?category=Fruit-bearing" class="btn btn-outline-success filter-btn">Fruit-bearing</a>
+        <a href="{% url 'products' %}?category=Herbs and Edibles" class="btn btn-outline-success filter-btn">Herbs and Edibles</a>
+        <a href="{% url 'products' %}?category=Bloom and Doom" class="btn btn-outline-success filter-btn">Bloom and Doom</a>
+      </div>
+  
       
     </div>
 
@@ -64,19 +81,63 @@
           <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
         </div>
       {% else %}
-        <div class="list">
+        {# Pagination controls at the top #}
+        <div class="pagination-controls mb-3">
+          {% if products.has_previous %}
+            <a href="?page={{ products.previous_page_number }}" class="btn btn-outline-primary">Previous</a>
+          {% else %}
+            <button class="btn btn-outline-secondary" disabled>Previous</button>
+          {% endif %}
+          
+          <span class="mx-3">Page {{ products.number }} of {{ products.paginator.num_pages }}</span>
+          
+          {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}" class="btn btn-outline-primary">Next</a>
+          {% else %}
+            <button class="btn btn-outline-secondary" disabled>Next</button>
+          {% endif %}
+        </div>
+    
+        <!-- <div class="list">
           {% for product in products %}
-          <div class="item" data-main-category="{{ product.category }}"data-category="{{ product.subcategory }}" style="width: 300px; text-align: center;">
+            <div class="item" data-main-category="{{ product.category }}" data-category="{{ product.subcategory }}" style="width: 300px; text-align: center;">
               <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 80%; height: 230px;">
               <h4 class="title">{{ product.name }}</h4>
               <div class="price">₱{{ product.price }}</div>
-              <button data-product={{product.id}} data-action='add' class="add-to-cart-btn 
-              update-cart" data-id="{{ forloop.counter0 }}">Add To Cart</button>
+              <button class="add-to-cart-btn" data-id="{{ forloop.counter0 }}">Add To Cart</button>
             </div>
           {% endfor %}
+        </div> -->
+
+        <div class="list">
+          {% for product in products %}
+          <div class="item" data-main-category="{{ product.category }}" data-category="{{ product.subcategory }}">
+              <img src="{{ product.image.url }}" alt="{{ product.name }}">
+              <button class="view-btn">View</button>
+              <h4 class="title">{{ product.name }}</h4>
+              <div class="price">₱{{ product.price }}</div>
+              <button class="add-to-cart-btn" data-id="{{ forloop.counter0 }}">Add To Cart</button>
+          </div>
+          {% endfor %}
+      </div>
+    
+        {# Pagination controls at the bottom #}
+        <div class="pagination-controls mt-3">
+          {% if products.has_previous %}
+            <a href="?page={{ products.previous_page_number }}" class="btn btn-outline-primary">Previous</a>
+          {% else %}
+            <button class="btn btn-outline-secondary" disabled>Previous</button>
+          {% endif %}
+          
+          <span class="mx-3">Page {{ products.number }} of {{ products.paginator.num_pages }}</span>
+          
+          {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}" class="btn btn-outline-primary">Next</a>
+          {% else %}
+            <button class="btn btn-outline-secondary" disabled>Next</button>
+          {% endif %}
         </div>
       {% endif %}
-      <br><br>
     </div>
   </div>
    {% include 'footer.html' %}
