@@ -52,9 +52,9 @@
 					<img data-product="{{item.product.id}}" data-action="add" class="update-cart chg-quantity"
 						src="{% static 'images/arrow-right.png' %}">
 				</div>
-				<div style="flex:1.1"><p>₱{{ item.get_total | floatformat:2 }}</p></div>
-				<div style="flex:0.25;"><i class="fa fa-trash trash-icon update-cart" 
-					data-product="{{item.product.id}}" data-action="setzero"></i></div>
+				<div class="subtotal" style="flex:1.1"><p>₱{{ item.get_total | floatformat:2 }}</p></div>
+				<i style="flex:0.25" class="fa fa-trash trash-icon update-cart" 
+					data-product="{{item.product.id}}" data-action="set-zero"></i>
 			</div>
 			{% endfor %}
 		</div>
@@ -66,11 +66,11 @@
 					<tbody>
 					  <tr>
 						<td style="width: 40%; padding-left: 15px;">Items:</td>
-						<td style="padding-left: 15px;">{{ order.get_cart_items }}</td>
+						<td style="padding-left: 15px;" class="total-items">{{ order.get_cart_items }}</td>
 					  </tr>
 					  <tr>
 						<td style="width: 40%; padding-left: 15px;">Grand Total:</td>
-						<td style="padding-left: 15px;">₱{{ order.get_cart_total | floatformat:2 }}</td>
+						<td style="padding-left: 15px;" class="grandtotal">₱ {{ order.get_cart_total | floatformat:2 }}</td>
 					  </tr>
 					  <tr>
 						<td style="width: 40%; padding-left: 15px;">Shipping Fee:</td>
