@@ -81,6 +81,10 @@
           <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
         </div>
       {% else %}
+        {% if search_performed %}
+          <br>
+          <p class="search-results">🔍︎ Search results for "<strong>{{ search_query }}</strong>"</p>
+        {% endif %}
         {# Pagination controls at the top #}
         <div class="pagination-controls mb-3">
           {% if products.has_previous %}
@@ -97,17 +101,6 @@
             <button class="btn btn-outline-secondary" disabled>Next</button>
           {% endif %}
         </div>
-    
-        <!-- <div class="list">
-          {% for product in products %}
-            <div class="item" data-main-category="{{ product.category }}" data-category="{{ product.subcategory }}" style="width: 300px; text-align: center;">
-              <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 80%; height: 230px;">
-              <h4 class="title">{{ product.name }}</h4>
-              <div class="price">₱{{ product.price }}</div>
-              <button class="add-to-cart-btn" data-id="{{ forloop.counter0 }}">Add To Cart</button>
-            </div>
-          {% endfor %}
-        </div> -->
 
         <div class="list">
           {% for product in products %}
@@ -116,7 +109,8 @@
               <button class="view-btn">View</button>
               <h4 class="title">{{ product.name }}</h4>
               <div class="price">₱{{ product.price }}</div>
-              <button class="add-to-cart-btn" data-id="{{ forloop.counter0 }}">Add To Cart</button>
+              <button data-product={{product.id}} data-action='add' class="add-to-cart-btn 
+              update-cart" data-id="{{ forloop.counter0 }}">Add To Cart</button>
           </div>
           {% endfor %}
       </div>
