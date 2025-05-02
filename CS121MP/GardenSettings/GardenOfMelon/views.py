@@ -102,11 +102,11 @@ def productsPage(request):
     
     if query:
         products = products.filter(
-            Q(name__icontains=query) |
-            Q(scientific_name__icontains=query) |
-            Q(category__icontains=query) |
-            Q(subcategory__icontains=query) |
-            Q(description__icontains=query)
+            Q(name__icontains=query) 
+            # Q(scientific_name__icontains=query) |
+            # Q(category__icontains=query) |
+            # Q(subcategory__icontains=query) |
+            # Q(description__icontains=query)
         ).distinct()
 
     if main_category:
