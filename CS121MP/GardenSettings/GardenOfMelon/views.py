@@ -16,7 +16,7 @@ from django.core.paginator import Paginator
 import json
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
-
+from .utils import * 
 
 def registerPage(request):
     if request.method == "POST":
@@ -44,7 +44,7 @@ def registerPage(request):
         form = RegisterForm()
     
     context1 = {'form': form}
-    context2 = get_cart_data(request)
+    context2 = getCartData(request)
     context = {**context1, **context2}
     return render(request, 'register.html', context)
 
@@ -69,11 +69,11 @@ def loginPage(request):
             messages.error(request, "Incorrect password.")
             return redirect('login')
     
-    context = get_cart_data(request)
+    context = getCartData(request)
     return render(request, 'login.html', context)
 
 def aboutPage(request):
-    context = get_cart_data(request)
+    context = getCartData(request)
     return render(request, 'about.html', context)
 
 def homePage(request):
@@ -82,7 +82,7 @@ def homePage(request):
     if request.user.is_authenticated:
         context1['user'] = request.user
     
-    context2 = get_cart_data(request)
+    context2 = getCartData(request)
     context = {**context1, **context2}
     
     return render(request, 'home.html', context)
@@ -97,7 +97,7 @@ def contactPage(request):
         form = ContactForm()
 
     context1 = {'form': form}
-    context2 = get_cart_data(request)
+    context2 = getCartData(request)
     context = {**context1, **context2}
     return render(request, 'contact.html', context)
 
@@ -144,7 +144,7 @@ def productsPage(request):
         'max_price': max_price,
     }
 
-    context2 = get_cart_data(request)
+    context2 = getCartData(request)
     context = {**context1, **context2}
     return render(request, 'products.html', context)
 
@@ -161,23 +161,9 @@ def product_detail(request, product_id):
     }
     return JsonResponse(data)
 
-
 def cart(request):
-    context = get_cart_data(request)
+    context = getCartData(request)
     return render(request, 'cart.html', context)
-
-def get_cart_data(request):
-    if request.user.is_authenticated:
-        customer = request.user
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartItems = order.get_cart_items
-    else:
-        items = []
-        order = {'get_cart_total': 0, 'get_cart_items': 0}
-        cartItems = order['get_cart_items']
-
-    return {'items': items, 'order': order, 'cartItems': cartItems}
 
 def updateItem(request):
     data = json.loads(request.body)
@@ -218,13 +204,20 @@ def updateItem(request):
 
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
+    # data = json.loads(request.body)
+    # Address this part => Redirect to user login and update code from the login view to pass credentials to this view
+    # The rest of this code will handle the logic of carrying the guest user cart orders to their logged in accounts
 
     if request.user.is_authenticated:
         customer = request.user
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        order.transaction_id = transaction_id
 
-        order.complete = True
-        order.save()
+    # else:
+    #     customer, order = guestOrder(request, data)
+    
+    # grandtotal = order.get_cart_total
+    order.transaction_id = transaction_id
+    order.complete = True
+    order.save()
 
     return JsonResponse('Items have been checked out!', safe=False)

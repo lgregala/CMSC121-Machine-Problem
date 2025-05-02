@@ -1,6 +1,9 @@
-document.getElementById('checkout').addEventListener('click', function(e){
-    submitCheckout()
-})
+const checkoutButton = document.getElementById('checkout');
+if (checkoutButton) {
+    checkoutButton.addEventListener('click', function(e) {
+        submitCheckout();
+    });
+}
 
 function submitCheckout(){
     fetch('/process_order/', {
@@ -13,6 +16,10 @@ function submitCheckout(){
     .then((response) => response.json())
     .then((data) => {
         alert('Transaction completed');
+
+        cart = {}
+        document.cookie = 'cart=' + JSON.stringify(cart) + '; path=/'
+
         window.location.href = 'home';
     })
 }
