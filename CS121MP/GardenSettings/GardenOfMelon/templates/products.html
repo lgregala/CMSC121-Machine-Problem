@@ -69,22 +69,47 @@
         <a href="{% url 'products' %}?category=Herbs and Edibles" class="btn btn-outline-success filter-btn">Herbs and Edibles</a>
         <a href="{% url 'products' %}?category=Bloom and Doom" class="btn btn-outline-success filter-btn">Bloom and Doom</a>
       </div>
-  
-      
+
+      <h2>Filter by Price</h2>
+
+        <form>
+          <input id="minInput" name="minprice" class="form-control filter-btn" type="number" placeholder="Minimum price" value="{{ min_price }}">
+          <input id="maxInput" name="maxprice" class="form-control filter-btn" type="number" placeholder="Maximum price" value="{{ max_price }}">
+          <button class="btn btn-success" type="submit" style="margin: 5px;">
+            Filter
+        </button>
+        </form>
     </div>
 
     <div class="product-container">
-      {% if search_performed and no_results %}
+      {% if no_results %}
+        {% if search_performed %}
+          <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
+            <h4>🔍︎ No products found</h4>
+            <p>No products match your search for "{{ search_query }}"</p>
+            <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
+          </div>
+        {% endif %}
+
+        {% if filterMin_performed and filterMax_performed %}
         <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
           <h4>🔍︎ No products found</h4>
-          <p>No products match your search for "{{ search_query }}"</p>
+          <p>No products match your filter for "₱{{ min_price }} - ₱{{ max_price }}"</p>
           <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
         </div>
+        {% endif %}
+
       {% else %}
         {% if search_performed %}
           <br>
           <p class="search-results">🔍︎ Search results for "<strong>{{ search_query }}</strong>"</p>
         {% endif %}
+
+        {% if filterMin_performed and filterMax_performed %}
+          <br>
+          <p class="search-results">🔍︎ Filter results for "<strong>₱{{ min_price }} - ₱{{ max_price }}</strong>"</p>
+        {% endif %}
+
         {# Pagination controls at the top #}
         <div class="pagination-controls mb-3">
           {% if products.has_previous %}
