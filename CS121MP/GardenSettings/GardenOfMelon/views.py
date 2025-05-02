@@ -159,26 +159,38 @@ def updateItem(request):
     productId = data['productId']
     action = data['action']
 
-    print('Action:', action)
-    print('productId:', productId)
-
     customer = request.user
     product = Product.objects.get(id=productId)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
     orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
  
     if action == 'add':
+        order_item = orderItem.quantity + 1
+        product_stock = orderItem.product.quantity
+
+        if (order_item > product_stock): 
+            orderItem.delete()
+            return JsonResponse({'quantity': orderItem.quantity, 'subtotal': orderItem.get_total, 'grandtotal': order.get_cart_total, 
+                                 'itemtotal': order.get_cart_items, 'error': 'Cannot add this product, maximum available stocks exceeded!'}
+)
         orderItem.quantity += 1
+
     elif action == 'remove':
         orderItem.quantity -= 1
-    elif action == 'setzero':
+
+    elif action == 'set-zero':
         orderItem.quantity = 0
 
     orderItem.save()
+
     if orderItem.quantity <= 0:
         orderItem.delete()
+        newData = { 'quantity': 0, 'subtotal': 0, 'grandtotal': order.get_cart_total,'itemtotal': order.get_cart_items,}
+    else:
+        newData = {'quantity': orderItem.quantity, 'subtotal': orderItem.get_total, 
+                   'grandtotal': order.get_cart_total, 'itemtotal': order.get_cart_items}
 
-    return JsonResponse('Item added', safe=False)
+    return JsonResponse(newData)
 
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
@@ -190,8 +202,5 @@ def processOrder(request):
 
         order.complete = True
         order.save()
-
-    else:
-        print('User is not logged in...')
 
     return JsonResponse('Items have been checked out!', safe=False)

@@ -12,7 +12,6 @@ function submitCheckout(){
     })
     .then((response) => response.json())
     .then((data) => {
-        console.log('Success:', data);
         alert('Transaction completed');
         window.location.href = 'home';
     })

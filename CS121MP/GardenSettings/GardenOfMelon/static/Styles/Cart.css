@@ -33,11 +33,16 @@ body{
     height: fit-content;
 }
 
+.box-element::-webkit-scrollbar {
+    width: 7.5px;         
+}
+  
+.box-element::-webkit-scrollbar-thumb {
+    background-color: #e1eebc;
+    border-radius: 10px;
+}
+
 .box-element-empty{
-    background-color: #fffcfc;
-    box-shadow: hsl(0, 0%, 77%) 0 4px 12px; 
-	border-radius: 15px;
-    padding: 20px;
     width: 100%;
     margin: auto;
 }
@@ -64,6 +69,13 @@ body{
     margin-bottom: 15px;
     font-size: 20px;
     border: 1.5px solid black;
+    overflow-wrap: break-word;
+    transition: opacity 0.65s ease-out;
+}
+
+.product-row.removed{
+    opacity: 0; 
+    pointer-events: none;
 }
 
 .product-row p{
