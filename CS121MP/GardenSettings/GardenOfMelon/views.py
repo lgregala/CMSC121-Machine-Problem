@@ -97,6 +97,9 @@ def contactPage(request):
 def productsPage(request):
     query = request.GET.get('search', '')
     main_category = request.GET.get('category', '')
+
+    min_price = request.GET.get('minprice', '')
+    max_price = request.GET.get('maxprice', '')
     
     products = Product.objects.all()
     
@@ -111,6 +114,14 @@ def productsPage(request):
 
     if main_category:
         products = products.filter(subcategory__iexact=main_category)
+
+    if min_price:
+        min_price = float(min_price)
+        products = products.filter(price__gte=min_price)
+
+    if max_price:
+        max_price = float(max_price)
+        products = products.filter(price__lte=max_price)
     
     context1 = {
         'products': products,
@@ -118,6 +129,10 @@ def productsPage(request):
         'no_results': not products.exists(),
         'search_query': query,
         'current_category': main_category,
+        'filterMin_performed': bool(min_price),
+        'filterMax_performed': bool(max_price),
+        'min_price': min_price or 0,
+        'max_price': max_price or 0,
     }
 
     context2 = get_cart_data(request)

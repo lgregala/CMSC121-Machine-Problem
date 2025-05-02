@@ -44,30 +44,55 @@
           <a href="{% url 'products' %}?category=Outdoor" class="btn btn-outline-success filter-btn">Outdoor</a>
         </div>
 
-      <!-- Botanical Collections collapse -->
-      <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#botanical-collapse">
-        Botanical Collections
-      </button>
-      <div class="collapse mb-3" id="botanical-collapse">
-        <a href="{% url 'products' %}?category=Aglaonema" class="btn btn-outline-success filter-btn">Aglaonema</a>
-        <a href="{% url 'products' %}?category=Alocasia" class="btn btn-outline-success filter-btn">Alocasia</a>
-        <a href="{% url 'products' %}?category=Ficus" class="btn btn-outline-success filter-btn">Ficus</a>
-      </div>
+        <!-- Botanical Collections collapse -->
+        <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#botanical-collapse">
+          Botanical Collections
+        </button>
+        <div class="collapse mb-3" id="botanical-collapse">
+          <a href="{% url 'products' %}?category=Aglaonema" class="btn btn-outline-success filter-btn">Aglaonema</a>
+          <a href="{% url 'products' %}?category=Alocasia" class="btn btn-outline-success filter-btn">Alocasia</a>
+          <a href="{% url 'products' %}?category=Ficus" class="btn btn-outline-success filter-btn">Ficus</a>
+        </div>
       
+        <h2>Filter by Price</h2>
+
+        <form>
+          <input id="minInput" name="minprice" class="form-control filter-btn" type="number" placeholder="Minimum price" value="{{ min_price|default:'' }}">
+          <input id="maxInput" name="maxprice" class="form-control filter-btn" type="number" placeholder="Maximum price" value="{{ max_price|default:'' }}">
+          <button class="btn btn-success" type="submit" style="margin: 5px;">
+            Filter
+        </button>
+        </form>
     </div>
 
     <div class="product-container">
-      {% if search_performed and no_results %}
-        <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
-          <h4>🔍︎ No products found</h4>
-          <p>No products match your search for "{{ search_query }}"</p>
-          <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
-        </div>
+      {% if no_results %}
+        {% if search_performed %}
+          <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
+            <h4>🔍︎ No products found</h4>
+            <p>No products match your search for "{{ search_query }}"</p>
+            <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
+          </div>
+        {% endif %}
+
+        {% if filterMin_performed and filterMax_performed %}
+          <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
+            <h4>🔍︎ No products found</h4>
+            <p>No products match your filter for "₱{{ min_price }} - ₱{{ max_price }}"</p>
+            <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
+          </div>
+        {% endif %}
       {% else %}
         {% if search_performed %}
           <br>
           <p class="search-results">🔍︎ Search results for "<strong>{{ search_query }}</strong>"</p>
         {% endif %}
+
+        {% if filterMin_performed and filterMax_performed %}
+          <br>
+          <p class="search-results">🔍︎ Filter results for "<strong>₱{{ min_price }} - ₱{{ max_price }}</strong>"</p>
+        {% endif %}
+        
         <div class="list">
           {% for product in products %}
           <div class="item" data-main-category="{{ product.category }}"data-category="{{ product.subcategory }}" style="width: 300px; text-align: center;">
