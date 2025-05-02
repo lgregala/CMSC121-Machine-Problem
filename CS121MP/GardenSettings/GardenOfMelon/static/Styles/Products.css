@@ -1,3 +1,23 @@
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.pagination-controls .btn{
+    background-color:#90c67c;
+    color:#328e62;
+    border-color: #328e62;
+}
+
+.pagination-controls .btn:hover{
+    background-color:#328e62;
+    color:white;
+    border-color: #328e62;
+}
+
+
 .btn-success {
     font-family: 'Winky rough';
     font-weight: bold;
@@ -21,6 +41,8 @@ button {
     font-family: 'Winky rough';
     font-weight: bold;
 }
+
+
 
 .product-grid {
     display: grid;
@@ -54,6 +76,7 @@ button {
     border-color: #000000;
 }
 
+
 .list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -63,6 +86,7 @@ button {
 }
 
 .list .item {
+    position: relative; 
     text-align: center;
     background-color: #ffffff;
     border-radius: 1px;
@@ -72,12 +96,17 @@ button {
     padding: 20px;
     box-shadow: 0 5px 15px #757676;
     letter-spacing: 1px;
+    transition: all 0.3s ease; 
+    overflow: hidden;
 }
 
 .list .item img {
     width: 90%;
     height: 250px;
+    border-radius: 10px;
     object-fit: cover;
+    transition: all 0.3s ease; 
+    transform: translateY(0);
 }
 
 .list .item .title {
@@ -97,6 +126,50 @@ button {
     padding: 10px;
 }
 
+.list .item:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 20px #5a5a5a;
+}
+
+.list .item:hover img {
+    transform: translateY(-10px);
+    filter: brightness(0.5);
+}
+
+
+
+.view-btn {
+    position: absolute;
+    width: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    
+    color: #90c67c;
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.list .item:hover .view-btn:hover {
+    background-color: #2a7f62;
+}
+
+.list .item:hover .view-btn {
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.list .item:hover::after {
+    opacity: 1;
+}
+
 .no-results {
     display: flex;
     transform: translate(-50%, -50%);
@@ -108,6 +181,7 @@ button {
     font-size: 15px;
     margin-left: 490px;
     padding-top: 244px;
+    font-family: 'Winky Rough';
 }
 
 /* ===== For clearing search button (updated search button that fetches data from the database) ===== */
@@ -142,5 +216,99 @@ button {
 .search-results {
     color: #328e62;
     text-align: center;
-    font-size: 17px;
+    font-size: 22px;
+    font-family: 'Winky Rough';
+}
+
+/* ===== Styles for Description Popup ===== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 0.3s;
+  }
+  
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 70%;
+    max-width: 800px;
+    position: relative;
+    border: 2px solid #90c67c;
+}
+  
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+  
+.close-modal:hover {
+    color: #555;
+}
+  
+.modal-body {
+    display: flex;
+    gap: 30px;
+}
+  
+#modalProductImage {
+    width: 40%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+  
+.modal-details {
+    width: 60%;
+}
+  
+.modal-details .price {
+    font-size: 1.5rem;
+    margin: 15px 0;
+    color: #2a7f62;
+}
+  
+.scientific-name {
+    font-style: italic;
+    color: #666;
+}
+  
+.categories {
+    color: #90c67c;
+    margin: 10px 0;
+}
+  
+.description {
+    line-height: 1.6;
+    margin: 20px 0;
+}
+  
+.modal-add-to-cart {
+    color: white;
+    border-radius: 25px;
+    background-color: #90c67c;
+    margin-top: 20px;
+    width: auto;
+    padding: 12px 30px !important;
+}
+
+.modal-add-to-cart:hover {
+    background-color: #328e62;
+}
+  
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }

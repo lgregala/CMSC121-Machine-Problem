@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from .forms import RegisterForm, ContactForm
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -9,7 +11,12 @@ from django.contrib.messages import get_messages
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q
+import datetime
+from django.core.paginator import Paginator
 import json
+from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+
 
 def registerPage(request):
     if request.method == "POST":
@@ -97,33 +104,63 @@ def contactPage(request):
 def productsPage(request):
     query = request.GET.get('search', '')
     main_category = request.GET.get('category', '')
+    page_number = request.GET.get('page', 1)  # Get current page number from URL
+
+    min_price = request.GET.get('minprice')
+    max_price = request.GET.get('maxprice')
+    page_number = request.GET.get('page', 1)
     
     products = Product.objects.all()
     
     if query:
         products = products.filter(
             Q(name__icontains=query) 
-            # Q(scientific_name__icontains=query) |
-            # Q(category__icontains=query) |
-            # Q(subcategory__icontains=query) |
-            # Q(description__icontains=query)
         ).distinct()
 
     if main_category:
         products = products.filter(subcategory__iexact=main_category)
+
+    # Apply price filter if minimum and maximum is specified
+    if min_price:
+        min_price = float(min_price)
+        products = products.filter(price__gte=min_price)
+
+    if max_price:
+        max_price = float(max_price)
+        products = products.filter(price__lte=max_price)
+    
+    paginator = Paginator(products, 9)
+    page_obj = paginator.get_page(page_number)
     
     context1 = {
-        'products': products,
+        'products': page_obj,
         'search_performed': bool(query),
         'no_results': not products.exists(),
         'search_query': query,
         'current_category': main_category,
+        'filterMin_performed': min_price is not None and min_price != '',
+        'filterMax_performed': max_price is not None and max_price != '',
+        'min_price': min_price,
+        'max_price': max_price,
     }
 
     context2 = get_cart_data(request)
     context = {**context1, **context2}
-
     return render(request, 'products.html', context)
+
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    data = {
+        'name': product.name,
+        'price': product.price,
+        'description': product.description,
+        'image_url': product.image.url,
+        'scientific_name': product.scientific_name,
+        'category': product.category,
+        'subcategory': product.subcategory
+    }
+    return JsonResponse(data)
+
 
 def cart(request):
     context = get_cart_data(request)
@@ -147,21 +184,47 @@ def updateItem(request):
     productId = data['productId']
     action = data['action']
 
-    print('Action:', action)
-    print('productId:', productId)
-
     customer = request.user
     product = Product.objects.get(id=productId)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
-    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+    orderItem, orderItemCreated = OrderItem.objects.get_or_create(order=order, product=product)
  
     if action == 'add':
+        order_item = orderItem.quantity + 1
+        product_stock = orderItem.product.quantity
+
+        if (order_item > product_stock): 
+            if (orderItemCreated): orderItem.delete()
+            return JsonResponse({'error': 'Cannot add this product, maximum available stocks exceeded!'})
+
         orderItem.quantity += 1
+
     elif action == 'remove':
         orderItem.quantity -= 1
 
+    elif action == 'set-zero':
+        orderItem.quantity = 0
+
     orderItem.save()
+
     if orderItem.quantity <= 0:
         orderItem.delete()
+        newData = { 'quantity': 0, 'subtotal': 0, 'grandtotal': order.get_cart_total,'itemtotal': order.get_cart_items,}
+    else:
+        newData = {'quantity': orderItem.quantity, 'subtotal': orderItem.get_total, 
+                   'grandtotal': order.get_cart_total, 'itemtotal': order.get_cart_items}
 
-    return JsonResponse('Item was added', safe=False)
+    return JsonResponse(newData)
+
+def processOrder(request):
+    transaction_id = datetime.datetime.now().timestamp()
+
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        order.transaction_id = transaction_id
+
+        order.complete = True
+        order.save()
+
+    return JsonResponse('Items have been checked out!', safe=False)

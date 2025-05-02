@@ -33,56 +33,139 @@
       <div class="product-filter">
         <h2>Filter by Category</h2>
 
-        <!-- Ornamentals collapse -->
-        <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#ornamentals-collapse">
-          Ornamentals
+        <a href="{% url 'products' %}" class="btn btn-outline-success filter-btn {% if not request.GET.category %}active{% endif %}">All Categories</a>
+
+      <!-- Ornamentals collapse -->
+      <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#ornamentals-collapse">
+        Ornamentals
+      </button>
+      <div class="collapse mb-3" id="ornamentals-collapse">
+        <a href="{% url 'products' %}?category=Succulents" class="btn btn-outline-success filter-btn">Succulents</a>
+        <a href="{% url 'products' %}?category=Flowering" class="btn btn-outline-success filter-btn">Flowering</a>
+        <a href="{% url 'products' %}?category=Indoor Ornamentals" class="btn btn-outline-success filter-btn">Indoor Ornamentals</a>
+        <a href="{% url 'products' %}?category=Outdoor Adventurers" class="btn btn-outline-success filter-btn">Outdoor Adventurers</a>
+      </div>
+
+        <!-- Botanical Collections collapse -->
+        <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#botanical-collapse">
+          Botanical Collections
         </button>
-        <div class="collapse mb-3" id="ornamentals-collapse">
-          <a href="{% url 'products' %}?category=Succulents" class="btn btn-outline-success filter-btn">Succulents</a>
-          <a href="{% url 'products' %}?category=Flowering" class="btn btn-outline-success filter-btn">Flowering</a>
-          <a href="{% url 'products' %}?category=Indoor" class="btn btn-outline-success filter-btn">Indoor</a>
-          <a href="{% url 'products' %}?category=Outdoor" class="btn btn-outline-success filter-btn">Outdoor</a>
+        <div class="collapse mb-3" id="botanical-collapse">
+          <a href="{% url 'products' %}?category=Aglaonema" class="btn btn-outline-success filter-btn">Aglaonema</a>
+          <a href="{% url 'products' %}?category=Alocasia" class="btn btn-outline-success filter-btn">Alocasia</a>
+          <a href="{% url 'products' %}?category=Begonia" class="btn btn-outline-success filter-btn">Begonia</a>
+          <a href="{% url 'products' %}?category=Dracaena" class="btn btn-outline-success filter-btn">Dracaena</a>
+          <a href="{% url 'products' %}?category=Ficus" class="btn btn-outline-success filter-btn">Ficus</a>
+          <a href="{% url 'products' %}?category=Monstera" class="btn btn-outline-success filter-btn">Monstera</a>
+          <a href="{% url 'products' %}?category=Philodendron" class="btn btn-outline-success filter-btn">Philodendron</a>
+          <a href="{% url 'products' %}?category=Pothos" class="btn btn-outline-success filter-btn">Pothos</a>
+          <a href="{% url 'products' %}?category=Sansevieria" class="btn btn-outline-success filter-btn">Sansevieria</a>
         </div>
 
-      <!-- Botanical Collections collapse -->
-      <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#botanical-collapse">
-        Botanical Collections
-      </button>
-      <div class="collapse mb-3" id="botanical-collapse">
-        <a href="{% url 'products' %}?category=Aglaonema" class="btn btn-outline-success filter-btn">Aglaonema</a>
-        <a href="{% url 'products' %}?category=Alocasia" class="btn btn-outline-success filter-btn">Alocasia</a>
-        <a href="{% url 'products' %}?category=Ficus" class="btn btn-outline-success filter-btn">Ficus</a>
+        <!-- Functional Plants collapse -->
+        <button class="btn btn-success mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#functional-collapse">
+          Functional Plants
+        </button>
+        <div class="collapse mb-3" id="functional-collapse">
+          <a href="{% url 'products' %}?category=Fruit-bearing" class="btn btn-outline-success filter-btn">Fruit-bearing</a>
+          <a href="{% url 'products' %}?category=Herbs and Edibles" class="btn btn-outline-success filter-btn">Herbs and Edibles</a>
+          <a href="{% url 'products' %}?category=Bloom and Doom" class="btn btn-outline-success filter-btn">Bloom and Doom</a>
+        </div>
+
+        <h2>Filter by Price</h2>
+ 
+         <form>
+           <input id="minInput" name="minprice" class="form-control filter-btn" type="number" placeholder="Minimum price" value="{{ min_price }}">
+           <input id="maxInput" name="maxprice" class="form-control filter-btn" type="number" placeholder="Maximum price" value="{{ max_price }}">
+           <button class="btn btn-success" type="submit" style="margin: 5px;">
+             Filter
+         </button>
+         </form>
       </div>
-      
-    </div>
 
     <div class="product-container">
-      {% if search_performed and no_results %}
-        <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
-          <h4>🔍︎ No products found</h4>
-          <p>No products match your search for "{{ search_query }}"</p>
-          <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
-        </div>
+      {% if no_results %}
+         {% if search_performed %}
+           <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
+             <h4>🔍︎ No products found</h4>
+             <p>No products match your search for "{{ search_query }}"</p>
+             <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
+           </div>
+         {% endif %}
+ 
+         {% if filterMin_performed and filterMax_performed %}
+          <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
+              <h4>🔍︎ No products found</h4>
+              <p>No products match your filter for "₱{{ min_price }} - ₱{{ max_price }}"</p>
+              <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
+          </div>
+         {% endif %}
+
       {% else %}
-        {% if search_performed %}
-          <br>
-          <p class="search-results">🔍︎ Search results for "<strong>{{ search_query }}</strong>"</p>
+        {% if search_performed %} 
+        <br> <p class="search-results">🔍︎ Search results for "<strong>{{ search_query }}</strong>"</p>
         {% endif %}
+        
+        {% if filterMin_performed and filterMax_performed %}
+        <br> <p class="search-results">🔍︎ Filter results for "<strong>₱{{ min_price }} - ₱{{ max_price }}</strong>"</p>
+        {% endif %}
+  
         <div class="list">
           {% for product in products %}
-          <div class="item" data-main-category="{{ product.category }}"data-category="{{ product.subcategory }}" style="width: 300px; text-align: center;">
-              <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 80%; height: 230px;">
+          <div class="item" data-main-category="{{ product.category }}" data-category="{{ product.subcategory }}">
+              <img src="{{ product.image.url }}" alt="{{ product.name }}">
+              <button class="view-btn">View</button>
               <h4 class="title">{{ product.name }}</h4>
               <div class="price">₱{{ product.price }}</div>
               <button data-product={{product.id}} data-action='add' class="add-to-cart-btn 
               update-cart" data-id="{{ forloop.counter0 }}">Add To Cart</button>
-            </div>
+          </div>
           {% endfor %}
+      </div>
+
+        {# Pagination controls at the bottom #}
+        <!-- NEW CODE: Preserves the search result for clicking next/previous page -->
+        <div class="pagination-controls mt-3">
+          {% if products.has_previous %}
+            <a href="?{% if search_query %}search={{ search_query }}&{% endif %}{% if current_category %}category={{ current_category }}&{% endif %}{% if min_price %}minprice={{ min_price }}&{% endif %}{% if max_price %}maxprice={{ max_price }}&{% endif %}page={{ products.previous_page_number }}" class="btn btn-outline-primary">Previous</a>
+          {% else %}
+            <button class="btn btn-outline-secondary" disabled>Previous</button>
+          {% endif %}
+          
+          <span class="mx-3">Page {{ products.number }} of {{ products.paginator.num_pages }}</span>
+          
+          {% if products.has_next %}
+            <a href="?{% if search_query %}search={{ search_query }}&{% endif %}{% if current_category %}category={{ current_category }}&{% endif %}{% if min_price %}minprice={{ min_price }}&{% endif %}{% if max_price %}maxprice={{ max_price }}&{% endif %}page={{ products.next_page_number }}" class="btn btn-outline-primary">Next</a>
+          {% else %}
+            <button class="btn btn-outline-secondary" disabled>Next</button>
+          {% endif %}
         </div>
       {% endif %}
-      <br><br>
     </div>
   </div>
+
+      <!-- Product Detail Modal -->
+    <div id="productModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-body">
+          <img id="modalProductImage" src="" alt="">
+          <div class="modal-details">
+            <h2 id="modalProductName"></h2>
+            <div class="scientific-name" id="modalScientificName"></div>
+            <div class="price" id="modalProductPrice"></div>
+            <div class="categories">
+              <span id="modalProductCategory"></span> • 
+              <span id="modalProductSubcategory"></span>
+            </div>
+            <div class="description" id="modalProductDescription"></div>
+            <button data-product="" data-action='add' class="add-to-cart-btn modal-add-to-cart update-cart">
+              Add To Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
    {% include 'footer.html' %}
 
    <script type="text/javascript" src="{% static 'Scripts/Cart.js' %}"> </script>
