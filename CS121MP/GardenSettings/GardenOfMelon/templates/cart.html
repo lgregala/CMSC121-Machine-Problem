@@ -58,16 +58,10 @@
 			</div>
 			{% endfor %}
 		</div>
-		{% else %}
-			<div class="box-element">
-				<img src="{% static 'Images/Empty-cart.png' %}" class="emptyCartImg">
-				<div class="emptyCartMsg"> There are currently no items in your cart. </div>
-			</div>
-		{% endif %}
-	
 		<div class="right-ctnr">
 			<div class="summary-section">
-				<h3 class="summary-title"> 	<i class="bi bi-receipt" style="margin-right: 5px;"></i> Order Summary</h3>
+				<h3 class="summary-title" style="margin-bottom: 15px"> 	
+					<i class="bi bi-receipt" style="margin-right: 5px;"></i> Order Summary</h3>
 				<table class="table table-bordered">
 					<tbody>
 					  <tr>
@@ -95,9 +89,27 @@
 			</div>
 			<div class="summary-section">
 				<h3 class="summary-title"> <i class="bi bi-cash" style="margin-right: 10px;"></i> Payment Methods</h3>
+				<div class="payment-txt"> 
+					Garden of Melon accepts the following payment options:</div>
+				<div class="payment-img-container">
+					<img src="{% static 'Images/Gcash.png' %}" class="payment-logo gcash">
+					<img src="{% static 'Images/Maya.png' %}" class="payment-logo maya">
+					<img src="{% static 'Images/VISA.png' %}" class="payment-logo visa">
+					<img src="{% static 'Images/MasterCard.png' %}" class="payment-logo mastercard">
+					<img src="{% static 'Images/BDO.png' %}" class="payment-logo bdo">
+					<img src="{% static 'Images/BPI.png' %}" class="payment-logo bpi">
+				</div>
 				</div>
 			</div>
 		</div>
+		{% else %}
+			<div class="box-element-empty">
+				<img src="{% static 'Images/Empty-cart.png' %}" class="emptyCartImg">
+				<div class="emptyCartMsg"> Oh naur! There are currently no plants in your cart. 😢 </div>
+				<a class="summary-btn start-shop-btn" href="{% url 'products' %}">
+					<span style="display: flex; margin: auto;"> Start Shopping </span> </a>
+			</div>
+		{% endif %}
 	</div>
 
 	{% include 'footer.html' %}

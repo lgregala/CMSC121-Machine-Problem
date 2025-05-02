@@ -1,10 +1,5 @@
 document.getElementById('checkout').addEventListener('click', function(e){
-    if (order.get_cart_items != 0 || order.get_cart_total != 0) {
-        submitCheckout()
-    }
-    else {
-        // code here
-    }
+    submitCheckout()
 })
 
 function submitCheckout(){

@@ -161,8 +161,6 @@ button {
     opacity: 1;
 }
 
-
-
 .no-results {
     display: flex;
     transform: translate(-50%, -50%);
@@ -174,6 +172,7 @@ button {
     font-size: 15px;
     margin-left: 490px;
     padding-top: 244px;
+    font-family: 'Winky Rough';
 }
 
 /* ===== For clearing search button (updated search button that fetches data from the database) ===== */
@@ -208,5 +207,6 @@ button {
 .search-results {
     color: #328e62;
     text-align: center;
-    font-size: 17px;
+    font-size: 25px;
+    font-family: 'Winky Rough';
 }

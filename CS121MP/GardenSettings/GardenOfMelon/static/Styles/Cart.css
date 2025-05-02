@@ -22,14 +22,24 @@ body{
     border-radius: 10px;
     text-align: center;
 }
+
 .box-element{
     width: 70%;
     background-color: #fffcfc;
     box-shadow: hsl(0, 0%, 77%) 0 4px 12px; 
 	border-radius: 15px;
-	padding: 25px;
+    padding: 20px;
     margin-bottom: 20px;
     height: fit-content;
+}
+
+.box-element-empty{
+    background-color: #fffcfc;
+    box-shadow: hsl(0, 0%, 77%) 0 4px 12px; 
+	border-radius: 15px;
+    padding: 20px;
+    width: 100%;
+    margin: auto;
 }
 
 .cart-row {
@@ -154,7 +164,7 @@ body{
 }
 
 .summary-btn {
-    width: 235px;
+    width: 48%;
     background-color: #90c67c; 
     color: #fff; 
     border-radius: 8px;
@@ -171,10 +181,39 @@ body{
     background-color: #76b36b; 
 }
 
-.emptyCartImg {
-    width: 300px; 
-    height: 300px; 
+.payment-txt {
+    text-align: center; 
+    padding-bottom: 7.5px;
+    border-bottom: 1.5px solid black;
+}
+
+.payment-img-container {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 20px;
+	justify-content: center;
+	margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.payment-logo {
+	max-height: 60px;
+	object-fit: contain;
+}
+
+.start-shop-btn {
+    display: flex;
+    margin: auto;
+    align-items: center;
     margin-bottom: 20px;
+    font-family: 'Winky Rough';
+    font-size: 22.5px;
+}
+
+.emptyCartImg {
+    width: 250px; 
+    height: 250px; 
     margin: auto;
     display: flex;
 }
@@ -184,5 +223,6 @@ body{
     text-align: center;
     font-family: 'Winky Rough'; 
     font-size: 25px;
-    margin-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 20px;
 }

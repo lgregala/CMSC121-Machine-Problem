@@ -125,14 +125,16 @@ def productsPage(request):
     paginator = Paginator(products, 9)
     page_obj = paginator.get_page(page_number)
     
-    context = {
+    context1 = {
         'products': page_obj,  # Now passing the paginated page object instead of queryset
         'search_performed': bool(query),
         'no_results': not products.exists(),  # Still check original queryset for existence
         'search_query': query,
         'current_category': main_category
     }
-    
+
+    context2 = get_cart_data(request)
+    context = {**context1, **context2}
     return render(request, 'products.html', context)
 
 def cart(request):
@@ -186,11 +188,8 @@ def processOrder(request):
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         order.transaction_id = transaction_id
 
-        if order.get_cart_items != 0 and order.get_cart_total != 0:
-            order.complete = True
-            order.save()
-        else:
-            return
+        order.complete = True
+        order.save()
 
     else:
         print('User is not logged in...')
