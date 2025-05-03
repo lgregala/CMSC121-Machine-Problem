@@ -17,7 +17,6 @@ import json
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 
-
 def registerPage(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -101,48 +100,13 @@ def contactPage(request):
     context = {**context1, **context2}
     return render(request, 'contact.html', context)
 
-# def productsPage(request):
-#     query = request.GET.get('search', '')
-#     main_category = request.GET.get('category', '')
-#     page_number = request.GET.get('page', 1)  # Get current page number from URL
-    
-#     # Start with all products
-#     products = Product.objects.all()
-    
-#     # Apply search filter if a search query exists
-#     if query:
-#         products = products.filter(
-#             Q(name__icontains=query) |
-#             Q(scientific_name__icontains=query) |
-#             Q(category__icontains=query) |
-#             Q(subcategory__icontains=query) |
-#             Q(description__icontains=query)
-#         ).distinct()
-
-#     # Apply category filter if a category is specified
-#     if main_category:
-#         products = products.filter(subcategory__iexact=main_category)
-    
-#     # Paginate the products - 9 per page
-#     paginator = Paginator(products, 9)
-#     page_obj = paginator.get_page(page_number)
-    
-#     context1 = {
-#         'products': page_obj,  # Now passing the paginated page object instead of queryset
-#         'search_performed': bool(query),
-#         'no_results': not products.exists(),  # Still check original queryset for existence
-#         'search_query': query,
-#         'current_category': main_category
-#     }
-
-#     context2 = get_cart_data(request)
-#     context = {**context1, **context2}
-#     return render(request, 'products.html', context)
-
 def productsPage(request):
     query = request.GET.get('search', '')
     main_category = request.GET.get('category', '')
     page_number = request.GET.get('page', 1)
+
+    min_price = request.GET.get('minprice')
+    max_price = request.GET.get('maxprice')
     
     products = Product.objects.all()
     
@@ -158,6 +122,15 @@ def productsPage(request):
     if main_category:
         products = products.filter(subcategory__iexact=main_category)
     
+     # Apply price filter if minimum and maximum is specified
+    if min_price:
+        min_price = float(min_price)
+        products = products.filter(price__gte=min_price)
+ 
+    if max_price:
+        max_price = float(max_price)
+        products = products.filter(price__lte=max_price)
+    
     paginator = Paginator(products, 9)
     page_obj = paginator.get_page(page_number)
     
@@ -166,7 +139,11 @@ def productsPage(request):
         'search_performed': bool(query),
         'no_results': not products.exists(),
         'search_query': query,
-        'current_category': main_category
+        'current_category': main_category,
+        'filterMin_performed': min_price is not None and min_price != '',
+        'filterMax_performed': max_price is not None and max_price != '',
+        'min_price': min_price,
+        'max_price': max_price,
     }
 
     context2 = get_cart_data(request)
