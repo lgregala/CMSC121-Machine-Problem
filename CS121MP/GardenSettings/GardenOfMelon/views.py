@@ -114,7 +114,7 @@ def productsPage(request):
     
     if query:
         products = products.filter(
-            Q(name__icontains=query)
+            Q(name__icontains=query) 
         ).distinct()
 
     if main_category:

@@ -145,9 +145,10 @@
       </div>
 
         {# Pagination controls at the bottom #}
+        <!-- NEW CODE: Preserves the search result and category & price filter when clicking next/previous page -->
         <div class="pagination-controls mt-3">
           {% if products.has_previous %}
-            <a href="?page={{ products.previous_page_number }}" class="btn btn-outline-primary">Previous</a>
+            <a href="?{% if search_query %}search={{ search_query }}&{% endif %}{% if current_category %}category={{ current_category }}&{% endif %}{% if min_price %}minprice={{ min_price }}&{% endif %}{% if max_price %}maxprice={{ max_price }}&{% endif %}page={{ products.previous_page_number }}" class="btn btn-outline-primary">Previous</a>
           {% else %}
             <button class="btn btn-outline-secondary" disabled>Previous</button>
           {% endif %}
@@ -155,7 +156,7 @@
           <span class="mx-3">Page {{ products.number }} of {{ products.paginator.num_pages }}</span>
           
           {% if products.has_next %}
-            <a href="?page={{ products.next_page_number }}" class="btn btn-outline-primary">Next</a>
+            <a href="?{% if search_query %}search={{ search_query }}&{% endif %}{% if current_category %}category={{ current_category }}&{% endif %}{% if min_price %}minprice={{ min_price }}&{% endif %}{% if max_price %}maxprice={{ max_price }}&{% endif %}page={{ products.next_page_number }}" class="btn btn-outline-primary">Next</a>
           {% else %}
             <button class="btn btn-outline-secondary" disabled>Next</button>
           {% endif %}
