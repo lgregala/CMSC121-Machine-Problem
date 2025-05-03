@@ -12,13 +12,13 @@ for (var i = 0; i < updateBtns.length; i++)
         else
         {
             if (currentElement.classList.contains('add-to-cart-btn')) 
-                updateUserOrder(productId, action, currentElement, true)
-            else updateUserOrder(productId, action, currentElement, false)
+                addUserOrderToCart(productId, action)
+            else updateUserOrder(productId, action, currentElement)
         }
     })
 }
 
-function updateUserOrder(productId, action, currentElement, isClickedATC)
+function updateUserOrder(productId, action, currentElement)
 {
     var url = '/update_item/'
 
@@ -39,38 +39,35 @@ function updateUserOrder(productId, action, currentElement, isClickedATC)
         }
 
         var mainDiv, quantityDiv
-        if (!isClickedATC) 
+        if (currentElement.classList.contains('trash-icon'))
         {
-            if (currentElement.classList.contains('trash-icon'))
-            {
-                mainDiv = currentElement.closest('.product-row')
-                quantityDiv = mainDiv.querySelector('.item-quantity')
-            }
-            else 
-            {
-                var parentQtyDiv = currentElement.closest('.quantity-arrow-wrapper')
-                quantityDiv = parentQtyDiv.querySelector('.item-quantity')
-                mainDiv = parentQtyDiv.closest('.product-row')
-            }
-
-            quantityDiv.textContent = data.quantity
-            var subtotalDiv = mainDiv.querySelector('.subtotal')
-            subtotalDiv.textContent = '₱' + parseFloat(data.subtotal).toFixed(2)
-    
-            if (data.quantity <= 0)
-            {
-                mainDiv.classList.add('removed');
-                setTimeout(function () {
-                    mainDiv.remove();
-                }, 650);
-            }
-
-            var totalItemsDiv = document.querySelector('.total-items')
-            totalItemsDiv.textContent = data.itemtotal
-
-            var grandTotalDiv = document.querySelector('.grandtotal')
-            grandTotalDiv.textContent = '₱' + parseFloat(data.grandtotal).toFixed(2)
+            mainDiv = currentElement.closest('.product-row')
+            quantityDiv = mainDiv.querySelector('.item-quantity')
         }
+        else 
+        {
+            var parentQtyDiv = currentElement.closest('.quantity-arrow-wrapper')
+            mainDiv = parentQtyDiv.closest('.product-row')
+            quantityDiv = parentQtyDiv.querySelector('.item-quantity')
+        }
+
+        quantityDiv.textContent = data.quantity
+        var subtotalDiv = mainDiv.querySelector('.subtotal')
+        subtotalDiv.textContent = '₱' + parseFloat(data.subtotal).toFixed(2)
+
+        if (data.quantity <= 0)
+        {
+            mainDiv.classList.add('removed');
+            setTimeout(function () {
+                mainDiv.remove();
+            }, 650);
+        }
+
+        var totalItemsDiv = document.querySelector('.total-items')
+        totalItemsDiv.textContent = data.itemtotal
+
+        var grandTotalDiv = document.querySelector('.grandtotal')
+        grandTotalDiv.textContent = '₱' + parseFloat(data.grandtotal).toFixed(2) 
 
         var cartItemsDiv = document.querySelector('.cart-items-total')
         cartItemsDiv.textContent = data.itemtotal
@@ -93,7 +90,31 @@ function updateUserOrder(productId, action, currentElement, isClickedATC)
                 </a>
             </div>`
         }
+    })
+}
 
-        if (isClickedATC) alert('Added item successfully!')
+function addUserOrderToCart(productId, action)
+{
+    var url = '/update_item/'
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({'productId': productId, 'action': action})
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        if (data.error)
+        {
+            alert(data.error);
+            return;
+        }
+
+        alert('Added item successfully!')
+        var cartItemsDiv = document.querySelector('.cart-items-total')
+        cartItemsDiv.textContent = data.itemtotal
     })
 }
