@@ -16,7 +16,7 @@ from django.core.paginator import Paginator
 import json
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
-
+from .utils import * 
 
 def registerPage(request):
     if request.method == "POST":
@@ -44,7 +44,7 @@ def registerPage(request):
         form = RegisterForm()
     
     context1 = {'form': form}
-    context2 = get_cart_data(request)
+    context2 = getCartData(request)
     context = {**context1, **context2}
     return render(request, 'register.html', context)
 
@@ -69,11 +69,11 @@ def loginPage(request):
             messages.error(request, "Incorrect password.")
             return redirect('login')
     
-    context = get_cart_data(request)
+    context = getCartData(request)
     return render(request, 'login.html', context)
 
 def aboutPage(request):
-    context = get_cart_data(request)
+    context = getCartData(request)
     return render(request, 'about.html', context)
 
 def homePage(request):
@@ -82,7 +82,7 @@ def homePage(request):
     if request.user.is_authenticated:
         context1['user'] = request.user
     
-    context2 = get_cart_data(request)
+    context2 = getCartData(request)
     context = {**context1, **context2}
     
     return render(request, 'home.html', context)
@@ -97,66 +97,37 @@ def contactPage(request):
         form = ContactForm()
 
     context1 = {'form': form}
-    context2 = get_cart_data(request)
+    context2 = getCartData(request)
     context = {**context1, **context2}
     return render(request, 'contact.html', context)
-
-# def productsPage(request):
-#     query = request.GET.get('search', '')
-#     main_category = request.GET.get('category', '')
-#     page_number = request.GET.get('page', 1)  # Get current page number from URL
-    
-#     # Start with all products
-#     products = Product.objects.all()
-    
-#     # Apply search filter if a search query exists
-#     if query:
-#         products = products.filter(
-#             Q(name__icontains=query) |
-#             Q(scientific_name__icontains=query) |
-#             Q(category__icontains=query) |
-#             Q(subcategory__icontains=query) |
-#             Q(description__icontains=query)
-#         ).distinct()
-
-#     # Apply category filter if a category is specified
-#     if main_category:
-#         products = products.filter(subcategory__iexact=main_category)
-    
-#     # Paginate the products - 9 per page
-#     paginator = Paginator(products, 9)
-#     page_obj = paginator.get_page(page_number)
-    
-#     context1 = {
-#         'products': page_obj,  # Now passing the paginated page object instead of queryset
-#         'search_performed': bool(query),
-#         'no_results': not products.exists(),  # Still check original queryset for existence
-#         'search_query': query,
-#         'current_category': main_category
-#     }
-
-#     context2 = get_cart_data(request)
-#     context = {**context1, **context2}
-#     return render(request, 'products.html', context)
 
 def productsPage(request):
     query = request.GET.get('search', '')
     main_category = request.GET.get('category', '')
+    page_number = request.GET.get('page', 1)  # Get current page number from URL
+
+    min_price = request.GET.get('minprice')
+    max_price = request.GET.get('maxprice')
     page_number = request.GET.get('page', 1)
     
     products = Product.objects.all()
     
     if query:
         products = products.filter(
-            Q(name__icontains=query) |
-            Q(scientific_name__icontains=query) |
-            Q(category__icontains=query) |
-            Q(subcategory__icontains=query) |
-            Q(description__icontains=query)
+            Q(name__icontains=query) 
         ).distinct()
 
     if main_category:
         products = products.filter(subcategory__iexact=main_category)
+
+    # Apply price filter if minimum and maximum is specified
+    if min_price:
+        min_price = float(min_price)
+        products = products.filter(price__gte=min_price)
+
+    if max_price:
+        max_price = float(max_price)
+        products = products.filter(price__lte=max_price)
     
     paginator = Paginator(products, 9)
     page_obj = paginator.get_page(page_number)
@@ -166,10 +137,14 @@ def productsPage(request):
         'search_performed': bool(query),
         'no_results': not products.exists(),
         'search_query': query,
-        'current_category': main_category
+        'current_category': main_category,
+        'filterMin_performed': min_price is not None and min_price != '',
+        'filterMax_performed': max_price is not None and max_price != '',
+        'min_price': min_price,
+        'max_price': max_price,
     }
 
-    context2 = get_cart_data(request)
+    context2 = getCartData(request)
     context = {**context1, **context2}
     return render(request, 'products.html', context)
 
@@ -186,62 +161,63 @@ def product_detail(request, product_id):
     }
     return JsonResponse(data)
 
-
 def cart(request):
-    context = get_cart_data(request)
+    context = getCartData(request)
     return render(request, 'cart.html', context)
-
-def get_cart_data(request):
-    if request.user.is_authenticated:
-        customer = request.user
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartItems = order.get_cart_items
-    else:
-        items = []
-        order = {'get_cart_total': 0, 'get_cart_items': 0}
-        cartItems = order['get_cart_items']
-
-    return {'items': items, 'order': order, 'cartItems': cartItems}
 
 def updateItem(request):
     data = json.loads(request.body)
     productId = data['productId']
     action = data['action']
 
-    print('Action:', action)
-    print('productId:', productId)
-
     customer = request.user
     product = Product.objects.get(id=productId)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
-    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+    orderItem, orderItemCreated = OrderItem.objects.get_or_create(order=order, product=product)
  
     if action == 'add':
+        order_item = orderItem.quantity + 1
+        product_stock = orderItem.product.quantity
+
+        if (order_item > product_stock): 
+            if (orderItemCreated): orderItem.delete()
+            return JsonResponse({'error': 'Cannot add this product, maximum available stocks exceeded!'})
+
         orderItem.quantity += 1
+
     elif action == 'remove':
         orderItem.quantity -= 1
-    elif action == 'setzero':
+
+    elif action == 'set-zero':
         orderItem.quantity = 0
 
     orderItem.save()
+
     if orderItem.quantity <= 0:
         orderItem.delete()
+        newData = { 'quantity': 0, 'subtotal': 0, 'grandtotal': order.get_cart_total,'itemtotal': order.get_cart_items,}
+    else:
+        newData = {'quantity': orderItem.quantity, 'subtotal': orderItem.get_total, 
+                   'grandtotal': order.get_cart_total, 'itemtotal': order.get_cart_items}
 
-    return JsonResponse('Item added', safe=False)
+    return JsonResponse(newData)
 
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
+    # data = json.loads(request.body)
+    # Address this part => Redirect to user login and update code from the login view to pass credentials to this view
+    # The rest of this code will handle the logic of carrying the guest user cart orders to their logged in accounts
 
     if request.user.is_authenticated:
         customer = request.user
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        order.transaction_id = transaction_id
 
-        order.complete = True
-        order.save()
-
-    else:
-        print('User is not logged in...')
+    # else:
+    #     customer, order = guestOrder(request, data)
+    
+    # grandtotal = order.get_cart_total
+    order.transaction_id = transaction_id
+    order.complete = True
+    order.save()
 
     return JsonResponse('Items have been checked out!', safe=False)

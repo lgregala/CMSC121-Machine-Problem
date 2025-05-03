@@ -6,22 +6,45 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Products.css' %}">
     <script src="{% static 'Scripts/Products.js' %}" defer></script>
     <script type="text/javascript"> 
-        var user = '{{request.user}}'
-        function getToken(name) {
-		    var cookieValue = null;
-		    if (document.cookie && document.cookie !== '') {
-		        var cookies = document.cookie.split(';');
-		        for (var i = 0; i < cookies.length; i++) {
-		            var cookie = cookies[i].trim();
-		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-		                break;
-		            }
-		        }
-		    }
-		    return cookieValue;
-		}
-		var csrftoken = getToken('csrftoken')
+      var user = '{{request.user}}'
+      function getToken(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = cookies[i].trim();
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+      var csrftoken = getToken('csrftoken')
+
+      function getCookie(name) {
+          // Split cookie string and get all individual name=value pairs in an array
+          var cookieArr = document.cookie.split(";");
+
+          // Loop through the array elements
+          for(var i = 0; i < cookieArr.length; i++) {
+              var cookiePair = cookieArr[i].split("=");
+
+              /* Removing whitespace at the beginning of the cookie name
+              and compare it with the given string */
+              if(name == cookiePair[0].trim()) {
+                  return decodeURIComponent(cookiePair[1]);
+              }
+          }
+          return null;
+      }
+      var cart = JSON.parse(getCookie('cart'))
+      if (cart == undefined) {
+        cart = {}
+        console.log('Cart was created!')
+        document.cookie = 'cart=' + JSON.stringify(cart) + '; path=/'
+      }
     </script>
   </head>
 <body data-static-path="{% static 'Product-Images/' %}">
@@ -71,23 +94,43 @@
           <a href="{% url 'products' %}?category=Herbs and Edibles" class="btn btn-outline-success filter-btn">Herbs and Edibles</a>
           <a href="{% url 'products' %}?category=Bloom and Doom" class="btn btn-outline-success filter-btn">Bloom and Doom</a>
         </div>
-    
-        
+
+        <h2>Filter by Price</h2>
+ 
+         <form>
+           <input id="minInput" name="minprice" class="form-control filter-btn" type="number" placeholder="Minimum price" value="">
+           <input id="maxInput" name="maxprice" class="form-control filter-btn" type="number" placeholder="Maximum price" value="">
+           <button class="btn btn-success" type="submit" style="margin: 5px;"> Filter </button>
+         </form>
       </div>
 
     <div class="product-container">
-      {% if search_performed and no_results %}
-        <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
-          <h4>🔍︎ No products found</h4>
-          <p>No products match your search for "{{ search_query }}"</p>
-          <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
-        </div>
-      {% else %}
-        {% if search_performed %}
-          <br>
-          <p class="search-results">🔍︎ Search results for "<strong>{{ search_query }}</strong>"</p>
-        {% endif %}
+      {% if no_results %}
+         {% if search_performed %}
+           <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
+             <h4>🔍︎ No products found</h4>
+             <p>No products match your search for "{{ search_query }}"</p>
+             <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
+           </div>
+         {% endif %}
+ 
+         {% if filterMin_performed and filterMax_performed %}
+          <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
+              <h4>🔍︎ No products found</h4>
+              <p>No products match your filter for "₱{{ min_price }} - ₱{{ max_price }}"</p>
+              <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
+          </div>
+         {% endif %}
 
+      {% else %}
+        {% if search_performed %} 
+        <br> <p class="search-results">🔍︎ Search results for "<strong>{{ search_query }}</strong>"</p>
+        {% endif %}
+        
+        {% if filterMin_performed and filterMax_performed %}
+        <br> <p class="search-results">🔍︎ Filter results for "<strong>₱{{ min_price }} - ₱{{ max_price }}</strong>"</p>
+        {% endif %}
+  
         <div class="list">
           {% for product in products %}
           <div class="item" data-main-category="{{ product.category }}" data-category="{{ product.subcategory }}">
@@ -100,11 +143,14 @@
           </div>
           {% endfor %}
       </div>
-    
+
         {# Pagination controls at the bottom #}
+        <!-- NEW CODE: Preserves the search result and category & price filter when clicking next/previous page -->
         <div class="pagination-controls mt-3">
           {% if products.has_previous %}
-            <a href="?page={{ products.previous_page_number }}" class="btn btn-outline-primary">Previous</a>
+            <a href="?{% if search_query %}search={{ search_query }}&{% endif %}{% if current_category %}category={{ current_category }}
+            &{% endif %}{% if min_price %}minprice={{ min_price }}&{% endif %}{% if max_price %}maxprice=
+            {{ max_price }}&{% endif %}page={{ products.previous_page_number }}" class="btn btn-outline-primary">Previous</a>
           {% else %}
             <button class="btn btn-outline-secondary" disabled>Previous</button>
           {% endif %}
@@ -112,7 +158,9 @@
           <span class="mx-3">Page {{ products.number }} of {{ products.paginator.num_pages }}</span>
           
           {% if products.has_next %}
-            <a href="?page={{ products.next_page_number }}" class="btn btn-outline-primary">Next</a>
+            <a href="?{% if search_query %}search={{ search_query }}&{% endif %}{% if current_category %}category={{ current_category }}
+            &{% endif %}{% if min_price %}minprice={{ min_price }}&{% endif %}{% if max_price %}maxprice=
+            {{ max_price }}&{% endif %}page={{ products.next_page_number }}" class="btn btn-outline-primary">Next</a>
           {% else %}
             <button class="btn btn-outline-secondary" disabled>Next</button>
           {% endif %}
