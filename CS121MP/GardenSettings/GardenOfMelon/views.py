@@ -178,17 +178,16 @@ def updateItem(request):
     customer = request.user
     product = Product.objects.get(id=productId)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
-    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+    orderItem, orderItemCreated = OrderItem.objects.get_or_create(order=order, product=product)
  
     if action == 'add':
         order_item = orderItem.quantity + 1
         product_stock = orderItem.product.quantity
 
         if (order_item > product_stock): 
-            orderItem.delete()
-            return JsonResponse({'quantity': orderItem.quantity, 'subtotal': orderItem.get_total, 'grandtotal': order.get_cart_total, 
-                                 'itemtotal': order.get_cart_items, 'error': 'Cannot add this product, maximum available stocks exceeded!'}
-)
+            if (orderItemCreated): orderItem.delete()
+            return JsonResponse({'error': 'Cannot add this product, maximum available stocks exceeded!'})
+
         orderItem.quantity += 1
 
     elif action == 'remove':
