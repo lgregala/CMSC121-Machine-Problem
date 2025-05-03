@@ -42,6 +42,8 @@ button {
     font-weight: bold;
 }
 
+
+
 .product-grid {
     display: grid;
     grid-template-columns: 370px 1fr;
@@ -73,6 +75,7 @@ button {
     grid-column: 1/2;
     border-color: #000000;
 }
+
 
 .list {
     display: grid;
@@ -133,6 +136,8 @@ button {
     filter: brightness(0.5);
 }
 
+
+
 .view-btn {
     position: absolute;
     width: 50%;
@@ -141,8 +146,8 @@ button {
     transform: translate(-50%, -50%) scale(0.8);
     opacity: 0;
     background-color: rgba(255, 255, 255, 0.9);
+    
     color: #90c67c;
-    border: 3px solid #16330c;
     border-radius: 50px;
     padding: 8px 20px;
     font-weight: 600;
@@ -151,11 +156,15 @@ button {
     z-index: 2;
 }
 
+.list .item:hover .view-btn:hover {
+    background-color: #2a7f62;
+}
+
 .list .item:hover .view-btn {
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
 }
-
 
 .list .item:hover::after {
     opacity: 1;
@@ -209,4 +218,97 @@ button {
     text-align: center;
     font-size: 25px;
     font-family: 'Winky Rough';
+}
+
+/* ===== Styles for Description Popup ===== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 0.3s;
+  }
+  
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 70%;
+    max-width: 800px;
+    position: relative;
+    border: 2px solid #90c67c;
+}
+  
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+  
+.close-modal:hover {
+    color: #555;
+}
+  
+.modal-body {
+    display: flex;
+    gap: 30px;
+}
+  
+#modalProductImage {
+    width: 40%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+  
+.modal-details {
+    width: 60%;
+}
+  
+.modal-details .price {
+    font-size: 1.5rem;
+    margin: 15px 0;
+    color: #2a7f62;
+}
+  
+.scientific-name {
+    font-style: italic;
+    color: #666;
+}
+  
+.categories {
+    color: #90c67c;
+    margin: 10px 0;
+}
+  
+.description {
+    line-height: 1.6;
+    margin: 20px 0;
+}
+  
+.modal-add-to-cart {
+    color: white;
+    border-radius: 25px;
+    background-color: #90c67c;
+    margin-top: 20px;
+    width: auto;
+    padding: 12px 30px !important;
+}
+
+.modal-add-to-cart:hover {
+    background-color: #328e62;
+}
+  
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
