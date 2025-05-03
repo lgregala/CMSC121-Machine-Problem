@@ -11,12 +11,11 @@ from django.contrib.messages import get_messages
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q
-import datetime
 from django.core.paginator import Paginator
-import json
 from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
 from .utils import * 
+import datetime
+import json
 
 def registerPage(request):
     if request.method == "POST":
@@ -195,7 +194,7 @@ def updateItem(request):
 
     if orderItem.quantity <= 0:
         orderItem.delete()
-        newData = { 'quantity': 0, 'subtotal': 0, 'grandtotal': order.get_cart_total,'itemtotal': order.get_cart_items,}
+        newData = {'quantity': 0, 'subtotal': 0, 'grandtotal': order.get_cart_total,'itemtotal': order.get_cart_items,}
     else:
         newData = {'quantity': orderItem.quantity, 'subtotal': orderItem.get_total, 
                    'grandtotal': order.get_cart_total, 'itemtotal': order.get_cart_items}

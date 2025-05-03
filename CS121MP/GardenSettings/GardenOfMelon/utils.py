@@ -1,4 +1,5 @@
 import json
+from django.http import JsonResponse
 from . models import *
 
 def cookieCart(request):
@@ -15,14 +16,15 @@ def cookieCart(request):
         cartItems += cart[i]['quantity']
 
         product = Product.objects.get(id=i)
-        total = (product.price * cart[i]['quantity'])
+        subtotal = (product.price * cart[i]['quantity'])
 
-        order['get_cart_total'] += total
+        order['get_cart_total'] += subtotal
         order['get_cart_items'] += cart[i]['quantity']
 
-        item = {'product': product,'quantity': cart[i]['quantity'], 'get_total': total}
+        item = {'product': product, 'quantity': cart[i]['quantity'], 'get_total': subtotal}
         items.append(item)
 
+    # print('Cookie cart:', items)
     return {'cartItems': cartItems, 'order': order, 'items': items}
 
 def getCartData(request):
@@ -64,3 +66,32 @@ def guestOrder(request, data):
         )
     
     return customer, order
+
+def getGuestCookieCart(request):
+    data = serialize(cookieCart(request))
+
+    # print('Full data:', data)
+    if data is None: data = {'empty': 'Unavailable data.'}
+    return JsonResponse(data)
+
+def serialize(data):
+    items = [{
+        'productId': item['product'].id,
+        'stock': item['product'].quantity,
+        'quantity': item['quantity'],
+        'subtotal': item['get_total'],
+        'price': item['product'].price,
+    } for item in data['items']]
+
+    #     if current['quantity'] > current['stock']:
+    #     current = {
+    #         'quantity': item['quantity'] - 1,
+    #         'subtotal': item['get_total'] - item['price'],
+    #         'overflow': True,
+    #     }
+
+    # print('Items:', items)
+    
+    order = {'cart_total': data['order']['get_cart_total'], 'cart_items': data['order']['get_cart_items'],}
+    serialized_dictionary = {'items': items, 'order': order, 'cartItems': data['cartItems']}
+    return serialized_dictionary

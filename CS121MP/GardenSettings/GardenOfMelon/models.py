@@ -70,6 +70,10 @@ class Product(models.Model):
     
     def imageURL(self):
         return self.image.url
+    
+    @property
+    def guestProductDictionary(self):
+        return {'price': self.price, 'quantity': self.quantity}
 
 class Order(models.Model):
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
@@ -79,6 +83,10 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.id)
+    
+    @property
+    def guestOrderDictionary(self):
+        return {'totalCartItems': self.get_cart_items, 'cartGrandtotal': self.get_cart_total}
     
     @property
     def get_cart_items(self):
@@ -91,6 +99,7 @@ class Order(models.Model):
         orderitems = self.orderitem_set.all()
         total = sum([item.get_total for item in orderitems])
         return total 
+    
    
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
