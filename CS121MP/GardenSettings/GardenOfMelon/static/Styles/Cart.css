@@ -97,6 +97,13 @@ body{
     border-bottom-left-radius: 10px;
 }
 
+.item-product-name-div {
+    max-width: 15%;
+    overflow-wrap: break-word;
+    margin-right: 3.5rem;
+    margin-left: 0.8rem;
+}
+
 .chg-quantity:hover{
 	opacity: 0.5;
 }

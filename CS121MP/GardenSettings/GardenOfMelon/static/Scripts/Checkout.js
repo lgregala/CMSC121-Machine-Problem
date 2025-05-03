@@ -16,6 +16,10 @@ function submitCheckout(){
     .then((response) => response.json())
     .then((data) => {
         alert('Transaction completed');
+
+        cart = {}
+        document.cookie = 'cart=' + JSON.stringify(cart) + '; path=/'
+
         window.location.href = 'home';
     })
 }
