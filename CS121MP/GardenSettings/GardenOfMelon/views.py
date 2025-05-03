@@ -107,6 +107,7 @@ def productsPage(request):
 
     min_price = request.GET.get('minprice')
     max_price = request.GET.get('maxprice')
+    page_number = request.GET.get('page', 1)  # Get current page number from URL
     
     products = Product.objects.all()
     
@@ -139,11 +140,7 @@ def productsPage(request):
         'search_performed': bool(query),
         'no_results': not products.exists(),
         'search_query': query,
-        'current_category': main_category,
-        'filterMin_performed': min_price is not None and min_price != '',
-        'filterMax_performed': max_price is not None and max_price != '',
-        'min_price': min_price,
-        'max_price': max_price,
+        'current_category': main_category
     }
 
     context2 = get_cart_data(request)
