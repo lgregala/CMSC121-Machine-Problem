@@ -1,6 +1,9 @@
-document.getElementById('checkout').addEventListener('click', function(e){
-    submitCheckout()
-})
+const checkoutButton = document.getElementById('checkout');
+if (checkoutButton) {
+    checkoutButton.addEventListener('click', function(e) {
+        submitCheckout();
+    });
+}
 
 function submitCheckout(){
     fetch('/process_order/', {
