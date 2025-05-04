@@ -102,24 +102,29 @@ def contactPage(request):
 
 def productsPage(request):
     query = request.GET.get('search', '')
-    main_category = request.GET.get('category', '')
+    category = request.GET.get('category', '')  # Filter by main category (category)
+    subcategory = request.GET.get('subcategory', '')  # Filter by subcategory
     page_number = request.GET.get('page', 1)  # Get current page number from URL
 
     min_price = request.GET.get('minprice')
     max_price = request.GET.get('maxprice')
-    page_number = request.GET.get('page', 1)
-    
+
     products = Product.objects.all()
-    
+
     if query:
         products = products.filter(
-            Q(name__icontains=query) 
+            Q(name__icontains=query)
         ).distinct()
 
-    if main_category:
-        products = products.filter(subcategory__iexact=main_category)
+    # Apply category filter (filter by main category)
+    if category:
+        products = products.filter(category__iexact=category)  # Filter by main category
 
-    # Apply price filter if minimum and maximum is specified
+    # Apply subcategory filter (filter by subcategory)
+    if subcategory:
+        products = products.filter(subcategory__iexact=subcategory)  # Filter by subcategory
+
+    # Apply price filter if minimum and maximum are specified
     if min_price:
         min_price = float(min_price)
         products = products.filter(price__gte=min_price)
@@ -127,16 +132,17 @@ def productsPage(request):
     if max_price:
         max_price = float(max_price)
         products = products.filter(price__lte=max_price)
-    
+
     paginator = Paginator(products, 9)
     page_obj = paginator.get_page(page_number)
-    
+
     context1 = {
         'products': page_obj,
         'search_performed': bool(query),
         'no_results': not products.exists(),
         'search_query': query,
-        'current_category': main_category,
+        'current_category': category,
+        'current_subcategory': subcategory,
         'filterMin_performed': min_price is not None and min_price != '',
         'filterMax_performed': max_price is not None and max_price != '',
         'min_price': min_price,

@@ -13,6 +13,8 @@ body {
 }
 
 .shop-button {
+  font-family: 'Winky rough';
+  font-weight: normal;
   padding: 10px 20px;
   background-color: #90c67c;
   color: white;
@@ -79,6 +81,24 @@ body {
 }
 
 /*============================= CATEGORY SLIDER SECTION =============================== */
+
+.see-more-btn {
+  font-family: 'Winky rough';
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #90c67c;
+    color: white;
+    text-decoration: none;
+    border:#2e7d32;
+    border-width: 20px;
+    border-radius: 25px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.see-more-btn:hover {
+  background-color: #2e7d32;
+}
 
 .plant-slider {
   height: 700px;
@@ -410,7 +430,6 @@ body {
 }
 .awp-container{
   background-image: url('../Images/featured-plants.jpg');
-  background-image: cover;
   position: relative;
   display: flex;
   justify-content: center;
@@ -419,9 +438,10 @@ body {
   text-align: center;
   gap: 55px;
   padding: 15px;
-  width: 1493px;
   
 }
+
+
 
 .awp-card{
   position: relative;

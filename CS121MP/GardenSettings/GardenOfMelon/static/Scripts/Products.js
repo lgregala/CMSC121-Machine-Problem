@@ -1,64 +1,29 @@
-let openShopping = document.querySelector('#shopping');
-let closeShopping = document.querySelector('.closeShopping');
-let list = document.querySelector('.list');
-let listCart = document.querySelector('.listCart');
-let body = document.querySelector('body');
-let total = document.querySelector('.total');
-let quantity = document.querySelector('.quantity');
-let searchInput = document.querySelector('#searchInput');
-let staticPath = document.body.dataset.staticPath;
 
-// Placeholder for products
-let products = [];
-let filteredProducts = [];
-let listCarts = [];
-
-document.addEventListener("DOMContentLoaded", function () {
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const items = document.querySelectorAll(".item");
-  
-    filterButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const category = btn.getAttribute("data-category");
-  
-        items.forEach(item => {
-          const itemCategory = item.getAttribute("data-category");
-  
-          if (category === "all" || itemCategory === category) {
-            item.style.display = "block";
-          } else {
-            item.style.display = "none";
-          }
-        });
-      });
-    });
-  });
-
-  document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('productModal');
     const closeBtn = document.querySelector('.close-modal');
     const viewButtons = document.querySelectorAll('.view-btn');
     
     // View button click handler
-    document.querySelector('.list').addEventListener('click', function(e) {
-      if (e.target.classList.contains('view-btn')) {
-        const productId = e.target.closest('.item').querySelector('.update-cart').getAttribute('data-product');
-        fetch(`/product_detail/${productId}/`)
-          .then(response => response.json())
-          .then(data => {
-            document.getElementById('modalProductImage').src = data.image_url;
-            document.getElementById('modalProductName').textContent = data.name;
-            document.getElementById('modalScientificName').textContent = data.scientific_name;
-            document.getElementById('modalProductPrice').textContent = `₱${data.price}`;
-            document.getElementById('modalProductCategory').textContent = data.category;
-            document.getElementById('modalProductSubcategory').textContent = data.subcategory;
-            document.getElementById('modalProductDescription').textContent = data.description;
-            document.querySelector('.modal-add-to-cart').setAttribute('data-product', productId);
-            modal.style.display = 'block';
-          })
-          .catch(error => console.error('Error:', error));
-      }
-    });
+document.querySelector('.list').addEventListener('click', function(e) {
+  if (e.target.classList.contains('view-btn')) {
+    const productId = e.target.closest('.item').querySelector('.update-cart').getAttribute('data-product');
+    fetch(`/product_detail/${productId}/`)
+      .then(response => response.json())
+      .then(data => {
+      document.getElementById('modalProductImage').src = data.image_url;
+      document.getElementById('modalProductName').textContent = data.name;
+      document.getElementById('modalScientificName').textContent = data.scientific_name;
+      document.getElementById('modalProductPrice').textContent = `₱${data.price}`;
+      document.getElementById('modalProductCategory').textContent = data.category;
+      document.getElementById('modalProductSubcategory').textContent = data.subcategory;
+      document.getElementById('modalProductDescription').textContent = data.description;
+      document.querySelector('.modal-add-to-cart').setAttribute('data-product', productId);
+      modal.style.display = 'block';
+    })
+    .catch(error => console.error('Error:', error));
+  }
+});
     
     // Close modal handlers
     closeBtn.addEventListener('click', function() {
@@ -71,6 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
+
+
+  
 
 // document.addEventListener("DOMContentLoaded", function () {
 //   const filterButtons = document.querySelectorAll(".filter-btn");
