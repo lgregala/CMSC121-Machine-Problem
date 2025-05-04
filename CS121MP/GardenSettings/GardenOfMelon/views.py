@@ -138,7 +138,7 @@ def productsPage(request):
         products = products.filter(price__lte=max_price)
         filterMax_performed = True
     else:
-        max_price = 10000
+        max_price = 1000000000000
         filterMax_performed = False
 
     paginator = Paginator(products, 9)
