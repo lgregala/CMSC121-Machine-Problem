@@ -57,8 +57,10 @@
         <h2>Filter by Price</h2>
  
          <form>
-           <input id="minInput" name="minprice" class="form-control filter-btn" type="number" placeholder="Minimum price" value="">
-           <input id="maxInput" name="maxprice" class="form-control filter-btn" type="number" placeholder="Maximum price" value="">
+           <input id="minInput" name="minprice" class="form-control filter-btn" type="text" inputmode="numeric"
+           placeholder="Minimum price" value="">
+           <input id="maxInput" name="maxprice" class="form-control filter-btn" type="text" inputmode="numeric"
+           placeholder="Maximum price" value="">
            <button class="btn btn-success" type="submit" style="margin: 5px;"> Filter </button>
          </form>
 
@@ -109,12 +111,26 @@
            </div>
          {% endif %}
  
-         {% if filterMin_performed and filterMax_performed %}
-          <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
-              <h4>🔍︎ No products found</h4>
-              <p>No products match your filter for "₱{{ min_price }} - ₱{{ max_price }}"</p>
-              <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
-          </div>
+         {% if filterMin_performed or filterMax_performed %}
+           {% if filterMin_performed and filterMax_performed %}
+             <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
+               <h4>🔍︎ No products found</h4>
+               <p>No products match your filter for "₱{{ min_price|floatformat:2 }} - ₱{{ max_price|floatformat:2 }}"</p>
+               <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
+             </div>
+           {% elif filterMin_performed %}
+             <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
+               <h4>🔍︎ No products found</h4>
+               <p>No products match your filter for minimum price of "₱{{ min_price|floatformat:2 }}"</p>
+               <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
+             </div>
+           {% elif filterMax_performed %}
+             <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
+               <h4>🔍︎ No products found</h4>
+               <p>No products match your filter for maximum price of "₱{{ max_price|floatformat:2 }}"</p>
+               <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
+             </div>
+           {% endif %}
          {% endif %}
 
       {% else %}
@@ -122,8 +138,14 @@
         <br> <p class="search-results">🔍︎ Search results for "<strong>{{ search_query }}</strong>"</p>
         {% endif %}
         
-        {% if filterMin_performed and filterMax_performed %}
-        <br> <p class="search-results">🔍︎ Filter results for "<strong>₱{{ min_price }} - ₱{{ max_price }}</strong>"</p>
+        {% if filterMin_performed or filterMax_performed %}
+           {% if filterMin_performed and filterMax_performed %}
+             <br> <p class="search-results">🔍︎ Filter results for "<strong>₱{{ min_price|floatformat:2 }} - ₱{{ max_price|floatformat:2 }}</strong>"</p>
+           {% elif filterMin_performed %}
+             <br> <p class="search-results">🔍︎ Filter results for minimum price of "<strong>₱{{ min_price|floatformat:2 }}</strong>"</p>
+           {% elif filterMax_performed %}
+             <br> <p class="search-results">🔍︎ Filter results for maximum price of "<strong>₱{{ max_price|floatformat:2 }}</strong>"</p>
+           {% endif %}
         {% endif %}
   
         <div class="list">
@@ -137,7 +159,7 @@
               </div>
 
               <h4 class="title">{{ product.name }}</h4>
-              <div class="price">₱{{ product.price }}</div>
+              <div class="price">₱{{ product.price|floatformat:2 }}</div>
               
           </div>
           {% endfor %}
