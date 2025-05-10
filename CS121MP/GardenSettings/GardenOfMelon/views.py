@@ -125,13 +125,22 @@ def productsPage(request):
         products = products.filter(subcategory__iexact=subcategory)  # Filter by subcategory
 
     # Apply price filter if minimum and maximum are specified
-    if min_price:
+    if min_price is not None and min_price != '':
         min_price = float(min_price)
         products = products.filter(price__gte=min_price)
+        filterMin_performed = True
+    else:
+        min_price = 0
+        filterMin_performed = False
 
-    if max_price:
+    if max_price is not None and max_price != '':
         max_price = float(max_price)
         products = products.filter(price__lte=max_price)
+        filterMax_performed = True
+    else:
+        max_price = 1000000000
+        filterMax_performed = False
+
 
     paginator = Paginator(products, 9)
     page_obj = paginator.get_page(page_number)
@@ -143,8 +152,8 @@ def productsPage(request):
         'search_query': query,
         'current_category': category,
         'current_subcategory': subcategory,
-        'filterMin_performed': min_price is not None and min_price != '',
-        'filterMax_performed': max_price is not None and max_price != '',
+        'filterMin_performed': filterMin_performed,
+        'filterMax_performed': filterMax_performed,
         'min_price': min_price,
         'max_price': max_price,
     }
