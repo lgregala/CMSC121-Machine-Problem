@@ -136,8 +136,8 @@
                 <button class="view-btn"><i class="fas fa-eye"></i></button>
               </div>
 
-              <h4 class="title">{{ product.name }}</h4>
-              <div class="price">₱{{ product.price }}</div>
+              <h4 class="title" style="margin-top: 15px; font-family: 'Winky Rough';">{{ product.name }}</h4>
+              <div class="price" style="font-family: 'Winky Rough'; font-size: 17px">₱{{ product.price }}</div>
               
           </div>
           {% endfor %}
@@ -196,13 +196,13 @@
             <div class="scientific-name" id="modalScientificName"></div>
             <div class="price" id="modalProductPrice"></div>
             <div class="categories">
-              <span id="modalProductCategory"></span> • 
+              <span id="modalProductCategory"></span>  
               <span id="modalProductSubcategory"></span>
             </div>
             <div class="description" id="modalProductDescription"></div>
             
             <div class="quantity-container">
-              <input type="number" id="modalQuantity" value="1" min="1" class="quantity-input" />
+              <input type="number" id="modalQuantity" value="1" min="1" class="quantity-input">
               <button data-product="" data-action='add' class="modal-add-to-cart update-cart">
                 Add To Cart
               </button>

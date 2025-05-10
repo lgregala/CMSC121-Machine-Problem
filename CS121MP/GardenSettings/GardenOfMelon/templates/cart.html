@@ -101,7 +101,13 @@
 					  </tr>
 					  <tr>
 						<td style="width: 40%; padding-left: 15px;">Deliver to:</td>
-						<td style="padding-left: 15px;">{{ user.first_name }} {{user.last_name}}</td>
+						<td style="padding-left: 15px;">
+						  {% if user.is_authenticated %}
+							{{ user.first_name }} {{ user.last_name }}
+						  {% else %}
+							Guest
+						  {% endif %}
+						</td>
 					  </tr>
 					</tbody>
 				</table>				  
@@ -132,51 +138,6 @@
 				<a class="summary-btn start-shop-btn" href="{% url 'products' %}">
 					<span style="display: flex; margin: auto;"> Start Shopping </span> </a>
 			</div>
-
-			<!-- <div class="right-ctnr">
-				<div class="summary-section">
-					<h3 class="summary-title" style="margin-bottom: 15px"> 	
-						<i class="bi bi-receipt" style="margin-right: 5px;"></i> Order Summary</h3>
-					<table class="table table-bordered">
-						<tbody>
-						  <tr>
-							<td style="width: 40%; padding-left: 15px;">Items:</td>
-							<td style="padding-left: 15px;" class="total-items">{{ order.get_cart_items }}</td>
-						  </tr>
-						  <tr>
-							<td style="width: 40%; padding-left: 15px;">Grand Total:</td>
-							<td style="padding-left: 15px;" class="grandtotal">₱ {{ order.get_cart_total | floatformat:2 }}</td>
-						  </tr>
-						  <tr>
-							<td style="width: 40%; padding-left: 15px;">Shipping Fee:</td>
-							<td style="padding-left: 15px;">Free of Charge!</td>
-						  </tr>
-						  <tr>
-							<td style="width: 40%; padding-left: 15px;">Deliver to:</td>
-							<td style="padding-left: 15px;">{{ user.first_name }} {{user.last_name}}</td>
-						  </tr>
-						</tbody>
-					</table>				  
-					<div class="summary-btn-container">
-						<a class="summary-btn" href="{% url 'products' %}">Continue Shopping</a>
-						<a id="checkout" class="summary-btn" href="{% url 'cart' %}">Proceed To Checkout</a>
-					</div>
-				</div>
-				<div class="summary-section">
-					<h3 class="summary-title"> <i class="bi bi-cash" style="margin-right: 10px;"></i> Payment Methods</h3>
-					<div class="payment-txt"> 
-						Garden of Melon accepts the following payment options:</div>
-					<div class="payment-img-container">
-						<img src="{% static 'Images/Gcash.png' %}" class="payment-logo gcash">
-						<img src="{% static 'Images/Maya.png' %}" class="payment-logo maya">
-						<img src="{% static 'Images/VISA.png' %}" class="payment-logo visa">
-						<img src="{% static 'Images/MasterCard.png' %}" class="payment-logo mastercard">
-						<img src="{% static 'Images/BDO.png' %}" class="payment-logo bdo">
-						<img src="{% static 'Images/BPI.png' %}" class="payment-logo bpi">
-					</div>
-					</div>
-				</div>
-			</div> -->
 		{% endif %}
 	</div>
 

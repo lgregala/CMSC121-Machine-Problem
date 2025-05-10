@@ -140,89 +140,86 @@ function emptyCartPage(mainDiv)
 
 function updateCookie(productId, action, currentElement)
 {
-    if (action == 'add')
-    {
-        if (!cart[productId]) cart[productId] = {'quantity': 1}
-        else cart[productId]['quantity'] += 1
-    }
-    else if (action == 'remove')
-    {
-        cart[productId]['quantity'] -= 1
-        if (cart[productId]['quantity'] <= 0) delete cart[productId]
-    }
-    else if (action == 'set-zero') 
-        delete cart[productId]
-
-    document.cookie = 'cart=' + JSON.stringify(cart) + ';path=/';
-
-    var url = '/guest_cookie_cart/'
-    fetch(url)
+    fetch(`/get_product_stock/${productId}/`)
     .then(response => response.json())
     .then(data => {
-
-        var mainDiv, quantityDiv
-        var currentItem = data.items.find(item => item.productId == productId);
-
-        if (currentItem && currentItem.quantity > currentItem.stock)
-            maximumStocksReached(data, currentItem)
-
-        if (!currentElement.classList.contains('add-to-cart-btn'))
+        if (action == 'add') 
         {
-            if (currentElement.classList.contains('trash-icon'))
-            {
-                mainDiv = currentElement.closest('.product-row')
-                quantityDiv = mainDiv.querySelector('.item-quantity')
-            }
+            if (!cart[productId]) cart[productId] = { 'quantity': 1 };
             else 
             {
-                var parentQtyDiv = currentElement.closest('.quantity-arrow-wrapper')
-                quantityDiv = parentQtyDiv.querySelector('.item-quantity')
-                mainDiv = parentQtyDiv.closest('.product-row')
+                if (cart[productId]['quantity'] < data.stock) cart[productId]['quantity'] += 1;
+                else 
+                {
+                    alert('Cannot add more. Stock limit reached.');
+                    return;
+                }
             }
+        } 
+        else if (action == 'remove') 
+        {
+            cart[productId]['quantity'] -= 1;
+            if (cart[productId]['quantity'] <= 0) delete cart[productId];
+        } 
+        else if (action == 'set-zero') 
+            delete cart[productId];
 
-            if (data.empty)
+        document.cookie = 'cart=' + JSON.stringify(cart) + ';path=/';
+
+        fetch(`/guest_cookie_cart/`)
+        .then(response => response.json())
+        .then(data => {
+            var mainDiv, quantityDiv
+            var currentItem = data.items.find(item => item.productId == productId);
+    
+            if (!currentElement.classList.contains('add-to-cart-btn'))
             {
-                emptyCartPage(mainDiv)
-                var cartItemsDiv = document.querySelector('.cart-items-total')
-                cartItemsDiv.textContent = 0
-                return
+                if (currentElement.classList.contains('trash-icon'))
+                {
+                    mainDiv = currentElement.closest('.product-row')
+                    quantityDiv = mainDiv.querySelector('.item-quantity')
+                }
+                else 
+                {
+                    var parentQtyDiv = currentElement.closest('.quantity-arrow-wrapper')
+                    quantityDiv = parentQtyDiv.querySelector('.item-quantity')
+                    mainDiv = parentQtyDiv.closest('.product-row')
+                }
+    
+                if (data.empty)
+                {
+                    emptyCartPage(mainDiv)
+                    var cartItemsDiv = document.querySelector('.cart-items-total')
+                    cartItemsDiv.textContent = 0
+                    return
+                }
+    
+                if (!currentItem && (action == 'remove' || action == 'set-zero'))
+                {
+                    mainDiv.classList.add('removed');
+                    setTimeout(function () {
+                        mainDiv.remove();
+                    }, 650);
+                }
+                else 
+                {
+                    quantityDiv.textContent = currentItem.quantity
+                    var subtotalDiv = mainDiv.querySelector('.subtotal')
+                    subtotalDiv.textContent = '₱' + parseFloat(currentItem.subtotal).toFixed(2)
+                }
+    
+                var totalItemsDiv = document.querySelector('.total-items')
+                totalItemsDiv.textContent = data['cartItems']
+    
+                var grandTotalDiv = document.querySelector('.grandtotal')
+                grandTotalDiv.textContent = '₱' + parseFloat(data.order['cart_total']).toFixed(2)
+    
+                if (data['cartItems'] == 0 || data.order['cart_total'] == 0)
+                    emptyCartPage(mainDiv)
             }
-
-            if (!currentItem && (action == 'remove' || action == 'set-zero'))
-            {
-                mainDiv.classList.add('removed');
-                setTimeout(function () {
-                    mainDiv.remove();
-                }, 650);
-            }
-            else 
-            {
-                quantityDiv.textContent = currentItem.quantity
-                var subtotalDiv = mainDiv.querySelector('.subtotal')
-                subtotalDiv.textContent = '₱' + parseFloat(currentItem.subtotal).toFixed(2)
-            }
-
-            var totalItemsDiv = document.querySelector('.total-items')
-            totalItemsDiv.textContent = data['cartItems']
-
-            var grandTotalDiv = document.querySelector('.grandtotal')
-            grandTotalDiv.textContent = '₱' + parseFloat(data.order['cart_total']).toFixed(2)
-
-            if (data['cartItems'] == 0 || data.order['cart_total'] == 0)
-                emptyCartPage(mainDiv)
-        }
-
-        var cartItemsDiv = document.querySelector('.cart-items-total')
-        cartItemsDiv.textContent = data['cartItems']
+    
+            var cartItemsDiv = document.querySelector('.cart-items-total')
+            cartItemsDiv.textContent = data['cartItems']
+        });
     });
-}
-
-function maximumStocksReached(data, currentItem)
-{
-    alert('Exceeded product stocks.')
-    // currentItem.quantity -= 1
-    // currentItem.subtotal = currentItem.price * currentItem.quantity
-    // data['cartItems'] -= 1
-    // data.order['get_cart_total'] -= currentItem.price
-    return
 }
