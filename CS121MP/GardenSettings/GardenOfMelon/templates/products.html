@@ -69,36 +69,36 @@
 
         <a href="{% url 'products' %}" type="button" class="btn btn-success mb-2 {% if not request.GET.category %}active{% endif %}">All Categories</a>
 
-      <!-- Ornamentals collapse -->
+      <!-- Ornamentals filter -->
       <a href="{% url 'products' %}?category=Ornamentals" class="btn btn-success mb-2">
         Ornamentals
       </a>
-      <a href="{% url 'products' %}?subcategory=Succulents" class="btn btn-outline-success filter-btn">Succulents</a>
-      <a href="{% url 'products' %}?subcategory=Flowering Beauties" class="btn btn-outline-success filter-btn">Flowering Beauties</a>
-      <a href="{% url 'products' %}?subcategory=Indoor Ornamentals" class="btn btn-outline-success filter-btn">Indoor Ornamentals</a>
-      <a href="{% url 'products' %}?subcategory=Outdoor Adventurers" class="btn btn-outline-success filter-btn">Outdoor Adventurers</a>
+      <a href="{% url 'products' %}?subcategory=Succulents" class="btn btn-outline-success filter-btn filter-subcat">Succulents</a>
+      <a href="{% url 'products' %}?subcategory=Flowering Beauties" class="btn btn-outline-success filter-btn filter-subcat">Flowering Beauties</a>
+      <a href="{% url 'products' %}?subcategory=Indoor Ornamentals" class="btn btn-outline-success filter-btn filter-subcat">Indoor Ornamentals</a>
+      <a href="{% url 'products' %}?subcategory=Outdoor Adventurers" class="btn btn-outline-success filter-btn filter-subcat">Outdoor Adventurers</a>
 
-        <!-- Botanical Collections collapse -->
+        <!-- Botanical Collections filter -->
         <a href="{% url 'products' %}?category=Botanical Collections" class="btn btn-success mb-2">
           Botanical Collections
         </a>
-        <a href="{% url 'products' %}?subcategory=Aglaonema" class="btn btn-outline-success filter-btn">Aglaonema</a>
-          <a href="{% url 'products' %}?subcategory=Alocasia" class="btn btn-outline-success filter-btn">Alocasia</a>
-          <a href="{% url 'products' %}?subcategory=Begonia" class="btn btn-outline-success filter-btn">Begonia</a>
-          <a href="{% url 'products' %}?subcategory=Dracaena" class="btn btn-outline-success filter-btn">Dracaena</a>
-          <a href="{% url 'products' %}?subcategory=Ficus" class="btn btn-outline-success filter-btn">Ficus</a>
-          <a href="{% url 'products' %}?subcategory=Monstera" class="btn btn-outline-success filter-btn">Monstera</a>
-          <a href="{% url 'products' %}?subcategory=Philodendron" class="btn btn-outline-success filter-btn">Philodendron</a>
-          <a href="{% url 'products' %}?subcategory=Pothos" class="btn btn-outline-success filter-btn">Pothos</a>
-          <a href="{% url 'products' %}?subcategory=Sansevieria" class="btn btn-outline-success filter-btn">Sansevieria</a>
+        <a href="{% url 'products' %}?subcategory=Aglaonema" class="btn btn-outline-success filter-btn filter-subcat">Aglaonema</a>
+          <a href="{% url 'products' %}?subcategory=Alocasia" class="btn btn-outline-success filter-btn filter-subcat">Alocasia</a>
+          <a href="{% url 'products' %}?subcategory=Begonia" class="btn btn-outline-success filter-btn filter-subcat">Begonia</a>
+          <a href="{% url 'products' %}?subcategory=Dracaena" class="btn btn-outline-success filter-btn filter-subcat">Dracaena</a>
+          <a href="{% url 'products' %}?subcategory=Ficus" class="btn btn-outline-success filter-btn filter-subcat">Ficus</a>
+          <a href="{% url 'products' %}?subcategory=Monstera" class="btn btn-outline-success filter-btn filter-subcat">Monstera</a>
+          <a href="{% url 'products' %}?subcategory=Philodendron" class="btn btn-outline-success filter-btn filter-subcat">Philodendron</a>
+          <a href="{% url 'products' %}?subcategory=Pothos" class="btn btn-outline-success filter-btn filter-subcat">Pothos</a>
+          <a href="{% url 'products' %}?subcategory=Sansevieria" class="btn btn-outline-success filter-btn filter-subcat">Sansevieria</a>
 
-        <!-- Functional Plants collapse -->
+        <!-- Functional Plants filter -->
         <a href="{% url 'products' %}?category=Functional Plants" class="btn btn-success mb-2">
           Functional Plants
         </a>
-        <a href="{% url 'products' %}?subcategory=Fruit-bearing" class="btn btn-outline-success filter-btn">Fruit-bearing</a>
-          <a href="{% url 'products' %}?subcategory=Herbs and Edibles" class="btn btn-outline-success filter-btn">Herbs and Edibles</a>
-          <a href="{% url 'products' %}?subcategory=Bloom and Doom" class="btn btn-outline-success filter-btn">Bloom and Doom</a>
+        <a href="{% url 'products' %}?subcategory=Fruit-bearing" class="btn btn-outline-success filter-btn filter-subcat">Fruit-bearing</a>
+          <a href="{% url 'products' %}?subcategory=Herbs and Edibles" class="btn btn-outline-success filter-btn filter-subcat">Herbs and Edibles</a>
+          <a href="{% url 'products' %}?subcategory=Bloom and Doom" class="btn btn-outline-success filter-btn filter-subcat">Bloom and Doom</a>
       </div>
 
     <div class="product-container">
@@ -222,7 +222,24 @@
               <span id="modalProductSubcategory"></span>
             </div>
             <div class="description" id="modalProductDescription"></div>
-            
+
+            <div class="plant-care-details">
+              <div class="care-item difficulty">
+                <i class="care-icon fas fa-seedling"></i>
+                <span class="care-text" id="modalProductDifficulty"></span>
+              </div>
+              
+              <div class="care-item watering">
+                <i class="care-icon fas fa-tint"></i>
+                <span class="care-text" id="modalProductWateringSchedule"></span>
+              </div>
+              
+              <div class="care-item light">
+                <i class="care-icon fas fa-sun"></i>
+                <span class="care-text" id="modalProductLightNeeded"></span>
+              </div>
+            </div>
+
             <div class="quantity-container">
               <input type="number" id="modalQuantity" value="1" min="1" class="quantity-input">
               <button data-product="" data-action='add' class="modal-add-to-cart update-cart">

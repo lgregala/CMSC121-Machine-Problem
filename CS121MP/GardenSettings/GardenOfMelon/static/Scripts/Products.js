@@ -18,6 +18,9 @@ document.querySelector('.list').addEventListener('click', function(e) {
       document.getElementById('modalProductCategory').textContent = data.category;
       document.getElementById('modalProductSubcategory').textContent = data.subcategory;
       document.getElementById('modalProductDescription').textContent = data.description;
+      document.getElementById('modalProductDifficulty').textContent = data.difficulty;
+      document.getElementById('modalProductWateringSchedule').textContent = data.watering_schedule;
+      document.getElementById('modalProductLightNeeded').textContent = data.light_needed;
       document.querySelector('.modal-add-to-cart').setAttribute('data-product', productId);
       modal.style.display = 'block';
     })
