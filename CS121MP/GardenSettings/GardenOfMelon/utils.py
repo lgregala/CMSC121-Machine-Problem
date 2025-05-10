@@ -13,9 +13,9 @@ def cookieCart(request):
     cartItems = order['get_cart_items']
 
     for i in cart:
-        cartItems += cart[i]['quantity']
-
         product = Product.objects.get(id=i)
+
+        cartItems += cart[i]['quantity']
         subtotal = (product.price * cart[i]['quantity'])
 
         order['get_cart_total'] += subtotal
@@ -24,8 +24,12 @@ def cookieCart(request):
         item = {'product': product, 'quantity': cart[i]['quantity'], 'get_total': subtotal}
         items.append(item)
 
-    # print('Cookie cart:', items)
+    print('Cookie cart:', items)
     return {'cartItems': cartItems, 'order': order, 'items': items}
+
+def get_product_stock(request, product_id):
+    product = Product.objects.get(id=product_id)
+    return JsonResponse({'stock': product.quantity})
 
 def getCartData(request):
     if request.user.is_authenticated:
@@ -68,10 +72,7 @@ def guestOrder(request, data):
     return customer, order
 
 def getGuestCookieCart(request):
-    data = serialize(cookieCart(request))
-
-    # print('Full data:', data)
-    if data is None: data = {'empty': 'Unavailable data.'}
+    data = serialize(cookieCart(request))   
     return JsonResponse(data)
 
 def serialize(data):
@@ -79,18 +80,9 @@ def serialize(data):
         'productId': item['product'].id,
         'stock': item['product'].quantity,
         'quantity': item['quantity'],
-        'subtotal': item['get_total'],
+        'subtotal': item['product'].price * item['quantity'],
         'price': item['product'].price,
     } for item in data['items']]
-
-    #     if current['quantity'] > current['stock']:
-    #     current = {
-    #         'quantity': item['quantity'] - 1,
-    #         'subtotal': item['get_total'] - item['price'],
-    #         'overflow': True,
-    #     }
-
-    # print('Items:', items)
     
     order = {'cart_total': data['order']['get_cart_total'], 'cart_items': data['order']['get_cart_items'],}
     serialized_dictionary = {'items': items, 'order': order, 'cartItems': data['cartItems']}
