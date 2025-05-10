@@ -225,4 +225,10 @@ def processOrder(request):
     order.complete = True
     order.save()
 
+    order_items = order.orderitem_set.all()
+    for item in order_items:
+        product = item.product
+        product.quantity -= item.quantity
+        product.save()
+
     return JsonResponse('Items have been checked out!', safe=False)

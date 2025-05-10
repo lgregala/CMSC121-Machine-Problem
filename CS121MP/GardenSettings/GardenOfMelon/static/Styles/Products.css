@@ -42,8 +42,6 @@ button {
     font-weight: bold;
 }
 
-
-
 .product-grid {
     display: grid;
     grid-template-columns: 370px 1fr;

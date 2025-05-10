@@ -26,20 +26,11 @@ body{
 .box-element{
     width: 70%;
     background-color: #fffcfc;
-    box-shadow: hsl(0, 0%, 77%) 0 4px 12px; 
+    box-shadow: hsl(0, 0%, 75%) 0 5px 15px; 
 	border-radius: 15px;
     padding: 20px;
     margin-bottom: 20px;
     height: fit-content;
-}
-
-.box-element::-webkit-scrollbar {
-    width: 7.5px;         
-}
-  
-.box-element::-webkit-scrollbar-thumb {
-    background-color: #e1eebc;
-    border-radius: 10px;
 }
 
 .box-element-empty{
