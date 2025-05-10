@@ -1,6 +1,7 @@
 body {
     background-image: url('../Images/contacts-bg.webp');
     background-size: cover;
+    filter: brightness(85%);  
 }
 
 #contact-body {

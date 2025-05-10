@@ -162,7 +162,10 @@ def product_detail(request, product_id):
         'image_url': product.image.url,
         'scientific_name': product.scientific_name,
         'category': product.category,
-        'subcategory': product.subcategory
+        'subcategory': product.subcategory,
+        'difficulty': product.difficulty,
+        'watering_schedule' : product.watering_schedule,
+        'light_needed': product.light_needed
     }
     return JsonResponse(data)
 
