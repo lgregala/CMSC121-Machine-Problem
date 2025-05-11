@@ -326,6 +326,12 @@ button {
     color: white !important; 
 }
 
+#minInput, #maxInput {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .search-results {
     color: #328e62;
     text-align: center;
