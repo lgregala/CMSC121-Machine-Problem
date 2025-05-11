@@ -57,7 +57,7 @@
         <h2>Filter by Price</h2>
  
          <form>
-           <input id="minInput" name="minprice" class="form-control filter-btn" type="text" inputmode="numeric"
+           <input id="minInput" name="minprice" class="form-control input-filter filter-btn" type="text" inputmode="numeric"
            placeholder="Minimum price" value="">
            <input id="maxInput" name="maxprice" class="form-control filter-btn" type="text" inputmode="numeric"
            placeholder="Maximum price" value="">
@@ -67,38 +67,41 @@
 
         <h2>Filter by Category</h2>
 
-        <a href="{% url 'products' %}" type="button" class="btn btn-success mb-2 {% if not request.GET.category %}active{% endif %}">All Categories</a>
+        <!-- All Categories button - active when no category/subcategory is selected -->
+      <a href="{% url 'products' %}" class="btn mb-2 {% if not request.GET.category and not request.GET.subcategory %}btn-success active{% else %}btn-outline-success{% endif %}">
+        All Categories
+      </a>
 
-      <!-- Ornamentals filter -->
-      <a href="{% url 'products' %}?category=Ornamentals" class="btn btn-success mb-2">
+      <!-- Ornamentals button - active when this specific category is selected -->
+      <a href="{% url 'products' %}?category=Ornamentals" class="btn mb-2 {% if request.GET.category == 'Ornamentals' %}btn-success active{% else %}btn-outline-success{% endif %}">
         Ornamentals
       </a>
-      <a href="{% url 'products' %}?subcategory=Succulents" class="btn btn-outline-success filter-btn filter-subcat">Succulents</a>
-      <a href="{% url 'products' %}?subcategory=Flowering Beauties" class="btn btn-outline-success filter-btn filter-subcat">Flowering Beauties</a>
-      <a href="{% url 'products' %}?subcategory=Indoor Ornamentals" class="btn btn-outline-success filter-btn filter-subcat">Indoor Ornamentals</a>
-      <a href="{% url 'products' %}?subcategory=Outdoor Adventurers" class="btn btn-outline-success filter-btn filter-subcat">Outdoor Adventurers</a>
+      <a href="{% url 'products' %}?subcategory=Succulents" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Succulents' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Succulents</a>
+      <a href="{% url 'products' %}?subcategory=Flowering Beauties" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Flowering Beauties' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Flowering Beauties</a>
+      <a href="{% url 'products' %}?subcategory=Indoor Ornamentals" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Indoor Ornamentals' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Indoor Ornamentals</a>
+      <a href="{% url 'products' %}?subcategory=Outdoor Adventurers" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Outdoor Adventurers' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Outdoor Adventurers</a>
 
         <!-- Botanical Collections filter -->
-        <a href="{% url 'products' %}?category=Botanical Collections" class="btn btn-success mb-2">
+        <a href="{% url 'products' %}?category=Botanical Collections"  class="btn mb-2 {% if request.GET.category == 'Botanical Collections' %}btn-success active{% else %}btn-outline-success{% endif %}">
           Botanical Collections
         </a>
-        <a href="{% url 'products' %}?subcategory=Aglaonema" class="btn btn-outline-success filter-btn filter-subcat">Aglaonema</a>
-          <a href="{% url 'products' %}?subcategory=Alocasia" class="btn btn-outline-success filter-btn filter-subcat">Alocasia</a>
-          <a href="{% url 'products' %}?subcategory=Begonia" class="btn btn-outline-success filter-btn filter-subcat">Begonia</a>
-          <a href="{% url 'products' %}?subcategory=Dracaena" class="btn btn-outline-success filter-btn filter-subcat">Dracaena</a>
-          <a href="{% url 'products' %}?subcategory=Ficus" class="btn btn-outline-success filter-btn filter-subcat">Ficus</a>
-          <a href="{% url 'products' %}?subcategory=Monstera" class="btn btn-outline-success filter-btn filter-subcat">Monstera</a>
-          <a href="{% url 'products' %}?subcategory=Philodendron" class="btn btn-outline-success filter-btn filter-subcat">Philodendron</a>
-          <a href="{% url 'products' %}?subcategory=Pothos" class="btn btn-outline-success filter-btn filter-subcat">Pothos</a>
-          <a href="{% url 'products' %}?subcategory=Sansevieria" class="btn btn-outline-success filter-btn filter-subcat">Sansevieria</a>
+        <a href="{% url 'products' %}?subcategory=Aglaonema" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Aglaonema' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Aglaonema</a>
+          <a href="{% url 'products' %}?subcategory=Alocasia" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Alocasia' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Alocasia</a>
+          <a href="{% url 'products' %}?subcategory=Begonia" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Begonia' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Begonia</a>
+          <a href="{% url 'products' %}?subcategory=Dracaena" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Dracaena' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Dracaena</a>
+          <a href="{% url 'products' %}?subcategory=Ficus" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Ficus' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Ficus</a>
+          <a href="{% url 'products' %}?subcategory=Monstera" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Monstera' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Monstera</a>
+          <a href="{% url 'products' %}?subcategory=Philodendron" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Philodendron' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Philodendron</a>
+          <a href="{% url 'products' %}?subcategory=Pothos" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Pothos' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Pothos</a>
+          <a href="{% url 'products' %}?subcategory=Sansevieria" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Sansevieria' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Sansevieria</a>
 
         <!-- Functional Plants filter -->
-        <a href="{% url 'products' %}?category=Functional Plants" class="btn btn-success mb-2">
+        <a href="{% url 'products' %}?category=Functional Plants" class="btn mb-2 {% if request.GET.category == 'Functional Plants' %}btn-success active{% else %}btn-outline-success{% endif %}">
           Functional Plants
         </a>
-        <a href="{% url 'products' %}?subcategory=Fruit-bearing" class="btn btn-outline-success filter-btn filter-subcat">Fruit-bearing</a>
-          <a href="{% url 'products' %}?subcategory=Herbs and Edibles" class="btn btn-outline-success filter-btn filter-subcat">Herbs and Edibles</a>
-          <a href="{% url 'products' %}?subcategory=Bloom and Doom" class="btn btn-outline-success filter-btn filter-subcat">Bloom and Doom</a>
+        <a href="{% url 'products' %}?subcategory=Fruit-bearing" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Fruit Bearing' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Fruit-bearing</a>
+          <a href="{% url 'products' %}?subcategory=Herbs and Edibles" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Herbs and Edibles' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Herbs and Edibles</a>
+          <a href="{% url 'products' %}?subcategory=Bloom and Doom" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Bloom and Doom' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Bloom and Doom</a>
       </div>
 
     <div class="product-container">
@@ -150,8 +153,17 @@
   
         <div class="list">
           {% for product in products %}
-          <div class="item" data-main-category="{{ product.category }}" data-category="{{ product.subcategory }}">
-              <img src="{{ product.image.url }}" alt="{{ product.name }}">
+          <div class="item {% if product.quantity == 0 %}sold-out{% endif %}" data-main-category="{{ product.category }}" data-category="{{ product.subcategory }}">
+              <div class="product-image">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">   
+              </div>
+              
+                {% if product.quantity == 0 %}
+                  <div class="sold-out-overlay">
+                    <img src="{% static 'Images/sold-out.png' %}" alt="Sold Out" class="sold-out-badge">
+                  </div>
+                {% endif %}
+
               <div class="item-buttons">
                 <button data-product={{product.id}} data-action='add' class="add-to-cart-btn 
                 update-cart" data-id="{{ forloop.counter0 }}"><i class="fas fa-shopping-cart"></i></button>
@@ -163,7 +175,7 @@
               
           </div>
           {% endfor %}
-      </div>
+        </div>
 
         {# Pagination controls at the bottom #}
         <!-- NEW CODE: Preserves the search result and category & price filter when clicking next/previous page -->
