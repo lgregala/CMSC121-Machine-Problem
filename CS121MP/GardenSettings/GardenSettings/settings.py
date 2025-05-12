@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'GardenOfMelon.apps.GardenofmelonConfig', 
+    'GardenOfMelon.apps.GardenofMelonConfig', 
     # "GardenOfMelon",
     'phonenumber_field',
 ]
@@ -114,7 +114,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
@@ -124,7 +123,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'GardenOfMelon', 'static')]
 MEDIA_URL = '/images/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'GardenOfMelon/static/Product-Images')
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

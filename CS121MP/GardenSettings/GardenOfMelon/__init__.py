@@ -1,1 +1,1 @@
-default_app_config = 'GardenOfMelon.apps.GardenofmelonConfig'
+default_app_config = 'GardenOfMelon.apps.GardenofMelonConfig'

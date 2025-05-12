@@ -24,7 +24,7 @@ def cookieCart(request):
         item = {'product': product, 'quantity': cart[i]['quantity'], 'get_total': subtotal}
         items.append(item)
 
-    print('Cookie cart:', items)
+    # print('Cookie cart:', items)
     return {'cartItems': cartItems, 'order': order, 'items': items}
 
 def get_product_stock(request, product_id):
@@ -33,7 +33,7 @@ def get_product_stock(request, product_id):
 
 def getCartData(request):
     if request.user.is_authenticated:
-        customer = request.user
+        customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
