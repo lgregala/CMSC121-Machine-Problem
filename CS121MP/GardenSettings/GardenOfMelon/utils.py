@@ -24,7 +24,7 @@ def cookieCart(request):
         item = {'product': product, 'quantity': cart[i]['quantity'], 'get_total': subtotal}
         items.append(item)
 
-    print('Cookie cart:', items)
+    # print('Cookie cart:', items)
     return {'cartItems': cartItems, 'order': order, 'items': items}
 
 def get_product_stock(request, product_id):

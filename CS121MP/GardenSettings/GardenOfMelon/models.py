@@ -81,7 +81,6 @@ class Product(models.Model):
         return {'price': self.price, 'quantity': self.quantity}
 
 class Order(models.Model):
-    # Should be set to Customer, but has major issues when changed
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
