@@ -109,7 +109,7 @@
          {% if search_performed %}
            <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
              <h4>🔍︎ No products found</h4>
-             <p>No products match your search for "{{ search_query }}"</p>
+             <p style="color: black;">No products match your search for "{{ search_query }}"</p>
              <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
            </div>
          {% endif %}
@@ -118,19 +118,19 @@
            {% if filterMin_performed and filterMax_performed %}
              <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
                <h4>🔍︎ No products found</h4>
-               <p>No products match your filter for "₱{{ min_price|floatformat:2 }} - ₱{{ max_price|floatformat:2 }}"</p>
+               <p style="color: black;"> No products match your filter for "₱{{ min_price|floatformat:2 }} - ₱{{ max_price|floatformat:2 }}"</p>
                <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
              </div>
            {% elif filterMin_performed %}
              <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
                <h4>🔍︎ No products found</h4>
-               <p>No products match your filter for minimum price of "₱{{ min_price|floatformat:2 }}"</p>
+               <p style="color: black;" >No products match your filter for minimum price of "₱{{ min_price|floatformat:2 }}"</p>
                <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
              </div>
            {% elif filterMax_performed %}
              <div id="no-results-msg" class="alert alert-info text-center my-4" style="width: 100%;">
                <h4>🔍︎ No products found</h4>
-               <p>No products match your filter for maximum price of "₱{{ max_price|floatformat:2 }}"</p>
+               <p style="color: black;" >No products match your filter for maximum price of "₱{{ max_price|floatformat:2 }}"</p>
                <a href="{% url 'products' %}" id="view-all-products-btn" class="btn btn-outline-success">View all products</a>
              </div>
            {% endif %}
@@ -138,16 +138,16 @@
 
       {% else %}
         {% if search_performed %} 
-        <br> <p class="search-results">🔍︎ Search results for "<strong>{{ search_query }}</strong>"</p>
+            <div class="search-results-ctnr"> <p class="search-results-msg">🔍︎ Search results for "<strong>{{ search_query }}</strong>"</p> </div>
         {% endif %}
         
         {% if filterMin_performed or filterMax_performed %}
            {% if filterMin_performed and filterMax_performed %}
-             <br> <p class="search-results">🔍︎ Filter results for "<strong>₱{{ min_price|floatformat:2 }} - ₱{{ max_price|floatformat:2 }}</strong>"</p>
+             <div class="search-results-ctnr"> <p class="search-results-msg">🔍︎ Filter results for "<strong>₱{{ min_price|floatformat:2 }} - ₱{{ max_price|floatformat:2 }}</strong>"</p> </div>
            {% elif filterMin_performed %}
-             <br> <p class="search-results">🔍︎ Filter results for minimum price of "<strong>₱{{ min_price|floatformat:2 }}</strong>"</p>
+             <div class="search-results-ctnr"> <p class="search-results-msg">🔍︎ Filter results for minimum price of "<strong>₱{{ min_price|floatformat:2 }}</strong>"</p> </div>
            {% elif filterMax_performed %}
-             <br> <p class="search-results">🔍︎ Filter results for maximum price of "<strong>₱{{ max_price|floatformat:2 }}</strong>"</p>
+             <div class="search-results-ctnr"> <p class="search-results-msg">🔍︎ Filter results for maximum price of "<strong>₱{{ max_price|floatformat:2 }}</strong>"</p> </div>
            {% endif %}
         {% endif %}
   
