@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
-class GardenofmelonConfig(AppConfig):
+class GardenofMelonConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'GardenOfMelon'
 

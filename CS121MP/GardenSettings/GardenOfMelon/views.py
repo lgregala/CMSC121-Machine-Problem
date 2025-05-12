@@ -2,14 +2,11 @@ from django.shortcuts import render, redirect
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .forms import RegisterForm, ContactForm
-from django.http import HttpResponse
 from django.http import JsonResponse
 from .models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.messages import get_messages
-from django.core import serializers
-from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
@@ -187,7 +184,7 @@ def updateItem(request):
     productId = data['productId']
     action = data['action']
 
-    customer = request.user
+    customer = request.user.customer
     product = Product.objects.get(id=productId)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
     orderItem, orderItemCreated = OrderItem.objects.get_or_create(order=order, product=product)
@@ -226,7 +223,7 @@ def processOrder(request):
     # The rest of this code will handle the logic of carrying the guest user cart orders to their logged in accounts
 
     if request.user.is_authenticated:
-        customer = request.user
+        customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
     # else:
