@@ -1,9 +1,24 @@
 const checkoutButton = document.getElementById('checkout');
 if (checkoutButton) {
     checkoutButton.addEventListener('click', function(e) {
+        if (user != 'AnonymousUser') 
+        {
+            document.querySelector('.popup-overlay').classList.add('active');
+            document.querySelector('.popup').classList.add('active');
+        }
         submitCheckout();
     });
 }
+
+document.getElementById('home').addEventListener("click", function(){
+    document.querySelector('.popup-overlay').classList.remove('active');
+    document.querySelector('.popup').classList.remove('active');
+})
+
+document.getElementById('shop-more').addEventListener("click", function(){
+     document.querySelector('.popup-overlay').classList.remove('active');
+    document.querySelector('.popup').classList.remove('active');
+})
 
 async function submitCheckout() {
     try {
@@ -27,7 +42,6 @@ async function submitCheckout() {
         {
             cart = {};
             document.cookie = 'cart=' + JSON.stringify(cart) + '; path=/';
-            window.location.href = 'home';
         }
     } 
     catch (error) {
