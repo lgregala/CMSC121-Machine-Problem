@@ -4,6 +4,7 @@
     {% include 'head.html' %}
     <title>Shop</title>
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Products.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="{% static 'Scripts/Products.js' %}" defer></script>
     <script type="text/javascript"> 
       var user = '{{request.user}}'
@@ -165,9 +166,15 @@
                 {% endif %}
 
               <div class="item-buttons">
-                <button data-product={{product.id}} data-action='add' class="add-to-cart-btn 
-                update-cart" data-id="{{ forloop.counter0 }}"><i class="fas fa-shopping-cart"></i></button>
                 <button class="view-btn"><i class="fas fa-eye"></i></button>
+                <button data-product={{product.id}} data-action='add' class="add-to-cart-btn 
+                update-cart cart-button" data-id="{{ forloop.counter0 }}">
+                  <i class="fas fa-bag-shopping"></i>
+                  <i class="fas fa-shopping-cart"></i>
+                  <span class="added"> Added </span>
+                  <i class="bi bi-flower1"> </i>
+                  <span class="exceeded" style="font-size: 13px; display: none"> Max Stocks Reached </span>
+                </button>
               </div>
 
               <h4 class="title" style="margin-top: 15px; font-family: 'Winky Rough';">{{ product.name }}</h4>

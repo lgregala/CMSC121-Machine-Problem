@@ -51,16 +51,19 @@ function updateUserOrder(productId, action, currentElement)
             mainDiv = parentQtyDiv.closest('.product-row')
         }
 
-        quantityDiv.textContent = data.quantity
-        var subtotalDiv = mainDiv.querySelector('.subtotal')
-        subtotalDiv.textContent = '₱' + parseFloat(data.subtotal).toFixed(2)
-
+        
         if (data.quantity <= 0)
         {
             mainDiv.classList.add('removed');
             setTimeout(function () {
                 mainDiv.remove();
             }, 650);
+        }
+        else
+        {
+            quantityDiv.textContent = data.quantity
+            var subtotalDiv = mainDiv.querySelector('.subtotal')
+            subtotalDiv.textContent = '₱' + parseFloat(data.subtotal).toFixed(2)
         }
 
         var totalItemsDiv = document.querySelector('.total-items')
@@ -71,6 +74,7 @@ function updateUserOrder(productId, action, currentElement)
 
         var cartItemsDiv = document.querySelector('.cart-items-total')
         cartItemsDiv.textContent = data.itemtotal
+    
 
         if (data.itemtotal == 0 || data.grandtotal == 0)
         {
@@ -112,8 +116,6 @@ function addToCartOrder(productId, action)
             alert(data.error);
             return;
         }
-
-        alert('Item added to cart successfully!')
         var cartItemsDiv = document.querySelector('.cart-items-total')
         cartItemsDiv.textContent = data.itemtotal
     })
@@ -157,7 +159,7 @@ function updateCookie(productId, action, currentElement)
             }
         } 
         else if (action == 'remove') 
-        {
+        { 
             cart[productId]['quantity'] -= 1;
             if (cart[productId]['quantity'] <= 0) delete cart[productId];
         } 
@@ -223,3 +225,25 @@ function updateCookie(productId, action, currentElement)
         });
     });
 }
+
+// function disableProductCartBtn(productId) 
+// {
+//     const button = document.querySelector(`button[data-product="${productId}"]`);
+    
+//     if (button) {
+//       button.disabled = true; 
+//       button.querySelector('.exceeded').style.display = 'inline';
+//       button.querySelector('.added').style.display = 'none';
+//     }
+// }
+
+// function enableProductCartBtn(productId)
+// {
+//     const button = document.querySelector(`button[data-product="${productId}"]`);
+    
+//     if (button) {
+//       button.disabled = false; 
+//       button.querySelector('.exceeded').style.display = 'none';
+//       button.querySelector('.added').style.display = 'inline';
+//     }
+// }

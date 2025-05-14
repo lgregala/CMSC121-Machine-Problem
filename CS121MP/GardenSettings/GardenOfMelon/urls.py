@@ -14,7 +14,6 @@ urlpatterns = [
     path('update_item/', views.updateItem, name='update_item'),
     path('guest_cookie_cart/', views.getGuestCookieCart, name='guest-cookie-cart'),
     path('process_order/', views.processOrder, name='process_order'),
-    path('cart/home/', views.homePage, name='cart-home'),
     path('get_product_stock/<int:product_id>/', views.get_product_stock, name='get_product_stock'),
     path('product_detail/<int:product_id>/', views.product_detail, name='product_detail'),
 ]

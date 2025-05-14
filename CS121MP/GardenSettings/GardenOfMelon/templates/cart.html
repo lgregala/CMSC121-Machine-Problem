@@ -95,9 +95,8 @@
 						<td style="width: 40%; padding-left: 15px;">Grand Total:</td>
 						<td style="padding-left: 15px;" class="grandtotal">₱{{ order.get_cart_total | floatformat:2 }}</td>
 					  </tr>
-					  <tr>
 						<td style="width: 40%; padding-left: 15px;">Shipping Fee:</td>
-						<td style="padding-left: 15px;">Free of Charge!</td>
+						<td style="padding-left: 15px;"> Free of Charge! </td>
 					  </tr>
 					  <tr>
 						<td style="width: 40%; padding-left: 15px;">Deliver to:</td>
@@ -113,7 +112,7 @@
 				</table>				  
 				<div class="summary-btn-container">
 					<a class="summary-btn" href="{% url 'products' %}">Continue Shopping</a>
-					<a id="checkout" class="summary-btn" href="{% url 'cart' %}">Proceed To Checkout</a>
+					<a id="checkout" class="summary-btn">Checkout</a>
 				</div>
 			</div>
 			<div class="summary-section">
@@ -139,6 +138,25 @@
 					<span style="display: flex; margin: auto;"> Start Shopping </span> </a>
 			</div>
 		{% endif %}
+	</div>
+
+	<div class="popup-overlay"></div>
+	<div class="popup center">
+		<div class="icon">
+			<i class="fa fa-check"></i>
+		</div>
+		<div class="title">
+			Order has been successfully placed!
+		</div>
+		<div class="description">
+			Thank you for your purchase! You will receive a confirmation email shortly with all the details, including your order 
+			summary and tracking information once your items are shipped. If you have any questions or in need of assistance, feel free 
+			to reach out to our customer support team. We look forward to serving you again soon!
+		</div>
+		<div class="optionBtns">
+			<button class="modalBtns" id="home"  onclick="window.location.href='/home'"> Return </button>
+			<button class="modalBtns" id="shop-more" onclick="window.location.href='/products'"> Shop More </button>
+		</div>
 	</div>
 
 	{% include 'footer.html' %}
