@@ -3,8 +3,15 @@ if (checkoutButton) {
     checkoutButton.addEventListener('click', function(e) {
         if (user != 'AnonymousUser') 
         {
-            document.querySelector('.popup-overlay').classList.add('active');
-            document.querySelector('.popup').classList.add('active');
+            let button = this;
+            button.classList.add('clicked');
+
+            setTimeout(() => {
+                button.classList.remove('clicked');
+
+                document.querySelector('.popup-overlay').classList.add('active');
+                document.querySelector('.popup').classList.add('active');
+            }, 4200);
         }
         submitCheckout();
     });

@@ -247,3 +247,13 @@ function updateCookie(productId, action, currentElement)
 //       button.querySelector('.added').style.display = 'inline';
 //     }
 // }
+
+// Get the date today
+const now = new Date();
+const options = { year: 'numeric', month: 'long', day: 'numeric' };
+document.getElementById("order-date").textContent = now.toLocaleDateString('en-US', options);
+
+// Get the date three days from order date
+const eta = new Date(now);
+eta.setDate(now.getDate() + 3);
+document.getElementById("eta-date").textContent = eta.toLocaleDateString('en-US', options);

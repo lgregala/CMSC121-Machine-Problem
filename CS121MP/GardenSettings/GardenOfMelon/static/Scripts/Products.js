@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Cart button animation
 const cartBtns = document.querySelectorAll('.cart-button');
 
 cartBtns.forEach(button => {
