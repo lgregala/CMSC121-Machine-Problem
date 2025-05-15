@@ -316,6 +316,8 @@ body{
     align-items: center;
     justify-content: center;
     gap: 3.5rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
 }
 
 .popup .final-order-container .order-detail {
@@ -328,8 +330,6 @@ body{
     margin: auto;
     width: 95%;
     font-size: 16px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid black;
 }
 
 .optionBtns {
@@ -427,8 +427,8 @@ body{
 }
 
 .truck-icon {
-    width: 45px;
-    height: 45px;
+    width: 47px;
+    height: 47px;
     position: absolute;
     z-index: 5;
     top: 50%;
@@ -437,8 +437,8 @@ body{
 }
 
 .plant-icon {
-    width: 25px;
-    height: 25px;
+    width: 23px;
+    height: 23px;
     position: absolute;
     z-index: 3;
     top: -30%;
@@ -482,7 +482,7 @@ body{
         left: 50%;
     }
     100% {
-        left: 110%;
+        left: 115%;
     }
 }
 

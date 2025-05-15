@@ -4,6 +4,7 @@ for (var i = 0; i < updateBtns.length; i++)
 {
     updateBtns[i].addEventListener('click', function () 
     {
+        const button = updateBtns[i]
         var productId = this.dataset.product
         var action = this.dataset.action
         var currentElement = this
@@ -12,7 +13,7 @@ for (var i = 0; i < updateBtns.length; i++)
             updateCookie(productId, action, currentElement)
         else
         {
-            if (currentElement.classList.contains('add-to-cart-btn')) addToCartOrder(productId, action)
+            if (currentElement.classList.contains('add-to-cart-btn')) addToCartOrder(productId, action, button)
             else updateUserOrder(productId, action, currentElement)
         }
     })
@@ -97,7 +98,7 @@ function updateUserOrder(productId, action, currentElement)
     })
 }
 
-function addToCartOrder(productId, action)
+function addToCartOrder(productId, action, button)
 {
     var url = '/update_item/'
 
@@ -116,6 +117,7 @@ function addToCartOrder(productId, action)
             alert(data.error);
             return;
         }
+        
         var cartItemsDiv = document.querySelector('.cart-items-total')
         cartItemsDiv.textContent = data.itemtotal
     })
@@ -247,13 +249,3 @@ function updateCookie(productId, action, currentElement)
 //       button.querySelector('.added').style.display = 'inline';
 //     }
 // }
-
-// Get the date today
-const now = new Date();
-const options = { year: 'numeric', month: 'long', day: 'numeric' };
-document.getElementById("order-date").textContent = now.toLocaleDateString('en-US', options);
-
-// Get the date three days from order date
-const eta = new Date(now);
-eta.setDate(now.getDate() + 3);
-document.getElementById("eta-date").textContent = eta.toLocaleDateString('en-US', options);
