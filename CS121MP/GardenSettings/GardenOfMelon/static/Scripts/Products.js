@@ -39,19 +39,3 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
 });
-
-// Cart button animation
-const cartBtns = document.querySelectorAll('.cart-button');
-
-cartBtns.forEach(button => {
-  button.addEventListener('click', addToCartClicked);
-})
-
-function addToCartClicked() {
-  let button = this;
-  button.classList.add('clicked');
-
-  setTimeout(() => {
-    button.classList.remove('clicked');
-  }, 2500);
-}

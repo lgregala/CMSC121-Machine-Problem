@@ -185,6 +185,11 @@
         </div>
       </section>
 
+      <!-- Implement modal from login to home redirection after authentication -->
+      {% if user.is_authenticated %}
+        <div id="authenticated-user" class="logged-in-modal"></div>
+      {% endif %}
+      
       {% include 'footer.html' %}
 </body>
 </html>

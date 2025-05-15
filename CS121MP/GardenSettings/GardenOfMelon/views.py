@@ -63,8 +63,6 @@ def loginPage(request):
 
             guestCart = serialize(cookieCart(request))
             if guestCart and guestCart.get('cartItems', 0) > 0:
-                print('Cart to Carryover:', guestCart) # All its left is for the cart to be carried over
-
                 customer = user.customer
                 order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
@@ -76,7 +74,7 @@ def loginPage(request):
                     order_item.quantity += quantity
                     order_item.save()
                 
-                response = redirect('cart')
+                response = redirect('home')
                 response.delete_cookie('cart')
                 return response    
             else:
@@ -214,8 +212,9 @@ def updateItem(request):
         product_stock = orderItem.product.quantity
 
         if (order_item > product_stock): 
+            name = orderItem.product.name
             if (orderItemCreated): orderItem.delete()
-            return JsonResponse({'error': 'Cannot add this product, maximum available stocks exceeded!'})
+            return JsonResponse({'error': name})
 
         orderItem.quantity += 1
 
@@ -240,7 +239,6 @@ def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
 
     if not request.user.is_authenticated:
-        print("User is not authenticated. Returning 401.")
         return JsonResponse({'redirect': '/login/'}, status=401)
 
     customer = request.user.customer
