@@ -5,22 +5,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (searchToggle && searchForm && searchInput) {
         searchToggle.addEventListener('click', () => {
-            if (searchForm.classList.contains('show')) {
+            const isVisible = searchForm.classList.contains('show');
+
+            if (isVisible) {
                 searchForm.classList.remove('show');
-                setTimeout(() => {
-                    searchForm.style.display = 'none';
-                    searchForm.style.pointerEvents = 'none'; 
-                    searchInput.disabled = true;
-                    searchInput.blur(); 
-                }, 400);
+                searchForm.style.display = 'none';
+                searchForm.style.pointerEvents = 'none';
+                searchInput.disabled = true;
+                searchInput.blur();
             } else {
                 searchForm.style.display = 'flex';
-                searchForm.style.pointerEvents = 'auto'; 
+                searchForm.style.pointerEvents = 'auto';
                 searchInput.disabled = false;
-                setTimeout(() => {
-                    searchForm.classList.add('show');
-                    searchInput.focus();
-                }, 10);
+                searchForm.classList.add('show');
+                searchInput.focus();
             }
         });
 
