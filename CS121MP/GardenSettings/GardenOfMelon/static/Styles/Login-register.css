@@ -68,3 +68,32 @@ body {
     text-align: center;
     font-size: 15px;
 }
+
+#account-body {
+    padding-top: 50px;
+    align-items: center;
+    min-height: 100vh; 
+}
+
+#account-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(255, 255, 255, 0.7);
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 10px 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.details {
+    margin-bottom: 5px;
+}
+
+#logout-btn {
+    width: 100px;
+    background-color: #90c67c;
+    border-radius: 50px; 
+    border-color: #90c67c;
+}

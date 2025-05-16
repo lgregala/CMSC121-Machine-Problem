@@ -12,57 +12,124 @@
       {% include 'navbar.html' %}
     </header>
 
-    <div id="login-body">
-        <div id="login-form">
-            <div id="login-form-title">
-                <p style="font-size: 25px; font-weight: bold;">Login</p>
-                {% if messages %}
-                <div class="mb-2">
-                    {% for message in messages %}
-                        <span class="alert alert-{{ message.tags }}" id="login-error-messages">ⓘ {{ message }}</span>
-                    {% endfor %}
+    {% if user.is_authenticated %}
+    <div id="account-body">
+        <div id="account-details">
+            <div id="details">
+                <div style="grid-template-columns: 1fr 0fr; margin-bottom: -15px;" class="d-grid gap-3">
+                    <div class="p-2"><p style="font-size: 25px; font-weight: bold;">{{ user.first_name }} {{ user.last_name }} &#127803;</p></div>
+                    <div class="p-2"><a href="{% url 'logout' %}" class="btn btn-primary" id="logout-btn">Log out</a></div>
                 </div>
-                {% else %}
-                <div class="mb-2">
-                        <span> Nice to see you again! </span>
-                </div>
+                <p class="details" style="font-size: 15px; margin-left: 8px;"><b>Email:</b> {{ user.email }}</p>
+                <p class="details" style="font-size: 15px; margin-left: 8px;"><b>Phone:</b> {{ user.phone_number }}</p>
+                <div>
+                    <hr>
+                    <div class="p-2"><p style="font-size: 20px; margin-bottom: -1px; margin-top: -10px; font-weight: bold;">Address &#127793;</p></div>
+                    {% if user.customer.address %}
+                        <p class="details" style="font-size: 15px; margin-left: 8px;"><b>Address:</b> {{ user.customer.address }}</p>
+                        <p class="details" style="font-size: 15px; margin-left: 8px;"><b>City:</b> {{ user.customer.city }}</p>
+                        <p class="details" style="font-size: 15px; margin-left: 8px;"><b>Region:</b> {{ user.customer.region }}</p>
+                        <p class="details" style="font-size: 15px; margin-left: 8px;"><b>Zipcode:</b> {{ user.customer.zipcode }}</p>
+                    {% else %}
+                        <p>
+                            <a data-bs-toggle="collapse" href="#collapseAddress" role="button" aria-expanded="false" aria-controls="collapseAddress" style="color: #90c67c;">
+                            <u>+ Add Shipping Address</u>
+                            </a>
+                        </p>
+                        <div class="collapse" id="collapseAddress">
+                            <div>
+                                <form method="POST" action="{% url 'shippingAddress' %}">
+                                    {% csrf_token %}
+                                    
+                                    <div id="address-fields" class="row g-3"> 
+                                        <div class="col-12">
+                                            <label for="address" class="form-label">Address</label>
+                                            <input type="text" name="address" class="form-control address"
+                                                    id="address" style="width: 850px;">
+                                        </div>
+            
+                                        <div class="col-md-4">
+                                            <label for="city" class="form-label">City</label>
+                                            <input type="text" name="city" class="form-control address" 
+                                                    id="city" style="width: 350px;">
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label for="region" class="form-label">Region</label>
+                                            <input type="text" name="region" class="form-control address" 
+                                                    id="region" style="width: 350px;">
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label for="zipcode" class="form-label">Zipcode</label>
+                                            <input type="text" name="zipcode" class="form-control address" 
+                                                    id="zipcode" style="width: 110px;">
+                                        </div>
+                                    </div>
+                                    <div class="d-grid mb-3">
+                                        <button type="submit" class="btn btn-primary"  id="address-btn" style="margin-top: 30px;">Add Address</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                 {% endif %}
+                </div>
             </div>
-    
-            <form method="post">
-                {% csrf_token %}
-    
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="email-addon">✉</span>
-                    <div class="form-floating">
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
-                        <label for="email">Email</label>
-                    </div>
-                </div>
-                
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="password-addon">🔒</span>
-                    <div class="form-floating">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-                        <label for="password">Password</label>
-                    </div>
-                </div>
-    
-                <div class="d-grid mb-3">
-                    <button type="submit" class="btn btn-primary" id="login-btn">Login →</button>
-                </div>
-    
-                <p class="text-center" style="font-size: 15px;">
-                    Don’t have an account?
-                    <a href="{% url 'register' %}" style="color: #90c67c; text-decoration: none;">Register here</a>
-                </p>
-                <p id="admin-login"><a href="/admin/login/" style="color: #90c67c;">Login as Admin</a></p>
-            </form>
         </div>
     </div>
+    {% else %}
+        <div id="login-body">
+            <div id="login-form">
+                <div id="login-form-title">
+                    <p style="font-size: 25px; font-weight: bold;">Login</p>
+                    {% if messages %}
+                    <div class="mb-2">
+                        {% for message in messages %}
+                            <span class="alert alert-{{ message.tags }}" id="login-error-messages">ⓘ {{ message }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="mb-2">
+                            <span> Nice to see you again! </span>
+                    </div>
+                    {% endif %}
+                </div>
 
-    <!-- Implement modal from guest cart checkout to login redirection -->
-    <div id="login-required" class="login-to-checkout-modal"></div>
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="email-addon">✉</span>
+                        <div class="form-floating">
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="password-addon">🔒</span>
+                        <div class="form-floating">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary" id="login-btn">Login →</button>
+                    </div>
+    
+                    <p class="text-center" style="font-size: 15px;">
+                        Don’t have an account?
+                        <a href="{% url 'register' %}" style="color: #90c67c; text-decoration: none;">Register here</a>
+                    </p>
+                    <p id="admin-login"><a href="/admin/login/" style="color: #90c67c;">Login as Admin</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Implement modal from guest cart checkout to login redirection -->
+        <div id="login-required" class="login-to-checkout-modal"></div>
+    {% endif %}
 
     {% include 'footer.html' %}
 </body>

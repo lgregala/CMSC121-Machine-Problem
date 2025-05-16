@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .forms import RegisterForm, ContactForm
+from .forms import RegisterForm, ContactForm, ShippingAddressForm
 from django.http import JsonResponse
 from .models import *
 from django.contrib import messages
@@ -87,6 +87,26 @@ def loginPage(request):
     context = getCartData(request)
     return render(request, 'login.html', context)
 
+def logoutPage(request):
+    logout(request)
+    return redirect('login')
+
+def shippingAddress(request):
+    customer = request.user.customer
+
+    if request.method == "POST":
+        form = ShippingAddressForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = ShippingAddressForm(instance=customer)
+
+    context1 = {'form': form}
+    context2 = getCartData(request)
+    context = {**context1, **context2}
+    return render(request, 'login.html', context)
+
 def aboutPage(request):
     context = getCartData(request)
     return render(request, 'about.html', context)
@@ -107,7 +127,7 @@ def contactPage(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('contact.html')
+            return redirect('contact')
     else:
         form = ContactForm()
 
