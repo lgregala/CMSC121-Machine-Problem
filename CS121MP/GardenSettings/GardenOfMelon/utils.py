@@ -29,7 +29,7 @@ def cookieCart(request):
 
 def get_product_stock(request, product_id):
     product = Product.objects.get(id=product_id)
-    return JsonResponse({'stock': product.quantity})
+    return JsonResponse({'stock': product.quantity, 'name': product.name})
 
 def getCartData(request):
     if request.user.is_authenticated:
