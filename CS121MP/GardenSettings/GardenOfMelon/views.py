@@ -78,7 +78,7 @@ def loginPage(request):
                 response.delete_cookie('cart')
                 return response    
             else:
-                return redirect('home')
+                return redirect('/home?from=login')
    
         else:
             messages.error(request, "Incorrect password.")
