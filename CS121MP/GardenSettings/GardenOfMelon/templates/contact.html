@@ -22,7 +22,7 @@
                             </div>
                         </div>
                           
-                        <form method="post">
+                        <form method="POST" novalidate>
                             {% csrf_token %}
                               
                             <div id="contact-fields"> 
@@ -30,9 +30,7 @@
                                     <span class="input-group-text" id="name-addon">👤</span>
                                     <div class="form-floating">
                                         <input type="text" name="{{ form.name.name }}" class="form-control form-control-names" 
-                                                id="{{ form.name.id_for_label }}" placeholder="Name"
-                                                {% if form.name.field.required %}required{% endif %}
-                                                {% if form.name.value %}value="{{ form.name.value }}"{% endif %}>
+                                                id="{{ form.name.id_for_label }}" placeholder="Name">
                                         <label for="{{ form.name.id_for_label }}">Name</label>
                                     </div>
                                 </div>
@@ -41,25 +39,15 @@
                                     <span class="input-group-text" id="email-addon">✉</span>
                                     <div class="form-floating">
                                         <input type="email" name="{{ form.email.name }}" class="form-control" 
-                                                id="{{ form.email.id_for_label }}" placeholder="Email"
-                                                {% if form.email.field.required %}required{% endif %}
-                                                {% if form.email.value %}value="{{ form.email.value }}"{% endif %}>
+                                                id="{{ form.email.id_for_label }}" placeholder="Email">
                                         <label for="{{ form.email.id_for_label }}">Email</label>
                                     </div>
                                 </div>
-            
-                                {% if form.email.errors %}
-                                    <div class="mb-2">
-                                        {% for error in form.email.errors %}
-                                            <span class="alert alert" id="contact-error-messages">ⓘ {{ error }}</span><br>
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
                             </div>
             
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <textarea class="form-control" name="message" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                                     <label for="floatingTextarea">Message</label>
                                   </div>
                             </div>

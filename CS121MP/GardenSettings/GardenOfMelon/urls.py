@@ -5,6 +5,8 @@ from django.contrib import admin
 urlpatterns = [
     path('register/', views.registerPage, name='register'),
     path('login/', views.loginPage, name='login'),
+    path('logout/', views.logoutPage, name='logout'),
+    path('shippingAddress/', views.shippingAddress, name="shippingAddress"),
     path('about/', views.aboutPage, name='about'),
     path('home/', views.homePage, name='home'),
     path('', views.homePage, name='home'),
