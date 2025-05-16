@@ -26,7 +26,7 @@ class CustomUserManager(BaseUserManager):
 class User(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
-    phone_number = PhoneNumberField(default="+639123456789")
+    phone_number = PhoneNumberField()
 
     # Use email as the login identifier instead of username
     USERNAME_FIELD = 'email'
