@@ -7,6 +7,7 @@
   <script src="{% static 'Scripts/Navbar.js' %}"></script>
   <script src="{% static 'Scripts/Slider.js' %}" defer></script>
 </head>
+
 <body data-static-path="{% static 'Images/' %}">
       {% include 'navbar.html' %}
 
@@ -23,11 +24,7 @@
         </div>
       </div>
 
-      <div class="navbar-border"></div>
-
-      <br> 
-
-
+      <div class="navbar-border"></div><br> 
       <div class="plant-slider">
         <div class="plant-list">
           <div class="slider-item">
@@ -184,12 +181,10 @@
           <img src="{% static 'Images/Featured/Inquirer.png' %}" alt="Inquirer net" style="height: 150px; width: auto" />  
         </div>
       </section>
-
-      <!-- Implement modal from login to home redirection after authentication -->
-      {% if user.is_authenticated %}
-        <div id="authenticated-user" class="logged-in-modal"></div>
-      {% endif %}
+        
+      <div id="authenticated-user-modal" class="logged-in-modal"> 👤 You have successfully logged in to your account! </div>
       
       {% include 'footer.html' %}
+      <script type="text/javascript" src="{% static 'Scripts/Modal.js' %}"> </script>
 </body>
 </html>

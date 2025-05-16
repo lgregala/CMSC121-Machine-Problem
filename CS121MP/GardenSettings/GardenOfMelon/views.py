@@ -74,7 +74,7 @@ def loginPage(request):
                     order_item.quantity += quantity
                     order_item.save()
                 
-                response = redirect('home')
+                response = redirect('/home?from=login')
                 response.delete_cookie('cart')
                 return response    
             else:
@@ -239,7 +239,7 @@ def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
 
     if not request.user.is_authenticated:
-        return JsonResponse({'redirect': '/login/'}, status=401)
+        return JsonResponse({'redirect': '/login'}, status=401)
 
     customer = request.user.customer
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
