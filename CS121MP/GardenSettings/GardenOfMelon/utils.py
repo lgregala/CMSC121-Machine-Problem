@@ -24,16 +24,16 @@ def cookieCart(request):
         item = {'product': product, 'quantity': cart[i]['quantity'], 'get_total': subtotal}
         items.append(item)
 
-    print('Cookie cart:', items)
+    # print('Cookie cart:', items)
     return {'cartItems': cartItems, 'order': order, 'items': items}
 
 def get_product_stock(request, product_id):
     product = Product.objects.get(id=product_id)
-    return JsonResponse({'stock': product.quantity})
+    return JsonResponse({'stock': product.quantity, 'name': product.name})
 
 def getCartData(request):
     if request.user.is_authenticated:
-        customer = request.user
+        customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items

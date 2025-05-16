@@ -41,6 +41,10 @@ class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
+    address = models.CharField(max_length=200, null=True)
+    city = models.CharField(max_length=200, null=True)
+    state = models.CharField(max_length=200, null=True)
+    zipcode = models.CharField(max_length=200, null=True)
     
     def __str__(self):
         return self.name
@@ -52,6 +56,7 @@ class ContactMessage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Product(models.Model):
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200, null=True)  # Plant_Name
     scientific_name = models.CharField(max_length=200, null=True)
     category = models.CharField(max_length=100, null=True)  # Plant_Category
@@ -76,7 +81,7 @@ class Product(models.Model):
         return {'price': self.price, 'quantity': self.quantity}
 
 class Order(models.Model):
-    customer = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
     transaction_id = models.CharField(max_length=200, null=True)

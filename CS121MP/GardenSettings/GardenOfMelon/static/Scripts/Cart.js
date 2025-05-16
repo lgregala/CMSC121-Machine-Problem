@@ -8,11 +8,10 @@ for (var i = 0; i < updateBtns.length; i++)
         var action = this.dataset.action
         var currentElement = this
 
-        if (user == 'AnonymousUser') 
-            updateCookie(productId, action, currentElement)
+        if (user == 'AnonymousUser') updateCookie(productId, action, currentElement)
         else
         {
-            if (currentElement.classList.contains('add-to-cart-btn')) addToCartOrder(productId, action)
+            if (currentElement.classList.contains('add-to-cart-btn')) addToCartOrder(productId, action, currentElement)
             else updateUserOrder(productId, action, currentElement)
         }
     })
@@ -34,7 +33,13 @@ function updateUserOrder(productId, action, currentElement)
     .then((data) => {
         if (data.error)
         {
-            alert(data.error);
+            const modal = document.getElementById('stockExceededModal');
+            modal.style.display = 'block';
+            modal.textContent = '⚠️ Cannot add ' + data.error +'. Maximum stocks exceeded!'
+            
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 5000); 
             return;
         }
 
@@ -50,17 +55,19 @@ function updateUserOrder(productId, action, currentElement)
             quantityDiv = parentQtyDiv.querySelector('.item-quantity')
             mainDiv = parentQtyDiv.closest('.product-row')
         }
-
-        quantityDiv.textContent = data.quantity
-        var subtotalDiv = mainDiv.querySelector('.subtotal')
-        subtotalDiv.textContent = '₱' + parseFloat(data.subtotal).toFixed(2)
-
+        
         if (data.quantity <= 0)
         {
             mainDiv.classList.add('removed');
             setTimeout(function () {
                 mainDiv.remove();
             }, 650);
+        }
+        else
+        {
+            quantityDiv.textContent = data.quantity
+            var subtotalDiv = mainDiv.querySelector('.subtotal')
+            subtotalDiv.textContent = '₱' + parseFloat(data.subtotal).toFixed(2)
         }
 
         var totalItemsDiv = document.querySelector('.total-items')
@@ -71,6 +78,7 @@ function updateUserOrder(productId, action, currentElement)
 
         var cartItemsDiv = document.querySelector('.cart-items-total')
         cartItemsDiv.textContent = data.itemtotal
+    
 
         if (data.itemtotal == 0 || data.grandtotal == 0)
         {
@@ -93,7 +101,7 @@ function updateUserOrder(productId, action, currentElement)
     })
 }
 
-function addToCartOrder(productId, action)
+function addToCartOrder(productId, action, button)
 {
     var url = '/update_item/'
 
@@ -109,13 +117,21 @@ function addToCartOrder(productId, action)
     .then((data) => {
         if (data.error)
         {
-            alert(data.error);
+            const modal = document.getElementById('stockExceededModal');
+            modal.style.display = 'block';
+            modal.textContent = '⚠️ Cannot add ' + data.error +'. Maximum stocks exceeded!'
+            
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 5000); 
             return;
         }
-
-        alert('Item added to cart successfully!')
-        var cartItemsDiv = document.querySelector('.cart-items-total')
-        cartItemsDiv.textContent = data.itemtotal
+        else
+        {
+            animateAddToCart(button);
+            var cartItemsDiv = document.querySelector('.cart-items-total')
+            cartItemsDiv.textContent = data.itemtotal
+        }
     })
 }
 
@@ -145,24 +161,37 @@ function updateCookie(productId, action, currentElement)
     .then(data => {
         if (action == 'add') 
         {
-            if (!cart[productId]) cart[productId] = { 'quantity': 1 };
+            if (!cart[productId]) 
+            {
+                cart[productId] = { 'quantity': 1 };
+                animateAddToCart(currentElement);
+            }
             else 
             {
-                if (cart[productId]['quantity'] < data.stock) cart[productId]['quantity'] += 1;
+                if (cart[productId]['quantity'] < data.stock) 
+                {
+                    cart[productId]['quantity'] += 1;
+                    animateAddToCart(currentElement);
+                }
                 else 
                 {
-                    alert('Cannot add more. Stock limit reached.');
+                    const modal = document.getElementById('stockExceededModal');
+                    modal.style.display = 'block';
+                    modal.textContent = '⚠️ Cannot add ' + data.name +'. Maximum stocks exceeded!'
+                    
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                    }, 5000); 
                     return;
                 }
             }
         } 
         else if (action == 'remove') 
-        {
+        { 
             cart[productId]['quantity'] -= 1;
             if (cart[productId]['quantity'] <= 0) delete cart[productId];
         } 
-        else if (action == 'set-zero') 
-            delete cart[productId];
+        else if (action == 'set-zero') delete cart[productId];
 
         document.cookie = 'cart=' + JSON.stringify(cart) + ';path=/';
 
@@ -222,4 +251,12 @@ function updateCookie(productId, action, currentElement)
             cartItemsDiv.textContent = data['cartItems']
         });
     });
+}
+
+function animateAddToCart(button)
+{
+    button.classList.add('clicked');
+    setTimeout(() => {
+        button.classList.remove('clicked');
+    }, 2500);
 }

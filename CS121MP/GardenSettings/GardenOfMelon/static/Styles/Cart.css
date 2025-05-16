@@ -36,8 +36,12 @@ body{
 }
 
 .box-element-empty{
+    padding: 20px;
     width: 100%;
+    height: 100%;
+    border-radius: 15px;
     margin: auto;
+    background-color: rgba(255, 255, 255, 0.65)
 }
 
 .cart-row {
@@ -63,7 +67,13 @@ body{
     font-size: 20px;
     border: 1.5px solid black;
     overflow-wrap: break-word;
-    transition: opacity 0.65s ease-out;
+    transition: opacity 0.65s ease-out,
+                transform 0.6s ease;
+}
+
+.product-row:hover {
+    transform: scale(1.0125);
+    background-color: #dbedb9;
 }
 
 .product-row.removed{
@@ -227,6 +237,7 @@ body{
     width: 250px; 
     height: 250px; 
     margin: auto;
+    margin-top: 15px;
     display: flex;
 }
 
@@ -239,3 +250,295 @@ body{
     margin-bottom: 20px;
 }
 
+/* Checkout Modal */
+.checkout-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.popup {
+    width: 50%;
+    height: auto;
+    padding: 30px 20px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    box-sizing: border-box;
+    z-index: 50;
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    box-shadow: 0 8px 14px rgba(247, 255, 234, 0.65);
+    transform: translate(-50%, -50%) scale(0.5);
+    border: 2.5px solid #328e6e;
+}
+
+.popup.active {
+    visibility: visible;
+    opacity: 1;
+    top: 0;
+    transform: translate(-50%, 50%) scale(1);
+    transition: transform 300ms cubic-bezier(0.18, 0.89, 0.43, 1.19);
+}
+
+.popup .icon {
+    margin: 5px 0px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #34f234;
+    text-align: center;
+    display: inline-block;
+    border-radius: 50%;
+    line-height: 60px;
+}
+
+.popup .icon i.fa {
+    font-size: 30px;
+    color: #34f234;
+}
+
+.popup .title {
+    font-family: 'Oleo Script';
+    margin: auto;
+    margin-bottom: 7.5px;
+    font-size: 30px;
+    font-weight: bold;
+    width: 95%;
+    padding-bottom: 8.5px;
+    border-bottom: 1px solid black;
+}
+
+.popup .final-order-container {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3.5rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+.popup .final-order-container .order-detail {
+    font-family: 'Winky Rough';
+    font-size: 18px;
+}
+
+.popup .description {
+    font-family: 'Winky Rough';
+    margin: auto;
+    width: 95%;
+    font-size: 16px;
+}
+
+.optionBtns {
+    margin-top: 20px;
+    font-family: 'Winky Rough';
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.optionBtns .modalBtns {
+    width: 17.5rem;
+    height: 2.5rem;
+    background-color: #90c67c;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    transition: all 300ms ease-in-out;
+    cursor: pointer;
+}
+
+.modalBtns:hover {
+    background-color: #328e6e;
+}
+
+.popup > div {
+    opacity: 0;
+    position: relative;
+    top: 20px;
+    transition: all 0.5s ease-in-out;
+}
+
+.popup.active > div {
+    top: 0px;
+    opacity: 1;
+}
+.popup.active .icon {
+    transition-delay: 0.3s;
+    opacity: 1;
+    top: 0;
+}
+
+.popup.active .title {
+    transition-delay: 0.4s;
+    opacity: 1;
+    top: 0;
+}
+
+.popup.active .final-order-container {
+    transition-delay: 0.4s;
+    opacity: 1;
+    top: 0;
+}
+
+.popup.active .description {
+    transition-delay: 0.5s;
+    opacity: 1;
+    top: 0;
+}
+
+.popup.active .optionBtns {
+    transition-delay: 0.6s;
+    opacity: 1;
+    top: 0;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.65); 
+    backdrop-filter: blur(4px); 
+    z-index: 49;
+    opacity: 0;
+    pointer-events: none; 
+    transition: opacity 0.3s ease;
+}
+
+.popup-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Checkout Button Animation */
+.checkout-button {
+    overflow: hidden;
+    position: relative;
+}
+
+.truck-icon {
+    width: 47px;
+    height: 47px;
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    left: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.plant-icon {
+    width: 23px;
+    height: 23px;
+    position: absolute;
+    z-index: 3;
+    top: -30%;
+    transform: translate(-50%, -50%);
+}
+
+.checkout-button .placed {
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.checkout-button.clicked {
+    background-color: #76b36b !important;
+    pointer-events: none;
+}
+
+.checkout-button.clicked .truck-icon {
+    animation: truck 3s ease-in-out forwards;
+}
+
+.checkout-button.clicked .plant-icon {
+    animation: plant 3s ease-in-out forwards;
+}
+
+.checkout-button.clicked .placed {
+    animation: text1 3s ease-in-out forwards;
+}
+
+.checkout-button.clicked .main-checkout-text {
+    animation: text2 3s ease-in-out forwards;
+}
+
+@keyframes truck {
+    0% {
+        left: -10%;
+    }
+    20%, 60% {
+        left: 50%;
+    }
+    100% {
+        left: 115%;
+    }
+}
+
+@keyframes plant {
+    0%, 20% {
+        top: 50%;
+        left: -20%;
+    }
+    50%, 60% {
+        top: 50%;
+        left: 50%;
+    }
+    100% {
+        top: 50%;
+        left: 112%;
+    }
+}
+
+@keyframes text1 {
+    0%, 80% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes text2 {
+    0% {
+        opacity: 1;
+    }
+    10%, 100% {
+        opacity: 0;
+    }
+}
+
+/* Stock Exceeded Modal */
+.stock-modal {
+    position: fixed;
+    width: auto;
+    left: 12px;
+    bottom: 12px;
+    background-color: rgb(243, 229, 229);
+    text-align: center;
+    border: 2px solid rgb(244, 31, 31);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9);
+    padding: 16px 20px;
+    border-radius: 8px;
+    font-family: 'Winky Rough';
+    font-size: 20px;
+    z-index: 25;
+    display: none;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}

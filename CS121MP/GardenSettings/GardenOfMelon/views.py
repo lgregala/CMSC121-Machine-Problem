@@ -2,14 +2,11 @@ from django.shortcuts import render, redirect
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .forms import RegisterForm, ContactForm
-from django.http import HttpResponse
 from django.http import JsonResponse
 from .models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.messages import get_messages
-from django.core import serializers
-from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
@@ -63,7 +60,26 @@ def loginPage(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+
+            guestCart = serialize(cookieCart(request))
+            if guestCart and guestCart.get('cartItems', 0) > 0:
+                customer = user.customer
+                order, created = Order.objects.get_or_create(customer=customer, complete=False)
+
+                for item in guestCart['items']:
+                    product = Product.objects.get(id=item['productId'])
+                    quantity = item['quantity']
+
+                    order_item, created = OrderItem.objects.get_or_create(order=order, product=product)
+                    order_item.quantity += quantity
+                    order_item.save()
+                
+                response = redirect('/home?from=login')
+                response.delete_cookie('cart')
+                return response    
+            else:
+                return redirect('home')
+   
         else:
             messages.error(request, "Incorrect password.")
             return redirect('login')
@@ -138,9 +154,8 @@ def productsPage(request):
         products = products.filter(price__lte=max_price)
         filterMax_performed = True
     else:
-        max_price = 1000000000
+        max_price = ''
         filterMax_performed = False
-
 
     paginator = Paginator(products, 9)
     page_obj = paginator.get_page(page_number)
@@ -187,7 +202,7 @@ def updateItem(request):
     productId = data['productId']
     action = data['action']
 
-    customer = request.user
+    customer = request.user.customer
     product = Product.objects.get(id=productId)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
     orderItem, orderItemCreated = OrderItem.objects.get_or_create(order=order, product=product)
@@ -197,8 +212,9 @@ def updateItem(request):
         product_stock = orderItem.product.quantity
 
         if (order_item > product_stock): 
+            name = orderItem.product.name
             if (orderItemCreated): orderItem.delete()
-            return JsonResponse({'error': 'Cannot add this product, maximum available stocks exceeded!'})
+            return JsonResponse({'error': name})
 
         orderItem.quantity += 1
 
@@ -221,18 +237,13 @@ def updateItem(request):
 
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
-    # data = json.loads(request.body)
-    # Address this part => Redirect to user login and update code from the login view to pass credentials to this view
-    # The rest of this code will handle the logic of carrying the guest user cart orders to their logged in accounts
 
-    if request.user.is_authenticated:
-        customer = request.user
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    if not request.user.is_authenticated:
+        return JsonResponse({'redirect': '/login'}, status=401)
 
-    # else:
-    #     customer, order = guestOrder(request, data)
-    
-    # grandtotal = order.get_cart_total
+    customer = request.user.customer
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+
     order.transaction_id = transaction_id
     order.complete = True
     order.save()
@@ -243,4 +254,4 @@ def processOrder(request):
         product.quantity -= item.quantity
         product.save()
 
-    return JsonResponse('Items have been checked out!', safe=False)
+    return JsonResponse({'message': 'Items have been checked out!'})
