@@ -68,3 +68,27 @@ body {
     text-align: center;
     font-size: 15px;
 }
+
+/* Login Required Modal */
+.login-to-checkout-modal {
+    position: fixed;
+    width: auto;
+    right: 12px;
+    bottom: 12px;
+    background-color: rgb(243, 229, 229);
+    text-align: center;
+    border: 2px solid rgb(244, 31, 31);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9);
+    padding: 16px 20px;
+    border-radius: 8px;
+    font-family: 'Winky Rough';
+    font-size: 20px;
+    z-index: 25;
+    display: none;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}

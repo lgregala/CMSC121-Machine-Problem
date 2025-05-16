@@ -548,3 +548,27 @@ body {
   opacity: 1;
   transform: scale(1.05);
 }
+
+/* Logged-in Modal */
+.logged-in-modal {
+  position: fixed;
+  width: auto;
+  right: 12px;
+  bottom: 12px;
+  background-color: #e1ebce;
+  text-align: center;
+  border: 2.5px solid #2e7d32;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.9);
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-family: 'Winky Rough';
+  font-size: 20px;
+  z-index: 1000;
+  display: none;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}

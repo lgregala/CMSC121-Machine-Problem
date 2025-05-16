@@ -37,7 +37,8 @@ document.getElementById('shop-more').addEventListener("click", function(){
     document.querySelector('.popup').classList.remove('active');
 })
 
-async function submitCheckout() {
+async function submitCheckout() 
+{
     try {
         const response = await fetch('/process_order/', {
             method: 'POST',
@@ -50,7 +51,7 @@ async function submitCheckout() {
         if (response.status == 401) 
         {
             const data = await response.json();
-            window.location.href = data.redirect;
+            window.location.href = data.redirect + '?from=checkout';
             return;
         }
 

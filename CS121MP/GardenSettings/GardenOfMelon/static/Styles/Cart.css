@@ -523,7 +523,7 @@ body{
 .stock-modal {
     position: fixed;
     width: auto;
-    right: 12px;
+    left: 12px;
     bottom: 12px;
     background-color: rgb(243, 229, 229);
     text-align: center;
