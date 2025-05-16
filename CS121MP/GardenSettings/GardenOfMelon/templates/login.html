@@ -5,6 +5,7 @@
     {% include 'head.html' %}
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="{% static 'Styles/Login-register.css' %}">
+    <script src="{% static 'Scripts/Login-register.js' %}" defer></script>
 </head>
 
 <body data-static-path="{% static 'Images/' %}">
@@ -106,12 +107,15 @@
                         </div>
                     </div>
 
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" style="position: relative;">
                         <span class="input-group-text" id="password-addon">🔒</span>
                         <div class="form-floating">
                             <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
                             <label for="password">Password</label>
                         </div>
+                        <span class="toggle-password" onclick="togglePassword()" style="position: absolute; right: 20px; top: 55%; transform: translateY(-50%); cursor: pointer; font-size: 13px; color: #90c67c; z-index: 5;">
+                            <i id="eye-icon" class="fa-solid fa-eye"></i>
+                        </span> 
                     </div>
 
                     <div class="d-grid mb-3">
