@@ -72,7 +72,6 @@ body{
 }
 
 .product-row:hover {
-    transform: scale(1.0125);
     background-color: #dbedb9;
 }
 

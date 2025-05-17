@@ -51,7 +51,8 @@ async function submitCheckout()
         if (response.status == 401) 
         {
             const data = await response.json();
-            window.location.href = data.redirect + '?from=checkout';
+            sessionStorage.setItem('showModal', 'checkout');
+            window.location.href = data.redirect;
             return;
         }
 
