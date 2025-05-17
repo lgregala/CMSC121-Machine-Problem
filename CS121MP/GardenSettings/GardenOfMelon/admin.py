@@ -46,11 +46,14 @@ class ProductAdmin(admin.ModelAdmin):
                    'description', 'difficulty', 'light_needed', 'watering_schedule', 
                    'price', 'quantity']
     
+    list_display_links = ('name',)
+
+
     def display_image(self, obj):
         if obj.image:
             return format_html(
                 '<a href="{}" target="_blank">'
-                '<img src="{}" style="max-height: 50px; max-width: 50px; border-radius: 4px;" />'
+                '<img src="{}" style="max-height: 50px; max-width: 50px; border-radius: 5px;" />'
                 '</a>',
                 obj.image.url,
                 obj.image.url
