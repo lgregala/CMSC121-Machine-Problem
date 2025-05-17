@@ -59,9 +59,7 @@ JAZZMIN_SETTINGS = {
          "permissions": ["auth.view_user"], 
          "new_window": True
         },
-    ],
-
-    
+    ],  
 }
 
 MIDDLEWARE = [
