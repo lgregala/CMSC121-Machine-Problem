@@ -11,18 +11,20 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`/product_detail/${productId}/`)
           .then(response => response.json())
           .then(data => {
-          document.getElementById('modalProductImage').src = data.image_url;
-          document.getElementById('modalProductName').textContent = data.name;
-          document.getElementById('modalScientificName').textContent = data.scientific_name;
-          document.getElementById('modalProductPrice').textContent = `₱${data.price}`;
-          document.getElementById('modalProductCategory').textContent = data.category;
-          document.getElementById('modalProductSubcategory').textContent = data.subcategory;
-          document.getElementById('modalProductDescription').textContent = data.description;
-          document.getElementById('modalProductDifficulty').textContent = data.difficulty;
-          document.getElementById('modalProductWateringSchedule').textContent = data.watering_schedule;
-          document.getElementById('modalProductLightNeeded').textContent = data.light_needed;
-          document.querySelector('.modal-add-to-cart').setAttribute('data-product', productId);
-          modal.style.display = 'block';
+            document.querySelector('.modal-add-to-cart').textContent = 'Add to Cart';
+            document.querySelector('.quantity-input').value = 1;
+            document.getElementById('modalProductImage').src = data.image_url;
+            document.getElementById('modalProductName').textContent = data.name;
+            document.getElementById('modalScientificName').textContent = data.scientific_name;
+            document.getElementById('modalProductPrice').textContent = `₱${data.price}`;
+            document.getElementById('modalProductCategory').textContent = data.category;
+            document.getElementById('modalProductSubcategory').textContent = data.subcategory;
+            document.getElementById('modalProductDescription').textContent = data.description;
+            document.getElementById('modalProductDifficulty').textContent = data.difficulty;
+            document.getElementById('modalProductWateringSchedule').textContent = data.watering_schedule;
+            document.getElementById('modalProductLightNeeded').textContent = data.light_needed;
+            document.querySelector('.modal-add-to-cart').setAttribute('data-product', productId);
+            modal.style.display = 'block';
         })
         .catch(error => console.error('Error:', error));
       }
