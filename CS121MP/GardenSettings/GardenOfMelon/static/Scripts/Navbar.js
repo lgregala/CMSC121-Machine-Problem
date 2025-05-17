@@ -1,22 +1,32 @@
 document.addEventListener('DOMContentLoaded', function () {
     const searchToggle = document.getElementById('searchToggle');
     const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
 
-    if (searchToggle && searchForm) {
+    if (searchToggle && searchForm && searchInput) {
         searchToggle.addEventListener('click', () => {
             if (searchForm.classList.contains('show')) {
                 searchForm.classList.remove('show');
                 setTimeout(() => {
                     searchForm.style.display = 'none';
-                    document.getElementById('searchInput').value = '';
-                }, 400); // wait for fade out
+                    searchForm.style.pointerEvents = 'none'; 
+                    searchInput.disabled = true;
+                    searchInput.blur(); 
+                }, 400);
             } else {
                 searchForm.style.display = 'flex';
+                searchForm.style.pointerEvents = 'auto'; 
+                searchInput.disabled = false;
                 setTimeout(() => {
                     searchForm.classList.add('show');
-                    document.getElementById('searchInput').focus();
-                }, 10); // slight delay to allow transition
+                    searchInput.focus();
+                }, 10);
             }
         });
+
+        if (window.getComputedStyle(searchForm).display === 'none') {
+            searchForm.style.pointerEvents = 'none';
+            searchInput.disabled = true;
+        }
     }
 });

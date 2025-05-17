@@ -134,6 +134,10 @@
     opacity: 0;
     transition: opacity 0.4s ease;
 }
+#searchForm:not(.show) {
+    display: none !important;
+    pointer-events: none;
+}
 .search-form.show {
     display: flex;
     opacity: 1;
