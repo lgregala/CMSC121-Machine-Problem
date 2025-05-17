@@ -10,9 +10,10 @@ body {
     padding: 20px;
     border-radius: 5px;
 }
+
 .brand-image {
-    width: 30px !important;  
+    width: 30px !important;   
     height: auto;
     border-radius: 10px;       
-    object-fit: contain;       
+    object-fit: contain; 
 }
