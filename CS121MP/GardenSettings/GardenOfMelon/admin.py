@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import *
 from django import forms
+from django.utils.html import format_html
 
 class ProductForm(forms.ModelForm):
     # Difficulty choices
@@ -41,10 +42,22 @@ class ProductForm(forms.ModelForm):
 class ProductAdmin(admin.ModelAdmin):
     form = ProductForm
     readonly_fields = ('seller',)
-    list_display = ['name', 'scientific_name', 'category', 'subcategory', 
+    list_display = ['display_image', 'name', 'scientific_name', 'category', 'subcategory', 
                    'description', 'difficulty', 'light_needed', 'watering_schedule', 
                    'price', 'quantity']
     
+    def display_image(self, obj):
+        if obj.image:
+            return format_html(
+                '<a href="{}" target="_blank">'
+                '<img src="{}" style="max-height: 50px; max-width: 50px; border-radius: 4px;" />'
+                '</a>',
+                obj.image.url,
+                obj.image.url
+            )
+        return "-"
+    display_image.short_description = 'Image'
+
     def save_model(self, request, obj, form, change):
         if not obj.seller:
             obj.seller = request.user
