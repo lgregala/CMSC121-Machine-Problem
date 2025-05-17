@@ -1,21 +1,55 @@
 from django.contrib import admin
 from .models import *
+from django import forms
 
-# Manually set the current admin as the seller of the product
+class ProductForm(forms.ModelForm):
+    # Difficulty choices
+    DIFFICULTY_CHOICES = [
+        ('easy', 'Easy'),
+        ('medium', 'Medium'),
+        ('hard', 'Hard'),
+    ]
+    
+    # Light needed choices
+    LIGHT_CHOICES = [
+        ('bright indirect light', 'Bright Indirect Light'),
+        ('bright to direct light', 'Bright to Direct Light'),
+        ('bright to low indirect', 'Bright to Low Indirect'),
+        ('bright to medium indirect', 'Bright to Medium Indirect'),
+        ('bright to medium light', 'Bright to Medium Light'),
+        ('direct light', 'Direct Light'),
+        ('direct to bright indirect', 'Direct to Bright Indirect'),
+        ('medium to low indirect', 'Medium to Low Indirect'),
+    ]
+    
+    # Watering schedule choices 
+    WATERING_CHOICES = [
+        ('once a week', 'Once a week'),
+        ('once to twice a week', 'Once to twice a week'),
+        ('once to thrice a week', 'Once to thrice a week'),
+    ]
+    
+    # Convert fields to dropdowns
+    difficulty = forms.ChoiceField(choices=DIFFICULTY_CHOICES)
+    light_needed = forms.ChoiceField(choices=LIGHT_CHOICES)
+    watering_schedule = forms.ChoiceField(choices=WATERING_CHOICES)
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+
 class ProductAdmin(admin.ModelAdmin):
-    # Make it non-editable
+    form = ProductForm
     readonly_fields = ('seller',)
-
+    list_display = ['name', 'scientific_name', 'category', 'subcategory', 
+                   'description', 'difficulty', 'light_needed', 'watering_schedule', 
+                   'price', 'quantity']
+    
     def save_model(self, request, obj, form, change):
         if not obj.seller:
             obj.seller = request.user
         obj.save()
-        
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'scientific_name', 'category', 'subcategory', 
-                    'description', 'difficulty', 'light_needed', 'watering_schedule', 
-                    'price', 'quantity']
-
+    
 admin.site.register(User)
 admin.site.register(Customer)
 admin.site.register(ContactMessage)
