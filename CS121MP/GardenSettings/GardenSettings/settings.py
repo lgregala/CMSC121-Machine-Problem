@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 
 JAZZMIN_SETTINGS = {
     "show_ui_builder": True,
-    "custom_css": "static/Styles/Admin.css", 
+    "custom_css": "Styles/Admin.css", 
     "site_title": "Admin Panel",
     "site_brand": "Garden Of Melon",
     "site_logo": "Logos/GoM-Logo.png",
@@ -60,6 +60,7 @@ JAZZMIN_SETTINGS = {
          "new_window": True
         },
     ],  
+    
 }
 
 MIDDLEWARE = [

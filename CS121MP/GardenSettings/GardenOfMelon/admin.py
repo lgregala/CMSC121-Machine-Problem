@@ -6,28 +6,28 @@ from django.utils.html import format_html
 class ProductForm(forms.ModelForm):
     # Difficulty choices
     DIFFICULTY_CHOICES = [
-        ('easy', 'Easy'),
-        ('medium', 'Medium'),
-        ('hard', 'Hard'),
+        ('Easy', 'Easy'),
+        ('Medium', 'Medium'),
+        ('Hard', 'Hard'),
     ]
     
     # Light needed choices
     LIGHT_CHOICES = [
-        ('bright indirect light', 'Bright Indirect Light'),
-        ('bright to direct light', 'Bright to Direct Light'),
-        ('bright to low indirect', 'Bright to Low Indirect'),
-        ('bright to medium indirect', 'Bright to Medium Indirect'),
-        ('bright to medium light', 'Bright to Medium Light'),
-        ('direct light', 'Direct Light'),
-        ('direct to bright indirect', 'Direct to Bright Indirect'),
-        ('medium to low indirect', 'Medium to Low Indirect'),
+        ('Bright Indirect Light', 'Bright Indirect Light'),
+        ('Bright to Direct Light', 'Bright to Direct Light'),
+        ('Bright to Low Indirect', 'Bright to Low Indirect'),
+        ('Bright to Medium Indirect', 'Bright to Medium Indirect'),
+        ('Bright to Medium Light', 'Bright to Medium Light'),
+        ('Direct Light', 'Direct Light'),
+        ('Direct to Bright Indirect', 'Direct to Bright Indirect'),
+        ('Medium to Low Indirect', 'Medium to Low Indirect'),
     ]
     
     # Watering schedule choices 
     WATERING_CHOICES = [
-        ('once a week', 'Once a week'),
-        ('once to twice a week', 'Once to twice a week'),
-        ('once to thrice a week', 'Once to thrice a week'),
+        ('Once a week', 'Once a week'),
+        ('Once to twice a week', 'Once to twice a week'),
+        ('Once to thrice a week', 'Once to thrice a week'),
     ]
     
     # Convert fields to dropdowns
