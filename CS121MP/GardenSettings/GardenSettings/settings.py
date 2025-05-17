@@ -40,20 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'GardenOfMelon.apps.GardenofMelonConfig', 
-    # "GardenOfMelon",
     'phonenumber_field',
 ]
 
 JAZZMIN_SETTINGS = {
     "show_ui_builder": True,
     "custom_css": "static/Styles/Admin.css", 
-    # Title on the brand (19 chars max)
     "site_title": "Admin Panel",
-    # Welcome text on the login screen
+    "site_brand": "Garden Of Melon",
+    "site_logo": "Logos/GoM-Logo.png",
     "welcome_sign": "Welcome to My Admin",
-    # Copyright on the footer
-    "copyright": "My Company Ltd",
-    # Dark mode by default?
+    "copyright": "Garden Of Melon",
     "theme": "dark",  # or "light"
 }
 

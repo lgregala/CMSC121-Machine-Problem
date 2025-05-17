@@ -26,7 +26,7 @@ class CustomUserManager(BaseUserManager):
 class User(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
-    phone_number = PhoneNumberField(default="+639123456789")
+    phone_number = PhoneNumberField()
 
     # Use email as the login identifier instead of username
     USERNAME_FIELD = 'email'
@@ -43,7 +43,7 @@ class Customer(models.Model):
     email = models.CharField(max_length=200, null=True)
     address = models.CharField(max_length=200, null=True)
     city = models.CharField(max_length=200, null=True)
-    state = models.CharField(max_length=200, null=True)
+    region = models.CharField(max_length=200, null=True)
     zipcode = models.CharField(max_length=200, null=True)
     
     def __str__(self):
@@ -119,12 +119,10 @@ class OrderItem(models.Model):
 
 class ShippingAddress(models.Model):
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
-    address = models.CharField(max_length=200, null=True)
-    city = models.CharField(max_length=200, null=True)
-    state = models.CharField(max_length=200, null=True)
-    zipcode = models.CharField(max_length=200, null=True)
-    date_added = models.DateTimeField(auto_now_add=True)
+    address = models.CharField(max_length=200, blank=True, null=True)
+    city = models.CharField(max_length=200, blank=True, null=True)
+    region = models.CharField(max_length=200, blank=True, null=True)
+    zipcode = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.address

@@ -1,20 +1,30 @@
 document.addEventListener('DOMContentLoaded', function () {
     const searchToggle = document.getElementById('searchToggle');
     const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
 
-    if (searchToggle && searchForm) {
+    if (searchToggle && searchForm && searchInput) {
         searchToggle.addEventListener('click', () => {
-            if (searchForm.classList.contains('show')) {
+            const isVisible = searchForm.classList.contains('show');
+
+            if (isVisible) {
                 searchForm.classList.remove('show');
-                setTimeout(() => {
-                    searchForm.style.display = 'none';
-                }, 400); // wait for fade out
+                searchForm.style.display = 'none';
+                searchForm.style.pointerEvents = 'none';
+                searchInput.disabled = true;
+                searchInput.blur();
             } else {
                 searchForm.style.display = 'flex';
-                setTimeout(() => {
-                    searchForm.classList.add('show');
-                }, 10); // slight delay to allow transition
+                searchForm.style.pointerEvents = 'auto';
+                searchInput.disabled = false;
+                searchForm.classList.add('show');
+                searchInput.focus();
             }
         });
+
+        if (window.getComputedStyle(searchForm).display === 'none') {
+            searchForm.style.pointerEvents = 'none';
+            searchInput.disabled = true;
+        }
     }
 });

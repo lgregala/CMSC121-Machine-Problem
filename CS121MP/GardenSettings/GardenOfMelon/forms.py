@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, ContactMessage
+from .models import User, ContactMessage, ShippingAddress
 from phonenumber_field.formfields import PhoneNumberField
 
 class RegisterForm(forms.ModelForm):
@@ -22,9 +22,11 @@ class RegisterForm(forms.ModelForm):
         }
 
 class ContactForm(forms.ModelForm):
-    name = forms.CharField(required=True)
-    email = forms.EmailField()
-    message = forms.CharField(widget=forms.Textarea)
     class Meta:
         model = ContactMessage
         fields = ['name', 'email', 'message']
+
+class ShippingAddressForm(forms.ModelForm):
+    class Meta:
+        model = ShippingAddress
+        fields = ['address', 'city', 'region', 'zipcode']
