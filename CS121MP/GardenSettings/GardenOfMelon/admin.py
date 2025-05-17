@@ -25,9 +25,9 @@ class ProductForm(forms.ModelForm):
     
     # Watering schedule choices 
     WATERING_CHOICES = [
-        ('Once a week', 'Once a week'),
-        ('Once to twice a week', 'Once to twice a week'),
-        ('Once to thrice a week', 'Once to thrice a week'),
+        ('Once a Week', 'Once a Week'),
+        ('Once to Twice a Week', 'Once to Twice a Week'),
+        ('Once to Thrice a Week', 'Once to Thrice a Week'),
     ]
     
     # Convert fields to dropdowns
