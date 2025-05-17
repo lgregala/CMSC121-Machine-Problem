@@ -8,16 +8,27 @@ for (var i = 0; i < updateBtns.length; i++)
         var action = this.dataset.action
         var currentElement = this
 
-        if (user == 'AnonymousUser') updateCookie(productId, action, currentElement)
+        if (this.classList.contains('quantity-wise-add-to-cart'))
+        {
+            const quantityInput = document.getElementById('modalQuantity');
+            const quantity = parseInt(quantityInput.value);
+
+            if (user == 'AnonymousUser') updateCookie(productId, action, currentElement, quantity)
+            else addToCartOrder(productId, action, currentElement, quantity)
+        }
         else
         {
-            if (currentElement.classList.contains('add-to-cart-btn')) addToCartOrder(productId, action, currentElement)
-            else updateUserOrder(productId, action, currentElement)
+            if (user == 'AnonymousUser') updateCookie(productId, action, currentElement, 1)
+            else
+            {
+                if (currentElement.classList.contains('add-to-cart-btn')) addToCartOrder(productId, action, currentElement, 1)
+                else updateUserOrder(productId, action, currentElement, 1)
+            }
         }
     })
 }
 
-function updateUserOrder(productId, action, currentElement)
+function updateUserOrder(productId, action, currentElement, qty)
 {
     var url = '/update_item/'
 
@@ -27,7 +38,7 @@ function updateUserOrder(productId, action, currentElement)
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
         },
-        body: JSON.stringify({'productId': productId, 'action': action})
+        body: JSON.stringify({'productId': productId, 'action': action, 'add-qty': qty})
     })
     .then((response) => response.json())
     .then((data) => {
@@ -101,7 +112,7 @@ function updateUserOrder(productId, action, currentElement)
     })
 }
 
-function addToCartOrder(productId, action, button)
+function addToCartOrder(productId, action, button, qty)
 {
     var url = '/update_item/'
 
@@ -111,20 +122,28 @@ function addToCartOrder(productId, action, button)
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
         },
-        body: JSON.stringify({'productId': productId, 'action': action})
+        body: JSON.stringify({'productId': productId, 'action': action, 'add-qty': qty})
     })
     .then((response) => response.json())
     .then((data) => {
         if (data.error)
         {
-            const modal = document.getElementById('stockExceededModal');
-            modal.style.display = 'block';
-            modal.textContent = '⚠️ Cannot add ' + data.error +'. Maximum stocks exceeded!'
-            
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 5000); 
-            return;
+            if (!button.classList.contains('modal-add-to-cart'))
+            {
+                const modal = document.getElementById('stockExceededModal');
+                modal.style.display = 'block';
+                modal.textContent = '⚠️ Cannot add ' + data.error +'. Maximum stocks exceeded!'
+                
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 5000); 
+                return;
+            }
+            else
+            {
+                animateAddToCartStockError(button)
+                return;
+            }
         }
         else
         {
@@ -154,7 +173,7 @@ function emptyCartPage(mainDiv)
     </div>`
 }
 
-function updateCookie(productId, action, currentElement)
+function updateCookie(productId, action, currentElement, qty)
 {
     fetch(`/get_product_stock/${productId}/`)
     .then(response => response.json())
@@ -163,26 +182,38 @@ function updateCookie(productId, action, currentElement)
         {
             if (!cart[productId]) 
             {
-                cart[productId] = { 'quantity': 1 };
-                animateAddToCart(currentElement);
+                if (data.stock >= qty)
+                {
+                    cart[productId] = { 'quantity': qty };
+                    animateAddToCart(currentElement);
+                }
+                else animateAddToCartStockError(currentElement)
             }
             else 
             {
-                if (cart[productId]['quantity'] < data.stock) 
+                if (data.stock >= cart[productId]['quantity'] + qty) 
                 {
-                    cart[productId]['quantity'] += 1;
+                    cart[productId]['quantity'] += qty;
                     animateAddToCart(currentElement);
                 }
                 else 
                 {
-                    const modal = document.getElementById('stockExceededModal');
-                    modal.style.display = 'block';
-                    modal.textContent = '⚠️ Cannot add ' + data.name +'. Maximum stocks exceeded!'
-                    
-                    setTimeout(() => {
-                        modal.style.display = 'none';
-                    }, 5000); 
-                    return;
+                    if (!currentElement.classList.contains('modal-add-to-cart'))
+                    {
+                        const modal = document.getElementById('stockExceededModal');
+                        modal.style.display = 'block';
+                        modal.textContent = '⚠️ Cannot add ' + data.name +'. Maximum stocks exceeded!'
+                        
+                        setTimeout(() => {
+                            modal.style.display = 'none';
+                        }, 5000); 
+                        return;
+                    }
+                    else
+                    {
+                        animateAddToCartStockError(currentElement)
+                        return;
+                    }
                 }
             }
         } 
@@ -201,7 +232,8 @@ function updateCookie(productId, action, currentElement)
             var mainDiv, quantityDiv
             var currentItem = data.items.find(item => item.productId == productId);
     
-            if (!currentElement.classList.contains('add-to-cart-btn'))
+            if (!currentElement.classList.contains('add-to-cart-btn') &&
+             !currentElement.classList.contains('quantity-wise-add-to-cart'))
             {
                 if (currentElement.classList.contains('trash-icon'))
                 {
@@ -255,8 +287,30 @@ function updateCookie(productId, action, currentElement)
 
 function animateAddToCart(button)
 {
-    button.classList.add('clicked');
+    if (!button.classList.contains('modal-add-to-cart'))
+    {
+        button.classList.add('clicked');
+        setTimeout(() => {
+            button.classList.remove('clicked');
+        }, 2500);
+    }
+    else
+    {
+        button.style.pointerEvents = 'none';
+        button.textContent = 'Item Added!';
+        setTimeout(() => {
+            button.style.pointerEvents = 'auto';
+            button.textContent = 'Add to Cart';
+        }, 2500);
+    }
+}
+
+function animateAddToCartStockError(button)
+{
+    button.style.pointerEvents = 'none';
+    button.textContent = 'Exceeded Stocks!';
     setTimeout(() => {
-        button.classList.remove('clicked');
+        button.style.pointerEvents = 'auto';
+        button.textContent = 'Add to Cart';
     }, 2500);
 }
