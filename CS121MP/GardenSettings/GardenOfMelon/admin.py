@@ -46,8 +46,8 @@ class ProductAdmin(admin.ModelAdmin):
                    'description', 'difficulty', 'light_needed', 'watering_schedule', 
                    'price', 'quantity']
     
+    # To make the product names clickable for editing purposes
     list_display_links = ('name',)
-
 
     def display_image(self, obj):
         if obj.image:
