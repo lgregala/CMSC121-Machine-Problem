@@ -1,22 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Check URL params for showing modal
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('from') == 'checkout') 
+    if (sessionStorage.getItem('showModal') == 'checkout') 
     {
         const modal = document.getElementById('login-required');
-        if (modal)
-        {
+        if (modal) {
             modal.style.display = 'block';
             setTimeout(() => {
                 modal.style.display = 'none';
             }, 7000);
         }
+        sessionStorage.removeItem('showModal');
     }
-    else if (params.get('from') == 'login')
+    else 
     {
         const modal = document.getElementById('authenticated-user-modal');
-        if (modal)
-        {
+        if (modal) {
             modal.style.display = 'block';
             setTimeout(() => {
                 modal.style.display = 'none';

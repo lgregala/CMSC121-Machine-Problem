@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,13 +45,9 @@ INSTALLED_APPS = [
 JAZZMIN_SETTINGS = {
     "show_ui_builder": True,
     "custom_css": "static/Styles/Admin.css", 
-    # Title on the brand (19 chars max)
     "site_title": "Admin Panel",
-    # Welcome text on the login screen
     "welcome_sign": "Welcome to My Admin",
-    # Copyright on the footer
     "copyright": "My Company Ltd",
-    # Dark mode by default?
     "theme": "dark",  # or "light"
 }
 

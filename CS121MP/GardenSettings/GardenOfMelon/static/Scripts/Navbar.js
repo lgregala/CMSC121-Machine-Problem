@@ -11,12 +11,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 searchForm.classList.remove('show');
                 searchForm.style.display = 'none';
                 searchForm.style.pointerEvents = 'none';
-                searchInput.disabled = true;
                 searchInput.blur();
             } else {
                 searchForm.style.display = 'flex';
                 searchForm.style.pointerEvents = 'auto';
-                searchInput.disabled = false;
                 searchForm.classList.add('show');
                 searchInput.focus();
             }
@@ -24,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (window.getComputedStyle(searchForm).display === 'none') {
             searchForm.style.pointerEvents = 'none';
-            searchInput.disabled = true;
         }
     }
 });

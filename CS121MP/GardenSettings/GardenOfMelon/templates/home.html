@@ -184,6 +184,9 @@
       <div id="authenticated-user-modal" class="logged-in-modal"> 👤 You have successfully logged in to your account! </div>
       
       {% include 'footer.html' %}
-      <script type="text/javascript" src="{% static 'Scripts/Modal.js' %}"> </script>
+
+      {% if show_modal %}
+        <script type="text/javascript" src="{% static 'Scripts/Modal.js' %}"> </script>
+      {% endif %}
 </body>
 </html>
