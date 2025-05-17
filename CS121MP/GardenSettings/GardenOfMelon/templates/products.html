@@ -144,11 +144,11 @@
         
         {% if filterMin_performed or filterMax_performed %}
            {% if filterMin_performed and filterMax_performed %}
-             <div class="search-results-ctnr"> <p class="search-results-msg">🔍︎ Filter results for "<strong>₱{{ min_price|floatformat:2 }} - ₱{{ max_price|floatformat:2 }}</strong>"</p> </div>
+             <div class="search-results-ctnr"> <p class="search-results-msg">🔍︎ Filtered products for price range of "<strong>₱{{ min_price|floatformat:2 }} - ₱{{ max_price|floatformat:2 }}</strong>"</p> </div>
            {% elif filterMin_performed %}
-             <div class="search-results-ctnr"> <p class="search-results-msg">🔍︎ Filter results for minimum price of "<strong>₱{{ min_price|floatformat:2 }}</strong>"</p> </div>
+             <div class="search-results-ctnr"> <p class="search-results-msg">🔍︎ Filtered products with a minimum price of "<strong>₱{{ min_price|floatformat:2 }}</strong>"</p> </div>
            {% elif filterMax_performed %}
-             <div class="search-results-ctnr"> <p class="search-results-msg">🔍︎ Filter results for maximum price of "<strong>₱{{ max_price|floatformat:2 }}</strong>"</p> </div>
+             <div class="search-results-ctnr"> <p class="search-results-msg">🔍︎ Filtered products with a maximum price of "<strong>₱{{ max_price|floatformat:2 }}</strong>"</p> </div>
            {% endif %}
         {% endif %}
   

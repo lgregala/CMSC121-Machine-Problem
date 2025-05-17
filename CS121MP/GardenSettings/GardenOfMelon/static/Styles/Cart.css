@@ -67,6 +67,8 @@ body{
     font-size: 20px;
     border: 1.5px solid black;
     overflow-wrap: break-word;
+    transition: opacity 0.65s ease-out,
+                transform 0.6s ease;
 }
 
 .product-row:hover {
