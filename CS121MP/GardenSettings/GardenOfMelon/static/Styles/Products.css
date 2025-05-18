@@ -649,7 +649,7 @@ input[type="number"]::-webkit-inner-spin-button {
     position: absolute;
     z-index: 2;
     top: 50%;
-    left: -10%;
+    left: -20%;
     font-size: 1.4rem;
     transform: translate(-50%, -50%);
 }
@@ -700,7 +700,7 @@ input[type="number"]::-webkit-inner-spin-button {
         left: 50%;
     }
     100% {
-        left: 110%;
+        left: 120%;
     }
 }
 

@@ -142,11 +142,12 @@ textarea {
     }
 
     .input-group .form-floating {
-        width: 100%;
+        width: 89%;
     }
 
-    .input-group-text {
+   .input-group-text {
         margin-bottom: 5px;
+        padding: 16px 14px;
         justify-content: center;
     }
 }
