@@ -226,8 +226,9 @@ button {
 .watering {
     width: 65%;
     color: white;
-    background-color: #90c67c;
+    background-color: #7eab6c;
     margin-bottom: 7px;
+    border-radius: 10px;
 }
 
 .light {
@@ -235,15 +236,16 @@ button {
     color: white;
     background-color: #328e6e;
     margin-bottom: 7px;
+    border-radius: 10px;
 }
 
 .difficulty {
-    width: 30%;
+    width: 35%;
     color: white;
     background-color: #328e62;
     margin-bottom: 7px;
+    border-radius: 10px;
 }
-
 
 .view-btn {
     position: absolute;
@@ -362,28 +364,30 @@ button {
   }
   
 .modal-content {
-    background-color: #fff;
+    background-image: url('../Images/modalbg.jpg');
     margin: 5% auto;
     padding: 30px;
     border-radius: 10px;
-    width: 70%;
-    max-width: 800px;
+    width: 53.5%; /* 70% previous */
+    /* max-width: 800px; */
     position: relative;
-    border: 2px solid #90c67c;
+    box-shadow: 0 0 20px 6px rgba(255, 255, 255, 0.8);
 }
 
 #modalProductName {
     font-family: "Oleo Script", system-ui;
     font-size: 45px;
+    color: #871313;
+    font-weight: bold;
 }
   
 .close-modal {
     position: absolute;
     right: 20px;
     top: 20px;
-    color: #aaa;
+    color: black;
     font-size: 28px;
-    font-weight: bold;
+    font-weight: bolder;
     cursor: pointer;
 }
   
@@ -410,16 +414,16 @@ button {
 .modal-details .price {
     font-size: 1.5rem;
     margin: 15px 0;
-    color: #2a7f62;
+    color: black;
 }
   
 .scientific-name {
     font-style: italic;
-    color: #666;
+    color: black;
 }
   
 .categories {
-    color: #90c67c;
+    color: black;
     font-size: medium;
     margin: 10px 0;
     font-family: 'Winky rough';
@@ -441,15 +445,33 @@ button {
   
 .modal-add-to-cart {
     color: white;
-    border-radius: 25px;
-    background-color: #90c67c;
+    background-color: #7eab6c;
     margin-top: 20px;
-    width: auto;
-    padding: 12px 30px !important;
+    font-size: 1rem;
+    border-style: none;
+    width: 11rem;
+    padding: 5px 5px !important;
+    border-radius: 8.5px;
+}
+
+.quantity-container input {
+    padding: 3.5px 3.5px;
+    border-radius: 8.5px;
+    width: 6rem;
+    text-align: center;
+    font-family: 'Winky Rough';
+    border-color: black;
+}
+
+.quantity-container input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .modal-add-to-cart:hover {
-    background-color: #328e62;
+    background-color: #2a7f62;
+    color: white;
 }
   
 @keyframes fadeIn {
@@ -527,14 +549,6 @@ button {
     transform: translate(-50%, -50%);
 }
 
-/* .cart-button .exceeded {
-    opacity: 0;
-    z-index: 4;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-} */
 
 .cart-button.clicked {
     background-color: #2a7f62 !important;
@@ -615,7 +629,7 @@ button {
     border-radius: 8px;
     font-family: 'Winky Rough';
     font-size: 20px;
-    z-index: 25;
+    z-index: 200;
     display: none;
     animation: slideIn 0.3s ease-out;
 }

@@ -224,6 +224,7 @@ def updateItem(request):
     data = json.loads(request.body)
     productId = data['productId']
     action = data['action']
+    addQuantity = data['add-qty']
 
     customer = request.user.customer
     product = Product.objects.get(id=productId)
@@ -231,7 +232,7 @@ def updateItem(request):
     orderItem, orderItemCreated = OrderItem.objects.get_or_create(order=order, product=product)
  
     if action == 'add':
-        order_item = orderItem.quantity + 1
+        order_item = orderItem.quantity + addQuantity
         product_stock = orderItem.product.quantity
 
         if (order_item > product_stock): 
@@ -239,7 +240,7 @@ def updateItem(request):
             if (orderItemCreated): orderItem.delete()
             return JsonResponse({'error': name})
 
-        orderItem.quantity += 1
+        orderItem.quantity += addQuantity
 
     elif action == 'remove':
         orderItem.quantity -= 1

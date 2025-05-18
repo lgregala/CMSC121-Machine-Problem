@@ -25,21 +25,17 @@
       var csrftoken = getToken('csrftoken')
 
       function getCookie(name) {
-          // Split cookie string and get all individual name=value pairs in an array
           var cookieArr = document.cookie.split(";");
-
-          // Loop through the array elements
           for(var i = 0; i < cookieArr.length; i++) {
               var cookiePair = cookieArr[i].split("=");
 
-              /* Removing whitespace at the beginning of the cookie name
-              and compare it with the given string */
               if(name == cookiePair[0].trim()) {
                   return decodeURIComponent(cookiePair[1]);
               }
           }
           return null;
       }
+
       var cart = JSON.parse(getCookie('cart'))
       if (cart == undefined) {
         cart = {}
@@ -171,9 +167,8 @@
                 update-cart cart-button" data-id="{{ forloop.counter0 }}">
                   <i class="fas fa-bag-shopping"></i>
                   <i class="fas fa-shopping-cart"></i>
-                  <span class="added"> Added </span>
+                  <span class="added"> Item Added! </span>
                   <i class="bi bi-flower1"> </i>
-                  <!-- <span class="exceeded" style="font-size: 13px; display: none"> Max Stocks Reached </span> -->
                 </button>
               </div>
 
@@ -204,7 +199,7 @@
     </div>
   </div>
 
-      <!-- Product Detail Modal -->
+    <!-- Product Detail Modal -->
     <div id="productModal" class="modal">
       <div class="modal-content">
         <span class="close-modal">&times;</span>
@@ -238,10 +233,10 @@
             </div>
 
             <div class="quantity-container">
-              <input type="number" id="modalQuantity" value="1" min="1" class="quantity-input">
-              <button data-product="" data-action='add' class="modal-add-to-cart update-cart">
+              <button data-product="" data-action='add' class="modal-add-to-cart update-cart quantity-wise-add-to-cart">
                 Add To Cart
               </button>
+               <input type="number" id="modalQuantity" value="1" min="1" class="quantity-input">
             </div>
           </div>
         </div>
