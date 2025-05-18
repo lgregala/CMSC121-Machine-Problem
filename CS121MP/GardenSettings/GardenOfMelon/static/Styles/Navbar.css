@@ -1,6 +1,7 @@
 @media (max-width: 1300px) {
     .navbar {
         flex-direction: column;
+        justify-content: center;
         align-items: center;
         height: auto;
         padding: 1rem 0;
@@ -8,20 +9,20 @@
 
     .navbar > .nav-link {
         display: flex;
-        justify-content: center;
         width: 100%;           /* Allows centering inside the full width */
    }
    
-   .nav.link > img {
-        width:auto;
+   .nav-link > img {
+        width: auto;
         height: 100px;
    }
 
     .nav-elements {
         display: flex;
+        flex-wrap: wrap;
         flex-direction: column;
         align-items: center;
-             /* Adds space between each stacked item */
+        justify-content: center;
     }
 
     .nav-elements ul {
@@ -43,20 +44,21 @@
 
     #searchForm {
         width: 100%;           /* Makes search bar full width */
-        max-width: 330px;
+        max-width: 350px;
     }
 }
 
 .home-logo {
-    margin-left: 10px;
     height: 75px; 
     width: auto;
+    margin: auto;
+    margin-left: 10px;
 }
 
 .navbar ul {
     list-style-type: none;
     margin: 10px;
-    
+
     display:flex;
     flex-direction: row;
     justify-content: space-between;
@@ -71,14 +73,14 @@
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+    flex-wrap: wrap;
 }
-
 
 .nav-elements {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
     flex-direction: row;
 }
 

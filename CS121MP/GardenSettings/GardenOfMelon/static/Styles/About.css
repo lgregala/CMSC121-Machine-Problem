@@ -1,4 +1,6 @@
 #background-img{
+    display: flex;
+    flex-wrap: wrap;
     background-image: url(../Images/IndoorPlants.webp);
     background-size: cover;
     background-position: center;
@@ -13,6 +15,7 @@
     width: 1175px;
     color: black;
     display: flex; 
+    flex-wrap: wrap;
     flex-direction: column;                       
 }
 .about{
@@ -78,6 +81,7 @@
     border-radius: 20px;
 }
 video{
+    object-fit: contain;
     border: 3px solid black;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -110,9 +114,10 @@ video{
 }
 .row-container{
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
-    gap: 20px;
+    gap: 1.2rem;
 }
 .team-card-container{
     perspective: 1200px;
