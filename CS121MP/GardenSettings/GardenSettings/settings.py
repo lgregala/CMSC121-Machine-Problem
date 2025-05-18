@@ -44,10 +44,10 @@ INSTALLED_APPS = [
 
 JAZZMIN_SETTINGS = {
     "show_ui_builder": True,
-    "custom_css": "static/Styles/Admin.css", 
+    "custom_css": "Styles/Admin.css", 
     "site_title": "Admin Panel",
     "site_brand": "Garden Of Melon",
-    "site_logo": "Logos/GoM-Logo.png",
+    "site_logo": "Logos/GoM-Smaller-Logo.png",
     "welcome_sign": "Welcome, Admin!",
     "copyright": "Garden Of Melon",
     "theme": "dark",  
@@ -60,6 +60,18 @@ JAZZMIN_SETTINGS = {
          "new_window": True
         },
     ],  
+
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "Gardenofmelon.User": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "Gardenofmelon.Customer": "fas fa-user-tie",
+        "Gardenofmelon.Order": "fas fa-shopping-bag",
+        "Gardenofmelon.OrderItem": "fas fa-list-ol",
+        "Gardenofmelon.ContactMessage": "fas fa-envelope",
+        "Gardenofmelon.Product": "fas fa-seedling",
+        "Gardenofmelon.ShippingAddress": "fas fa-truck-loading",
+    }
 }
 
 MIDDLEWARE = [
@@ -124,6 +136,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
+
+LOGIN_REDIRECT_URL = '/admin/'  # Redirect to admin dashboard after login
 
 ALLOWED_HOSTS = ['gardenofmelon.com', 'www.gardenofmelon.com',  '127.0.0.1']
 
