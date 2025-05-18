@@ -1,5 +1,5 @@
 body {
-    background-image: url('/static/Images/featured-plants.jpg');
+    background-image: url('Images/featured-plants.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -9,4 +9,11 @@ body {
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border-radius: 5px;
+}
+
+.brand-image {
+    width: 30px !important;   
+    height: auto;
+    border-radius: 10px;       
+    object-fit: contain; 
 }

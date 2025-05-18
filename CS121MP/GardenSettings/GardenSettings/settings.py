@@ -46,9 +46,20 @@ JAZZMIN_SETTINGS = {
     "show_ui_builder": True,
     "custom_css": "static/Styles/Admin.css", 
     "site_title": "Admin Panel",
-    "welcome_sign": "Welcome to My Admin",
-    "copyright": "My Company Ltd",
-    "theme": "dark",  # or "light"
+    "site_brand": "Garden Of Melon",
+    "site_logo": "Logos/GoM-Logo.png",
+    "welcome_sign": "Welcome, Admin!",
+    "copyright": "Garden Of Melon",
+    "theme": "dark",  
+
+    # Links the admin homepage to the website homepage
+    "topmenu_links": [
+        {"name": "Visit Garden Of Melon Website", 
+         "url": "/", 
+         "permissions": ["auth.view_user"], 
+         "new_window": True
+        },
+    ],  
 }
 
 MIDDLEWARE = [
