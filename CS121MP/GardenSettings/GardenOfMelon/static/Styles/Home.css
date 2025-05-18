@@ -596,7 +596,7 @@ body {
 }
 
 /* Logged-in Modal */
-.logged-in-modal {
+.logged-status-modal {
   position: fixed;
   width: auto;
   right: 12px;
