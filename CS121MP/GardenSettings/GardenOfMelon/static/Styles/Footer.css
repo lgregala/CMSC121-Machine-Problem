@@ -8,7 +8,7 @@
     padding-top: 8px;
 }
 .footer-content{
-    width: 27%;
+    width: 30%;
     text-align: center;
     font-family: "Winky rough";
 }
@@ -18,7 +18,7 @@
 }
 .qlink-div{
     margin: auto;
-    width: 13vw;
+    /* width: 13vw; */
 }
 .qlink-div:hover{
     background-color: #328e6e;
