@@ -38,6 +38,11 @@ body {
     border-color: #90c67c;
 }
 
+.m-0 {
+    font-family: "Oleo Script", system-ui;
+    font-size: 35px;
+}
+
 
 #content {
     background-color: rgba(255, 255, 255, 0.8);
