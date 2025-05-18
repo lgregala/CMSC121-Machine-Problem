@@ -500,6 +500,8 @@ body {
   border: 2px solid #81c784; 
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  text-decoration: none !important; 
+  display: inline-block;  
 }
 
 .about{
