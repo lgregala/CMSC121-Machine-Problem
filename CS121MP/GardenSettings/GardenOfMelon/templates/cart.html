@@ -24,15 +24,10 @@
 		var csrftoken = getToken('csrftoken')
 
 		function getCookie(name) {
-          // Split cookie string and get all individual name=value pairs in an array
           var cookieArr = document.cookie.split(";");
 
-          // Loop through the array elements
           for(var i = 0; i < cookieArr.length; i++) {
               var cookiePair = cookieArr[i].split("=");
-
-              /* Removing whitespace at the beginning of the cookie name
-              and compare it with the given string */
               if(name == cookiePair[0].trim()) {
                   return decodeURIComponent(cookiePair[1]);
               }
@@ -49,10 +44,11 @@
 </head>
 <body>
 	{% include 'navbar.html' %}
+	<div class="navbar-border-top"></div>
 
-	<div class="cart-page">
+	<div class='cart-page'>
 		{% if items %}
-		<div class="box-element left-ctnr">
+		<div class="box-element left-ctnr" style="margin-top: 25px;">
 			<div class="main-cart-text"> <i class="fa fa-shopping-cart fs-1" style="color: #871313; margin-right: 10px;"></i> 
 			 Shopping Cart </div>
 			<div class="cart-row" style="margin-bottom: 20px;">
@@ -112,9 +108,9 @@
 					</tbody>
 				</table>				  
 				<div class="summary-btn-container">
-					<a class="summary-btn" id="temp" href="{% url 'products' %}"> Continue Shopping </a>
+					<a class="summary-btn" id="temp" href="{% url 'products' %}"> Shop More </a>
 					<button id="checkout" class="summary-btn checkout-button" style="border: none;">
-						<span class="main-checkout-text"> Checkout </span>
+						<span class="main-checkout-text"> Checkout</span>
 						<img class='truck-icon' src="{% static 'Images/truck-icon.png' %}">
 						<img class='plant-icon' src="{% static 'Images/plant-icon.png' %}">
 						<span class="placed"> Complete! </span> 
@@ -165,7 +161,7 @@
 		</div>
 		<div class="optionBtns">
 			<button class="modalBtns" id="home"  onclick="window.location.href='/home'"> Return </button>
-			<button class="modalBtns" id="shop-more" onclick="window.location.href='/products'"> Shop More </button>
+			<button class="modalBtns" id="shop-more" onclick="window.location.href='/products'"> Shop Again </button>
 		</div>
 	</div>
 

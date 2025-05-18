@@ -99,7 +99,7 @@ textarea {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 775px) {
     #contact-body {
         padding: 20px 10px;
     }
@@ -113,7 +113,7 @@ textarea {
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 650px) {
     #floatingTextarea {
         height: 150px;
     }
