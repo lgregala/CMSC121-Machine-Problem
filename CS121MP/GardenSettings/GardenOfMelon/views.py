@@ -74,11 +74,13 @@ def loginPage(request):
                     order_item.quantity += quantity
                     order_item.save()
                 
-                response = redirect('/home?from=login')
+                request.session['show_login_modal'] = True
+                response = redirect('home')
                 response.delete_cookie('cart')
-                return response    
+                return response
             else:
-                return redirect('/home?from=login')
+                request.session['show_login_modal'] = True
+                return redirect('home')
    
         else:
             messages.error(request, "Incorrect password.")
@@ -112,7 +114,8 @@ def aboutPage(request):
     return render(request, 'about.html', context)
 
 def homePage(request):
-    context1 = {}
+    show_modal = request.session.pop('show_login_modal', False)
+    context1 = {'show_modal': show_modal,}
     
     if request.user.is_authenticated:
         context1['user'] = request.user
