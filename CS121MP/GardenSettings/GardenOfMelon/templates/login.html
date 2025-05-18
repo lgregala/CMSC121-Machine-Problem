@@ -11,15 +11,23 @@
 <body data-static-path="{% static 'Images/' %}">
     <header>
       {% include 'navbar.html' %}
+      <div class="navbar-border"></div>
     </header>
 
     {% if user.is_authenticated %}
     <div id="account-body">
         <div id="account-details">
             <div id="details">
-                <div style="grid-template-columns: 1fr 0fr; margin-bottom: -15px;" class="d-grid gap-3">
-                    <div class="p-2"><p style="font-size: 25px; font-weight: bold;">{{ user.first_name }} {{ user.last_name }} &#127803;</p></div>
-                    <div class="p-2"><a href="{% url 'logout' %}" class="btn btn-primary" id="logout-btn">Log out</a></div>
+                <div class="d-flex justify-content-between align-items-center mb-3 w-100" style="gap: 1rem;">
+                    <span style="font-size: 25px; font-weight: bold; white-space: nowrap; margin-left: 10px;">
+                        {{ user.first_name }} {{ user.last_name }} 🌻
+                    </span>
+                    <div class="logged-in-user-btns d-flex">
+                        <a href="{% url 'logout' %}" class="btn btn-primary user-btn me-2">Log out</a>
+                        {% if user.is_superuser %}
+                            <a href="/admin/" class="btn btn-primary user-btn">Go to Seller Page</a>
+                        {% endif %}
+                    </div>
                 </div>
                 <p class="details" style="font-size: 15px; margin-left: 8px;"><b>Email:</b> {{ user.email }}</p>
                 <p class="details" style="font-size: 15px; margin-left: 8px;"><b>Phone:</b> {{ user.phone_number }}</p>

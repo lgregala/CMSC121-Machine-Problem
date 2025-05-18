@@ -8,6 +8,7 @@
 <body data-static-path="{% static 'Images/' %}">
     <header>
         {% include 'navbar.html' %}
+        <div class="navbar-border"></div>
     </header>
   
     <div id="contact-body">
@@ -53,7 +54,8 @@
                             </div>
                               
                             <div class="d-grid mb-3">
-                                <button type="submit" class="btn btn-primary" id="send-message-btn">Send</button>
+                                <button type="submit" class="btn btn-primary" id="send-message-btn" 
+                                style="font-family:'Winky Rough'">Send message</button>
                             </div>
                         </form>
                     </div>
@@ -63,7 +65,7 @@
                         <div id="contact-form-title">
                             <p style="font-size: 2rem; font-weight: bold; font-family: 'Oleo Script';">Contact Us</p>
                             <div class="mb-2 further-details">
-                                <span style="margin-right: 25px; font-family: 'Winky Rough'; font-size: 18px;"> <i class="fa fa-phone"></i>  (+632) 1234-5678 </span>
+                                <span style="margin-right: 25px; font-family: 'Winky Rough'; font-size: 18px;"> <i class="fa fa-phone"></i>  +639918095030 </span>
                                 <span style=" font-family: 'Winky Rough'; font-size: 18px;"> <i class="fa fa-envelope" ></i>  gardenofmelon@gmail.com </span>
                             </div>
                         </div>
@@ -75,6 +77,12 @@
             </div>
         </div>
     </div>
+
+    <div id="message-sent-modal" class="contact-modal"> 📤 Your plant-some message was successfully sent! </div>
+
+    {% if show_sent_modal %}
+        <script type="text/javascript" src="{% static 'Scripts/ContactModal.js' %}"> </script>
+    {% endif %}
   
     {% include 'footer.html' %}
 </body>

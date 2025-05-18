@@ -46,9 +46,13 @@
   </head>
 <body data-static-path="{% static 'Product-Images/' %}">
     {% include 'navbar.html' %}
+    <div class="navbar-border"></div>
 
     <!-- -------------- PRODUCT DISPLAY -------------- -->
     <!-- NEW CODE: from filter buttons to filter anchor tags -->
+    <button class="filter-toggle-btn">
+      <i class="fas fa-filter"></i> Filters
+    </button>
     <div class="product-grid">
       <div class="product-filter">
         <h2>Filter by Price</h2>
@@ -100,7 +104,7 @@
           <a href="{% url 'products' %}?subcategory=Herbs and Edibles" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Herbs and Edibles' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Herbs and Edibles</a>
           <a href="{% url 'products' %}?subcategory=Bloom and Doom" class="btn btn-outline-success filter-btn  {% if request.GET.subcategory == 'Bloom and Doom' %}btn-success-subcat active{% else %}filter-subcat{% endif %} ">Bloom and Doom</a>
       </div>
-
+    
     <div class="product-container">
       {% if no_results %}
          {% if search_performed %}
@@ -210,7 +214,7 @@
             <div class="scientific-name" id="modalScientificName"></div>
             <div class="price" id="modalProductPrice"></div>
             <div class="categories">
-              <span id="modalProductCategory"></span>  
+              <span id="modalProductCategory"></span>
               <span id="modalProductSubcategory"></span>
             </div>
             <div class="description" id="modalProductDescription"></div>

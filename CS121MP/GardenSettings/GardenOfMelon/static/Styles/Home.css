@@ -277,8 +277,7 @@ body {
 }  
 
 .nextPrevArrows button:hover {   
-  background-color: #fff;     
-  color: #000; 
+  background-color: #2e7d32;  
 }
 
 /*============================= ANIMATION =================================*/
@@ -597,7 +596,7 @@ body {
 }
 
 /* Logged-in Modal */
-.logged-in-modal {
+.logged-status-modal {
   position: fixed;
   width: auto;
   right: 12px;

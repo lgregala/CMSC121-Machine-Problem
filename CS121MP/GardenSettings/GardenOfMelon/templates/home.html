@@ -9,6 +9,7 @@
 
 <body data-static-path="{% static 'Images/' %}">
       {% include 'navbar.html' %}
+      <div class="navbar-border"></div>
 
       <div class="hero-section">
         <div class="overlay"></div>
@@ -180,12 +181,15 @@
         </div>
       </section>
         
-      <div id="authenticated-user-modal" class="logged-in-modal"> 👤 You have successfully logged in to your account! </div>
+      <div id="authenticated-user-modal" class="logged-status-modal"> 👤 You have successfully logged in to your account! </div>
+      <div id="unauthenticated-user-modal" class="logged-status-modal"> 🔒 You have logged out from your account! </div>
       
       {% include 'footer.html' %}
 
-      {% if show_modal %}
-        <script type="text/javascript" src="{% static 'Scripts/Modal.js' %}"> </script>
+      {% if show_login_modal %}
+        <script type="text/javascript" src="{% static 'Scripts/LoginModal.js' %}"> </script>
+      {% elif show_logout_modal %}
+        <script type="text/javascript" src="{% static 'Scripts/LogoutModal.js' %}"> </script>
       {% endif %}
 </body>
 </html>

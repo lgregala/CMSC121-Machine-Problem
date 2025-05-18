@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         sessionStorage.removeItem('showModal');
     }
     else 
-    {
+    {   
         const modal = document.getElementById('authenticated-user-modal');
         if (modal) {
             modal.style.display = 'block';
