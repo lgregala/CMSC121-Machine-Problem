@@ -1,61 +1,83 @@
 body {
     background-image: url('../Images/contacts-bg.jpg');
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #contact-body {
-    padding-bottom: 35px;
-    padding-top: 35px;
-    padding-left: 80px;
-    padding-right: 80px;
-    align-items: center;
+    padding: 35px 20px;
 }
 
-.container{
+#contact-body .row {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#contact-body .col-md-6 {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+#contact-form,
+#contact-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    align-items: center;
+    background-color: rgba(255, 253, 253, 0.85);
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 20px;
+    width: 100%;
 }
 
 #contact-form-title {
     text-align: center;
 }
 
-#contact-form, #contact-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 253, 253, 0.726);
-    border-radius: 10px;
-    padding: 40px 60px; 
-}
-
 .input-group {
     height: 50px;
+    width: 100%;
 }
 
-input {
-    border-bottom: 3px;
-    border-color: #90c67c;
+input,
+textarea {
+    border: 1px solid #90c67c;
 }
 
 #floatingTextarea {
-    width: 435px;
     height: 200px;
+    resize: vertical;
     margin-bottom: 10px;
+    width: 100%;
 }
 
 .form-control {
-    width: 390px;
+    width: 100%;
 }
 
 #send-message-btn {
-    width: 435px;
+    width: 100%;
     background-color: #90c67c;
-    border-radius: 50px; 
-    border-color: #90c67c;
-    text-align: center;
+    border-radius: 50px;
+    border: none;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#send-message-btn:hover {
+    background-color: #78b363;
 }
 
 #contact-error-messages {
@@ -63,9 +85,50 @@ input {
 }
 
 #map-frame {
-    width: 435px;
+    width: 100%;
     height: 409px;
     border: 0;
     border-radius: 10px;
     overflow: hidden;
+}
+
+@media (max-width: 992px) {
+    #contact-form,
+    #contact-details {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    #contact-body {
+        padding: 20px 10px;
+    }
+
+    #map-frame {
+        height: 300px;
+    }
+
+    #send-message-btn {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    #floatingTextarea {
+        height: 150px;
+    }
+
+    .input-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .input-group .form-floating {
+        width: 100%;
+    }
+
+    .input-group-text {
+        margin-bottom: 5px;
+        justify-content: center;
+    }
 }
