@@ -1,8 +1,11 @@
-body {
-  background-color: #90c67c;
+* {
   margin: 0;
   padding: 0;
-  
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #90c67c;
 }
 
 /*============================= HERO SECTION =============================== */
@@ -80,119 +83,137 @@ body {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-/*============================= CATEGORY SLIDER SECTION =============================== */
+/*============================= CATEGORY SLIDER SECTION =============================== */  
+.see-more-btn {   
+  font-family: 'Winky rough';     
+  font-weight: bold;     
+  padding: 10px 20px;     
+  background-color: #90c67c;     
+  color: white;     
+  text-decoration: none;     
+  border:#2e7d32;     
+  border-width: 20px;     
+  border-radius: 25px;     
+  text-align: center;     
+  transition: background-color 0.3s; 
+}  
 
-.see-more-btn {
-  font-family: 'Winky rough';
-    font-weight: bold;
-    padding: 10px 20px;
-    background-color: #90c67c;
-    color: white;
-    text-decoration: none;
-    border:#2e7d32;
-    border-width: 20px;
-    border-radius: 25px;
-    text-align: center;
-    transition: background-color 0.3s;
+.see-more-btn:hover {   
+  background-color: #2e7d32; 
+}  
+
+.plant-slider {   
+  width: 100%;   
+  height: 100vh; /* Full viewport height */   
+  position: relative;   
+  overflow: hidden; 
+}  
+
+.plant-slider .slider-item {   
+  width: cover; /* control size here */   
+  height: auto;   
+  position: relative;   
+  inset: 0 0 0 0; 
+}  
+
+.plant-slider .slider-item img {   
+  width: 100vw;   
+  height: 100vh;   
+  object-fit: cover; 
+}   
+
+.plant-slider .plant-list .slider-item .slider-content {   
+  position: absolute;     
+  top: 20%;     
+  width: 1140px;     
+  max-width: 80%;     
+  left: 50%;     
+  transform: translateX(-50%);     
+  padding-right: 30%;     
+  box-sizing: border-box;     
+  color: #fff;     
+  text-shadow: 0 5px 10px #0004; 
+}  
+
+.plant-slider .plant-list .slider-item .slider-content .slider-title, 
+.plant-slider .plant-list .slider-item .slider-content .type {   
+  font-family: "Oleo Script", system-ui;   
+  font-size: 5em;     
+  font-weight: bold;     
+  line-height: 1.3em; 
+}  
+
+@media (max-width: 992px) {
+  .plant-slider .plant-list .slider-item .slider-content .slider-title,
+  .plant-slider .plant-list .slider-item .slider-content .type {   
+    font-size: 4em;
+  }
 }
 
-.see-more-btn:hover {
-  background-color: #2e7d32;
+@media (max-width: 768px) {
+  .plant-slider .plant-list .slider-item .slider-content .slider-title,
+  .plant-slider .plant-list .slider-item .slider-content .type {   
+    font-size: 3em;
+  }
 }
 
-.plant-slider {
-  width: 100%;
-  height: 100vh; /* Full viewport height */
-  position: relative;
-  overflow: hidden;
-}
+.type {   
+  color:#95e577; 
+}  
 
-.plant-slider .slider-item {
-  width: cover; /* control size here */
-  height: auto;
-  position: relative;
-  inset: 0 0 0 0;
-}
+.plant-slider .plant-list .slider-item .slider-content .description {   
+  font-family: 'Winky rough';     
+  font-weight: normal; 
+  width: 75%;
+  max-width: 550px;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 5px 10px;
+  border-radius: 10px;
+}  
 
-.plant-slider .slider-item img {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-}
+.plant-slider .plant-list .slider-item .see-more-button {   
+  display: grid;     
+  grid-template-columns: repeat(2, 130px);     
+  grid-template-rows: 40px;     
+  gap: 5px;     
+  margin-top: 20px; 
+}  
 
+.plant-slider .plant-list .slider-item .see-more-button button {   
+  border: none;     
+  background-color: #eee;     
+  font-family: 'Winky rough';     
+  font-weight: bold;     
+  cursor: pointer;     
+  transition: 0.4s;     
+  letter-spacing: 2px; 
+}  
 
-.plant-slider .plant-list .slider-item .slider-content {
-  position: absolute;
-    top: 20%;
-    width: 1140px;
-    max-width: 80%;
-    left: 50%;
-    transform: translateX(-50%);
-    padding-right: 30%;
-    box-sizing: border-box;
-    color: #fff;
-    text-shadow: 0 5px 10px #0004;
-}
+.plant-slider .plant-list .slider-item .see-more-button button:hover {   
+  letter-spacing: 3px; 
+}  
 
-.plant-slider .plant-list .slider-item .slider-content .slider-title,
-.plant-slider .plant-list .slider-item .slider-content .type {
-  font-family: "Oleo Script", system-ui;
-  font-size: 5em;
-    font-weight: bold;
-    line-height: 1.3em;
-}
-
-.type {
-  color:#95e577;
-}
-
-.plant-slider .plant-list .slider-item .slider-content .description {
-  font-family: 'Winky rough';
-    font-weight: normal;
-}
-
-.plant-slider .plant-list .slider-item .see-more-button {
-  display: grid;
-    grid-template-columns: repeat(2, 130px);
-    grid-template-rows: 40px;
-    gap: 5px;
-    margin-top: 20px;
-}
-
-.plant-slider .plant-list .slider-item .see-more-button button {
-  border: none;
-    background-color: #eee;
-    font-family: 'Winky rough';
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.4s;
-    letter-spacing: 2px;
-}
-
-.plant-slider .plant-list .slider-item .see-more-button button:hover {
-  letter-spacing: 3px;
-}
-
-.plant-slider .plant-list .slider-item .see-more-button button:nth-child(2) {
-  background-color: transparent;
-  border: 1px solid #fff;
-  color: #eee;
-}
+.plant-slider .plant-list .slider-item .see-more-button button:nth-child(2) {   
+  background-color: transparent;   
+  border: 1px solid #fff;   
+  color: #eee; 
+}  
 
 .thumbnail {
   position: absolute;
-  bottom: 50px;
-  left: 50%;
-  width: max-content;
-  z-index: 100;
+  bottom: 2rem;
+  right: 6%;
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
+  width: 40vw;
+  max-width: 510px;
+  z-index: 100;
+  gap: 15px;
 }
 
 .thumbnail .slider-item {
-  width: 150px;
-  height: 220px;
-  flex-shrink: 0;
+  flex: 1;
+  aspect-ratio: 2/3; 
   position: relative;
 }
 
@@ -204,34 +225,60 @@ body {
   box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
 }
 
+@media (max-width: 576px) {
+  .thumbnail {
+    width: 90vw;
+    bottom: 10px;
+    right: 5%;
+  }
+
+  .thumbnail .slider-item {
+    aspect-ratio: 2/3;
+  }
+}
+
+.nextPrevArrows {   
+  position: absolute;   
+  top: 85%;   
+  left: 14%;   
+  z-index: 100;   
+  width: 300px;   
+  max-width: 30%;   
+  display: flex;   
+  gap: 10px;   
+  align-items: center; 
+}  
+
 .nextPrevArrows {
   position: absolute;
-  top: 80%;
-  right: 52%;
+  bottom: 25px; 
+  left: 17%;
+  transform: translateX(-50%);
   z-index: 100;
-  width: 300px;
-  max-width: 30%;
   display: flex;
   gap: 10px;
   align-items: center;
+  justify-content: center;
+  width: auto;
+  padding: 5px;
 }
 
-.nextPrevArrows button {
-  width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color:#6ca55b;
-    border: none;
-    color: #fff;
-    font-family: 'Winky rough';
-    font-weight: bold;
-    transition: .5s;
-    cursor: pointer;
-}
+.nextPrevArrows button {   
+  width: 40px;     
+  height: 40px;     
+  border-radius: 50%;     
+  background-color:#6ca55b;     
+  border: none;     
+  color: #fff;     
+  font-family: 'Winky rough';     
+  font-weight: bold;     
+  transition: .5s;     
+  cursor: pointer; 
+}  
 
-.nextPrevArrows button:hover {
-  background-color: #fff;
-    color: #000;
+.nextPrevArrows button:hover {   
+  background-color: #fff;     
+  color: #000; 
 }
 
 /*============================= ANIMATION =================================*/
@@ -441,8 +488,6 @@ body {
   
 }
 
-
-
 .awp-card{
   position: relative;
   display: flex;
@@ -531,14 +576,14 @@ body {
   text-align: center;
   font-family: "Oleo Script", system-ui;
   font-size: 75px;
-
 }
 
 .credential-logos {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0px;
+  padding-bottom: 20px;
 }
 
 .credential-logos img {
