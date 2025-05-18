@@ -77,6 +77,12 @@
             </div>
         </div>
     </div>
+
+    <div id="message-sent-modal" class="contact-modal"> 📤 Your plant-some message was successfully sent! </div>
+
+    {% if show_sent_modal %}
+        <script type="text/javascript" src="{% static 'Scripts/ContactModal.js' %}"> </script>
+    {% endif %}
   
     {% include 'footer.html' %}
 </body>

@@ -91,7 +91,8 @@ def loginPage(request):
 
 def logoutPage(request):
     logout(request)
-    return redirect('login')
+    request.session['show_logout_modal'] = True
+    return redirect('home')
 
 def shippingAddress(request):
     customer = request.user.customer
@@ -114,9 +115,10 @@ def aboutPage(request):
     return render(request, 'about.html', context)
 
 def homePage(request):
-    show_modal = request.session.pop('show_login_modal', False)
-    context1 = {'show_modal': show_modal,}
-    
+    show_login_modal = request.session.pop('show_login_modal', False)
+    show_logout_modal = request.session.pop('show_logout_modal', False)
+    context1 = {'show_login_modal': show_login_modal, 'show_logout_modal': show_logout_modal,}
+
     if request.user.is_authenticated:
         context1['user'] = request.user
     
@@ -129,12 +131,14 @@ def contactPage(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
+            request.session['show_msgsent_modal'] = True
             form.save()
             return redirect('contact')
     else:
         form = ContactForm()
 
-    context1 = {'form': form}
+    show_sent_modal = request.session.pop('show_msgsent_modal', False)
+    context1 = {'form': form, 'show_sent_modal': show_sent_modal,}
     context2 = getCartData(request)
     context = {**context1, **context2}
     return render(request, 'contact.html', context)
