@@ -55,6 +55,9 @@ class ContactMessage(models.Model):
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"Message from: {self.name} ({self.email})"
+
 class Product(models.Model):
     seller = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200, null=True)  # Plant_Name
@@ -81,14 +84,22 @@ class Product(models.Model):
         return {'price': self.price, 'quantity': self.quantity}
 
 class Order(models.Model):
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Shipped', 'Shipped'),
+        ('Cancelled', 'Cancelled'),
+        ('Return/Refund', 'Return/Refund'),
+    ]
+
     order_number = models.CharField(max_length=15, unique=True, blank=True, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
     transaction_id = models.CharField(max_length=200, null=True)
+    order_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
 
     def __str__(self):
-        return str(self.id)
+        return str(self.order_number)
     
     @property
     def guestOrderDictionary(self):
@@ -103,7 +114,7 @@ class Order(models.Model):
     @property
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
-        total = sum([item.get_total for item in orderitems])
+        total = sum([item.subtotal for item in orderitems])
         return total 
     
    
@@ -114,7 +125,7 @@ class OrderItem(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     @property
-    def get_total(self):
+    def subtotal(self):
         total = self.product.price * self.quantity
         return total
 
