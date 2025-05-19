@@ -81,7 +81,7 @@ class Product(models.Model):
         return {'price': self.price, 'quantity': self.quantity}
 
 class Order(models.Model):
-    order_number = models.CharField(max_length=20, unique=True)
+    order_number = models.CharField(max_length=15, unique=True, blank=True, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)

@@ -57,10 +57,13 @@ async function submitCheckout()
         }
 
         const data = await response.json();
-        if (data.message) 
+        if (data.message || data.order_number) 
         {
             cart = {};
             document.cookie = 'cart=' + JSON.stringify(cart) + '; path=/';
+            
+            const checkoutModal = document.querySelector('#unique-order-number')
+            checkoutModal.textContent = '🌱 Order Number:\n' + data.order_number
         }
     } 
     catch (error) {

@@ -12,6 +12,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from .utils import * 
 import datetime
+import uuid
 import json
 
 def registerPage(request):
@@ -273,6 +274,7 @@ def processOrder(request):
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
     order.transaction_id = transaction_id
+    order.order_number = '#' + str(uuid.uuid4().hex)[:12].upper()
     order.complete = True
     order.save()
 
@@ -282,4 +284,4 @@ def processOrder(request):
         product.quantity -= item.quantity
         product.save()
 
-    return JsonResponse({'message': 'Items have been checked out!'})
+    return JsonResponse({'message': 'Items have been checked out!', 'order_number': order.order_number})
