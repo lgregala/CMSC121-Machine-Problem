@@ -11,6 +11,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+
 /* Optional: Make content readable */
 .login-box, .card {
     font-family: 'Winky rough';
@@ -36,6 +37,11 @@ body {
     background-color: #4c8039;
     border-radius: 50px; 
     border-color: #90c67c;
+}
+
+.m-0 {
+    font-family: "Oleo Script", system-ui;
+    font-size: 35px;
 }
 
 

@@ -139,6 +139,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_REDIRECT_URL = '/admin/'  # Redirect to admin dashboard after login
 
+ALLOWED_HOSTS = ['gardenofmelon.com', 'www.gardenofmelon.com',  '127.0.0.1']
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'

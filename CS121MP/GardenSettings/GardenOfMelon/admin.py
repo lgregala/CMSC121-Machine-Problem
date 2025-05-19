@@ -4,6 +4,33 @@ from django import forms
 from django.utils.html import format_html
 
 class ProductForm(forms.ModelForm):
+    # Category choices
+    CATEGORY_CHOICES = [
+        ('Ornamentals', 'Ornamentals'),
+        ('Botanical Collections', 'Botanical Collections'),
+        ('Functional Plants', 'Functional Plants'),
+    ]
+
+    # Subategory choices
+    SUBCATEGORY_CHOICES = [
+        ('Succulents', 'Succulents'),
+        ('Flowering Beauties', 'Flowering Beauties'),
+        ('Indoor Ornamentals', 'Indoor Ornamentals'),
+        ('Outdoor Adventurers', 'Outdoor Adventurers'),
+        ('Aglaonema', 'Aglaonema'),
+        ('Alocasia', 'Alocasia'),
+        ('Begonia', 'Begonia'),
+        ('Dracaena', 'Dracaena'),
+        ('Ficus', 'Ficus'),
+        ('Monstera', 'Monstera'),
+        ('Philodendron', 'Philodendron'),
+        ('Pothos', 'Pothos'),
+        ('Sansevieria', 'Sansevieria'),
+        ('Fruit-bearing', 'Fruit-bearing'),
+        ('Herbs and Edibles', 'Herbs and Edibles'),
+        ('Bloom and Doom', 'Bloom and Doom'),
+    ]
+
     # Difficulty choices
     DIFFICULTY_CHOICES = [
         ('Easy', 'Easy'),
@@ -31,6 +58,8 @@ class ProductForm(forms.ModelForm):
     ]
     
     # Convert fields to dropdowns
+    category = forms.ChoiceField(choices=CATEGORY_CHOICES)
+    subcategory = forms.ChoiceField(choices=SUBCATEGORY_CHOICES)
     difficulty = forms.ChoiceField(choices=DIFFICULTY_CHOICES)
     light_needed = forms.ChoiceField(choices=LIGHT_CHOICES)
     watering_schedule = forms.ChoiceField(choices=WATERING_CHOICES)
