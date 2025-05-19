@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.querySelector('.quantity-input').value = 1;
                     document.getElementById('modalProductImage').src = data.image_url;
                     document.getElementById('modalProductName').textContent = data.name;
+                    document.getElementById('modalProductStock').textContent = `Stock: ${data.quantity}`;
                     document.getElementById('modalScientificName').textContent = data.scientific_name;
                     document.getElementById('modalProductPrice').textContent = `₱${data.price}`;
                     document.getElementById('modalProductCategory').textContent = data.category;
