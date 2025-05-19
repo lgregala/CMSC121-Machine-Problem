@@ -80,8 +80,8 @@ body {
     font-size: 15px;
 }
 
-/* Login Required Modal */
-.login-to-checkout-modal {
+/* Login || Address Required Modal */
+.login-to-checkout-modal, .address-modal {
     position: fixed;
     width: auto;
     right: 12px;

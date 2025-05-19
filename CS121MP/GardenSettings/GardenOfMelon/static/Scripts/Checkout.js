@@ -51,9 +51,18 @@ async function submitCheckout()
         if (response.status == 401) 
         {
             const data = await response.json();
-            sessionStorage.setItem('showModal', 'checkout');
-            window.location.href = data.redirect;
-            return;
+            if (data.redirect)
+            {
+                sessionStorage.setItem('showModal', 'checkout');
+                window.location.href = data.redirect;
+                return;
+            }
+            else
+            {
+                sessionStorage.setItem('showModal', 'shippingAddress');
+                window.location.href = data.redirectUser;
+                return;
+            }
         }
 
         const data = await response.json();

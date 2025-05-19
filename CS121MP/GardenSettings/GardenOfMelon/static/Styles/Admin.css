@@ -187,6 +187,7 @@ body {
     flex-direction: column;
     justify-content: center;
     padding: 20px 15px;
+    padding-bottom: 5px;
     width: 100%;
     max-width: 100%; 
     background-color: #fffcfc;
