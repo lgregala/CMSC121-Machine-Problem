@@ -13,22 +13,22 @@
 
 {% block content %}
     <div class='detail-page'>
-		<div class="box-element left-ctnr" style="margin-top: 25px;">
+		<div class="box-element left-ctnr">
 			<div class="order-number-text"> <i class="fa fa-shopping-cart fs-1" style="color: #871313; margin-right: 10px;"></i> 
 			 Order {{ order.order_number }} </div>
 			<div class="order-item-row-title" style="margin-bottom: 20px;">
-				<div style="flex:0.7"><strong>Image</strong></div>
-				<div style="flex:1.2"><strong>Item Name</strong></div>
+				<div style="flex:0.75"><strong>Image</strong></div>
+				<div style="flex:1.25"><strong>Item Name</strong></div>
 				<div style="flex:0.9"><strong>Price</strong></div>
-				<div style="flex:1"><strong>Quantity</strong></div>
+				<div style="flex:0.8"><strong>Quantity</strong></div>
 				<div style="flex:1"><strong>Subtotal</strong></div>
 			</div>
 			{% for item in order.orderitem_set.all %}
 			<div class="order-item-row">
-				<div style="flex:0.7"><img class="row-image" src="{{item.product.imageURL}}"></div>
-				<div style="flex:1.2;" class="item-product-name-div">{{ item.product }}</div>
+				<div style="flex:0.75"><img class="row-image" src="{{item.product.imageURL}}"></div>
+				<div style="flex:1.25;" class="item-product-name-div">{{ item.product }}</div>
 				<div style="flex:0.9;">₱{{ item.product.price | floatformat:2 }}</div>
-                <div style="flex:1">{{ item.quantity }}</div>
+                <div style="flex:0.8">{{ item.quantity }}</div>
 				<div class="subtotal" style="flex:1;">₱{{ item.subtotal | floatformat:2 }}</div>
 			</div>
 			{% endfor %}
@@ -36,27 +36,27 @@
         <div class="right-ctnr">
 			<div class="order-detail-section">
 				<h3 class="order-detail-section-title" style="margin-bottom: 15px"> 	
-					<i class="bi bi-receipt" style="margin-right: 5px;"></i> Order Summary</h3>
+					<i class="fas fa-clipboard" style="margin-right: 5px;"></i> Order Summary</h3>
 				<table class="table">
 					<tbody>
 					  <tr>
-						<td style="width: 50%; padding-left: 15px;">Plant Items:</td>
+						<td style="width: 40%; padding-left: 15px;">Plant Items:</td>
 						<td style="padding-left: 15px;">{{ order.get_cart_items }}</td>
 					  </tr>
                       <tr>
-						<td style="width: 50%; padding-left: 15px;">Shipping Fee:</td>
+						<td style="width: 40%; padding-left: 15px;">Shipping Fee:</td>
 						<td style="padding-left: 15px;"> Free </td>
 					  </tr>
 					  <tr>
-						<td style="width: 50%; padding-left: 15px;">Grand Total:</td>
+						<td style="width: 40%; padding-left: 15px;">Grand Total:</td>
 						<td style="padding-left: 15px;">₱{{ order.get_cart_total | floatformat:2 }}</td>
 					  </tr>
                       <tr>
-						<td style="width: 50%; padding-left: 15px;">Date ordered:</td>
+						<td style="width: 40%; padding-left: 15px;">Date ordered:</td>
 						<td style="padding-left: 15px;">{{ order.date_ordered|date:"Y-m-d" }}</td>
 					  </tr>
                       <tr>
-						<td style="width: 50%; padding-left: 15px;">Status:</td>
+						<td style="width: 40%; padding-left: 15px;">Status:</td>
 						<td style="padding-left: 15px;">{{ order.order_status }}</td>
 					  </tr>
 					</tbody>
@@ -68,20 +68,20 @@
 				<table class="table">
 					<tbody>
 					  <tr>
-						<td style="width: 50%; padding-left: 15px;">Name:</td>
-						<td style="padding-left: 5px; width: 40%;">{{ order.customer }}</td>
+						<td style="width: 30%; padding-left: 15px;">Name:</td>
+						<td style="padding-left: 5px; width: 60%;">{{ order.customer }}</td>
 					  </tr>
 					  <tr>
-						<td style="width: 50%; padding-left: 15px;">Email:</td>
-						<td style="padding-left: 5px; width: 40%;">{{ order.customer.email }}</td>
+						<td style="width: 30%; padding-left: 15px;">Email:</td>
+						<td style="padding-left: 5px; width: 60%;">{{ order.customer.email }}</td>
 					  </tr>
                       <tr>
-						<td style="width: 50%; padding-left: 15px;">Phone:</td>
-						<td style="padding-left: 5px; width: 40%;">{{ order.customer.user.phone_number }}</td>
+						<td style="width: 30%; padding-left: 15px;">Phone:</td>
+						<td style="padding-left: 5px; width: 60%;">{{ order.customer.user.phone_number }}</td>
 					  </tr>
                       <tr>
-						<td style="width: 50%; padding-left: 15px;">Shipping Address:</td>
-						<td style="padding-left: 5px; width: 40%;">
+						<td style="width: 30%; padding-left: 15px;">Shipping Address:</td>
+						<td style="padding-left: 5px; width: 60%;">
                             {% if order.customer.address and order.customer.city and order.customer.region and order.customer.zipcode %}
                                 {{ order.customer.address }}, {{ order.customer.city }}, {{ order.customer.region }}, {{ order.customer.zipcode }}
                             {% endif %}
@@ -90,9 +90,9 @@
 					</tbody>
 				</table>				  
 			</div>
-            <div class="d-grid mb-3 back-btn">
-                <a href="/admin/GardenOfMelon/order/" style="color: white;"> Back to Orders → </a>
-            </div>
+            <a href="/admin/GardenOfMelon/order/" class="btn btn-dark w-100 mb-3 back-btn">
+				Back to Orders →
+			</a>
 		</div>
 	</div>
 {% endblock %}
