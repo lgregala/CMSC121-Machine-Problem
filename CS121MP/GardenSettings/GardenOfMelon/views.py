@@ -268,7 +268,7 @@ def updateItem(request):
         orderItem.delete()
         newData = {'quantity': 0, 'subtotal': 0, 'grandtotal': order.get_cart_total,'itemtotal': order.get_cart_items,}
     else:
-        newData = {'quantity': orderItem.quantity, 'subtotal': orderItem.get_total, 
+        newData = {'quantity': orderItem.quantity, 'subtotal': orderItem.subtotal, 
                    'grandtotal': order.get_cart_total, 'itemtotal': order.get_cart_items}
 
     return JsonResponse(newData)
