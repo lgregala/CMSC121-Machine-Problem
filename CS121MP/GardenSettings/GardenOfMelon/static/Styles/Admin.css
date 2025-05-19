@@ -127,10 +127,12 @@ body {
     display: flex;
     flex-direction: row;
     gap: 30px;
+    padding: 15px 20px;
 }
 
 .order-number-text {
     width: 100%;
+    padding-top: 12px;
     padding-left: 8px;
     margin-bottom: 15px;
     font-size: 25px;
@@ -140,8 +142,7 @@ body {
 }
 
 .left-ctnr {
-    margin-left: 35px;
-    width: 60%;
+    width: 65%;
 }
 
 .order-item-row-title {
@@ -175,28 +176,41 @@ body {
 }
 
 .right-ctnr {
-    width: 30%;
+    width: 35%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 25px;
-    margin-top: 25px;
 }
 
 .order-detail-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-top: 25px;
-    padding-right: 15px;
-    padding-left: 15px;
-    width: 90%;
+    padding: 20px 15px;
+    width: 100%;
+    max-width: 100%; 
     background-color: #fffcfc;
-    box-shadow: hsl(0, 0%, 77%) 0 4px 12px; 
+    box-shadow: hsl(0, 0%, 77%) 0 4px 12px;
     border-radius: 15px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     font-family: 'Winky Rough';
-    font-size: 18px; 
+    font-size: 18px;
+    overflow-wrap: break-word; 
+    word-wrap: break-word;
+}
+
+.order-detail-section table {
+    width: 100%;
+    table-layout: auto;
+    border-collapse: collapse;
+}
+
+.order-detail-section td {
+    padding: 8px 5px;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    vertical-align: top;
 }
 
 .order-detail-section-title {
@@ -216,12 +230,14 @@ body {
 
 .back-btn {
     font-family: 'Winky rough';
-    width: 170px;
-    height: 35px;
     background-color: #90c67c;
     border-radius: 10px; 
     border-color: #90c67c;
     text-align: center;
-    padding-top: 5px;
-    padding-bottom: 7px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.back-btn:hover {
+    background-color: #4c8039;
 }
