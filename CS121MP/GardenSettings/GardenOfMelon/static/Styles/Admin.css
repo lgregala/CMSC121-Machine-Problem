@@ -72,7 +72,6 @@ body {
     color: white;
     background-color: #883939;
     font-size: 16px;
-    width: 18%;
 }
 
 .nav-sidebar .nav-item > .nav-link{
@@ -291,4 +290,63 @@ body.change-form a:not(.btn) {
 
 .back-btn:hover {
     background-color: #4c8039;
+}
+
+@media screen and (max-width: 1275px) {
+    .detail-page {
+        flex-direction: column;
+        flex-wrap: wrap; /* allow stacking */
+        gap: 20px;
+        padding: 10px 15px;
+    }
+
+    .left-ctnr,
+    .right-ctnr {
+        width: 100%;
+    }
+
+    .order-item-row-title,
+    .order-item-row,
+    .order-detail-section {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .order-number-text,
+    .order-detail-section-title {
+        font-size: 22px;
+    }
+
+    .row-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .back-btn {
+        width: 100%;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .order-number-text,
+    .order-detail-section-title {
+        font-size: 20px;
+    }
+
+    .order-item-row-title,
+    .order-item-row {
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 15px;
+    }
+
+    .row-image {
+        width: 45px;
+        height: 45px;
+    }
+
+    .back-btn {
+        font-size: 14px;
+    }
 }
