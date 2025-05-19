@@ -52,7 +52,7 @@ def loginPage(request):
     if request.user.is_authenticated:
         try:
             customer = Customer.objects.get(user=request.user)
-            orders = customer.order_set.all()
+            orders = customer.order_set.filter(complete=True)
             context1['orders'] = orders
         except Customer.DoesNotExist:
             context1['orders'] = []
