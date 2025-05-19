@@ -48,9 +48,9 @@ async function submitCheckout()
             }
         });
 
+        const data = await response.json();
         if (response.status == 401) 
         {
-            const data = await response.json();
             if (data.redirect)
             {
                 sessionStorage.setItem('showModal', 'checkout');
@@ -65,7 +65,6 @@ async function submitCheckout()
             }
         }
 
-        const data = await response.json();
         if (data.message || data.order_number) 
         {
             cart = {};
