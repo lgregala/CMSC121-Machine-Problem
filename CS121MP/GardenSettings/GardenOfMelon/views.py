@@ -48,6 +48,19 @@ def registerPage(request):
     return render(request, 'register.html', context)
 
 def loginPage(request):
+    context1 = {}
+    if request.user.is_authenticated:
+        try:
+            customer = Customer.objects.get(user=request.user)
+            orders = customer.order_set.filter(complete=True)
+            context1['orders'] = orders
+        except Customer.DoesNotExist:
+            context1['orders'] = []
+
+        context2 = getCartData(request)
+        context = {**context1, **context2}
+        return render(request, 'login.html', context)
+    
     if request.method == "POST":
         email = request.POST.get('email')
         password = request.POST.get('password')
