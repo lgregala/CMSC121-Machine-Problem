@@ -24,7 +24,6 @@ def cookieCart(request):
         item = {'product': product, 'quantity': cart[i]['quantity'], 'subtotal': subtotal}
         items.append(item)
 
-    # print('Cookie cart:', items)
     return {'cartItems': cartItems, 'order': order, 'items': items}
 
 def get_product_stock(request, product_id):
@@ -45,34 +44,11 @@ def getCartData(request):
 
     return {'items': items, 'order': order, 'cartItems': cartItems}
 
-def guestOrder(request, data):
-    name = data['form']['email']
-    email = data['form']['email']
-
-    cookieData = cookieCart(request)
-    items = cookieData['items']
-
-    customer, created = Customer.objects.get_or_create(email=email)
-    customer.name = name
-    customer.save()
-
-    order = Order.objects.create(
-        customer=customer,
-        complete=False,
-    )
-
-    for item in items:
-        product = Product.objects.get(id=item['product']['id'])
-        orderItem = OrderItem.objects.create(
-            product=product,
-            order=order,
-            quantity=item['quantity']
-        )
-    
-    return customer, order
-
 def getGuestCookieCart(request):
-    data = serialize(cookieCart(request))   
+    data = serialize(cookieCart(request)) 
+    # print('\n') 
+    # print('Cookie cart:', data) 
+    # print('\n') 
     return JsonResponse(data)
 
 def serialize(data):

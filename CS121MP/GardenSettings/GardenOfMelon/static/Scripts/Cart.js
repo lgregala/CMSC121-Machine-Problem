@@ -30,8 +30,10 @@ for (var i = 0; i < updateBtns.length; i++)
 
 function updateUserOrder(productId, action, currentElement, qty)
 {
+    // API Endpoint receiving data
     var url = '/update_item/'
 
+    // AJAX Request
     fetch(url, {
         method: 'POST',
         headers: {
