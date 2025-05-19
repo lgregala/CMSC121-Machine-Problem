@@ -73,6 +73,8 @@ body {
 
 #login-error-messages {
     color: red;
+    font-family: 'Winky Rough';
+    font-size: 18px;
 }
 
 #admin-login {

@@ -1,29 +1,7 @@
 const checkoutButton = document.getElementById('checkout');
 if (checkoutButton) {
     checkoutButton.addEventListener('click', function(e) {
-        if (user != 'AnonymousUser') 
-        {
-            let button = this;
-            button.classList.add('clicked');
-
-            setTimeout(() => {
-                button.classList.remove('clicked');
-
-                document.querySelector('.popup-overlay').classList.add('active');
-                document.querySelector('.popup').classList.add('active');
-            }, 4200);
-
-            // Get the date today
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById("order-date").textContent = now.toLocaleDateString('en-US', options);
-
-            // Get the date three days from order date
-            const eta = new Date(now);
-            eta.setDate(now.getDate() + 3);
-            document.getElementById("eta-date").textContent = eta.toLocaleDateString('en-US', options);
-        }
-        submitCheckout();
+        submitCheckout(checkoutButton);
     });
 }
 
@@ -37,7 +15,7 @@ document.getElementById('shop-more').addEventListener("click", function(){
     document.querySelector('.popup').classList.remove('active');
 })
 
-async function submitCheckout() 
+async function submitCheckout(btn) 
 {
     try {
         const response = await fetch('/process_order/', {
@@ -48,9 +26,9 @@ async function submitCheckout()
             }
         });
 
+        const data = await response.json();
         if (response.status == 401) 
         {
-            const data = await response.json();
             if (data.redirect)
             {
                 sessionStorage.setItem('showModal', 'checkout');
@@ -65,14 +43,32 @@ async function submitCheckout()
             }
         }
 
-        const data = await response.json();
         if (data.message || data.order_number) 
         {
-            cart = {};
-            document.cookie = 'cart=' + JSON.stringify(cart) + '; path=/';
-            
-            const checkoutModal = document.querySelector('#unique-order-number')
-            checkoutModal.textContent = '🌱 Order Number:\n' + data.order_number
+            btn.classList.add('clicked');
+
+            setTimeout(() => {
+                btn.classList.remove('clicked');
+
+                document.querySelector('.popup-overlay').classList.add('active');
+                document.querySelector('.popup').classList.add('active');
+
+                // Get the date today
+                const now = new Date();
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                document.getElementById("order-date").textContent = now.toLocaleDateString('en-US', options);
+
+                // Get the date three days from order date
+                const eta = new Date(now);
+                eta.setDate(now.getDate() + 3);
+                document.getElementById("eta-date").textContent = eta.toLocaleDateString('en-US', options);
+                
+                cart = {};
+                document.cookie = 'cart=' + JSON.stringify(cart) + '; path=/';
+                
+                const checkoutModal = document.querySelector('#unique-order-number')
+                checkoutModal.textContent = '🌱 Order Number:\n' + data.order_number
+            }, 4200);
         }
     } 
     catch (error) {
