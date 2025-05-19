@@ -101,7 +101,7 @@ class OrderItemInLine(admin.TabularInline):
     model = OrderItem
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['order_number','customer', 'date_ordered', 'complete', 'transaction_id', 'order_status', 'order_detail']
+    list_display = ['order_number','customer', 'date_ordered', 'transaction_id', 'order_status', 'order_detail']
     inlines = [OrderItemInLine]
 
     def get_queryset(self, request):

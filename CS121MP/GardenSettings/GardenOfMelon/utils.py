@@ -21,7 +21,7 @@ def cookieCart(request):
         order['get_cart_total'] += subtotal
         order['get_cart_items'] += cart[i]['quantity']
 
-        item = {'product': product, 'quantity': cart[i]['quantity'], 'get_total': subtotal}
+        item = {'product': product, 'quantity': cart[i]['quantity'], 'subtotal': subtotal}
         items.append(item)
 
     # print('Cookie cart:', items)

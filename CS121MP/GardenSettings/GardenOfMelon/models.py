@@ -56,7 +56,7 @@ class ContactMessage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Message from: {self.name} ({self.email})"
+        return f"Message from: {self.name}"
 
 class Product(models.Model):
     seller = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
@@ -88,7 +88,7 @@ class Order(models.Model):
         ('Pending', 'Pending'),
         ('Shipped', 'Shipped'),
         ('Cancelled', 'Cancelled'),
-        ('Return/Refund', 'Return/Refund'),
+        ('Complete', 'Complete'),
     ]
 
     order_number = models.CharField(max_length=15, unique=True, blank=True, null=True)
@@ -123,9 +123,6 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.product} with Order ID of: ({self.order})"
 
     @property
     def subtotal(self):

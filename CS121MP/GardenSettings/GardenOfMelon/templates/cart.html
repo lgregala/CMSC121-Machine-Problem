@@ -71,7 +71,7 @@
 					<img data-product="{{item.product.id}}" data-action="add" class="update-cart chg-quantity"
 						src="{% static 'images/arrow-right.png' %}">
 				</div>
-				<div class="subtotal" style="flex:1.1"><p>₱{{ item.get_total | floatformat:2 }}</p></div>
+				<div class="subtotal" style="flex:1.1"><p>₱{{ item.subtotal | floatformat:2 }}</p></div>
 				<i style="flex:0.25" class="fa fa-trash trash-icon update-cart" 
 					data-product="{{item.product.id}}" data-action="set-zero"></i>
 			</div>
