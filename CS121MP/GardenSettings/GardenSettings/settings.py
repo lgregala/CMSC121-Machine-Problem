@@ -50,6 +50,7 @@ JAZZMIN_SETTINGS = {
     "site_logo": "Logos/GoM-Smaller-Logo.png",
     "welcome_sign": "Welcome, Admin!",
     "copyright": "Garden Of Melon",
+    "theme_color": "#328e6e",
     "theme": "dark",  
 
     # Links the admin homepage to the website homepage

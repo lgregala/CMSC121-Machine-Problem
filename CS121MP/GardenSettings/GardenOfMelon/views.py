@@ -227,7 +227,8 @@ def product_detail(request, product_id):
         'subcategory': product.subcategory,
         'difficulty': product.difficulty,
         'watering_schedule' : product.watering_schedule,
-        'light_needed': product.light_needed
+        'light_needed': product.light_needed,
+        'quantity': product.quantity
     }
     return JsonResponse(data)
 

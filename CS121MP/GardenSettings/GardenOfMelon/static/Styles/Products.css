@@ -563,11 +563,23 @@ button {
     margin: 20px 0;
     font-family: 'Winky rough';
 }
+
+.product-stock {
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: rgba(155, 8, 8, 0.61);
+    background-color: #2a7f62;
+    font-size: 14px;
+    padding: 2px;
+    color: white;
+    margin-left: 10px;
+}
   
 .modal-add-to-cart {
     color: white;
     background-color: #7eab6c;
     margin-top: 20px;
+    margin-bottom: 5px;
     font-size: 1rem;
     border-style: none;
     width: 11rem;
