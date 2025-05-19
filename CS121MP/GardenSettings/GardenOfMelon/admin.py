@@ -100,6 +100,13 @@ class ProductAdmin(admin.ModelAdmin):
 class OrderItemInLine(admin.TabularInline):
     model = OrderItem
 
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = [ 'order', 'product', 'quantity', 'subtotal']
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.exclude(order__order_number__isnull=True)
+
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['order_number','customer', 'date_ordered', 'transaction_id', 'order_status', 'order_detail']
     inlines = [OrderItemInLine]
@@ -121,9 +128,6 @@ class OrderAdmin(admin.ModelAdmin):
     def order_detail(self, obj):
         url = reverse("admin:order_detail", args=[obj.pk])
         return format_html(f'<a href={url}>Order details</a>', url)
-
-class OrderItemAdmin(admin.ModelAdmin):
-    list_display = [ 'order', 'product', 'quantity', 'subtotal']
     
 admin.site.register(User)
 admin.site.register(Customer)

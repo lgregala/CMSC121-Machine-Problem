@@ -34,58 +34,62 @@
                 <div>
                     <hr>
                     <div class="p-2"><p style="font-size: 20px; margin-bottom: -1px; margin-top: -10px; font-weight: bold;">Address &#127793;</p></div>
-                    {% if user.customer.address %}
-                        <p class="details" style="font-size: 15px; margin-left: 8px;"><b>Address:</b> {{ user.customer.address }}</p>
-                        <p class="details" style="font-size: 15px; margin-left: 8px;"><b>City:</b> {{ user.customer.city }}</p>
-                        <p class="details" style="font-size: 15px; margin-left: 8px;"><b>Region:</b> {{ user.customer.region }}</p>
-                        <p class="details" style="font-size: 15px; margin-left: 8px;"><b>Zipcode:</b> {{ user.customer.zipcode }}</p>
-                    {% else %}
-                        <p>
-                            <a data-bs-toggle="collapse" href="#collapseAddress" role="button" aria-expanded="false" aria-controls="collapseAddress" style="color: #90c67c;">
-                            <u>+ Add Shipping Address</u>
-                            </a>
-                        </p>
-                        <div class="collapse" id="collapseAddress">
-                            <div>
-                                <form method="POST" action="{% url 'shippingAddress' %}">
-                                    {% csrf_token %}
-                                    
-                                    <div id="address-fields" class="row g-3"> 
-                                        <div class="col-12">
-                                            <label for="address" class="form-label">Address</label>
-                                            <input type="text" name="address" class="form-control address"
-                                                    id="address" style="width: 850px;">
-                                        </div>
-            
-                                        <div class="col-md-4">
-                                            <label for="city" class="form-label">City</label>
-                                            <input type="text" name="city" class="form-control address" 
-                                                    id="city" style="width: 350px;">
-                                        </div>
+                    {% with shipping=user.customer.shippingaddress_set.first %}
+                        {% if shipping %}
+                            <p class="details" style="font-size: 15px; margin-left: 8px;"><b>Address:</b> {{ shipping.address }}</p>
+                            <p class="details" style="font-size: 15px; margin-left: 8px;"><b>City:</b> {{ shipping.city }}</p>
+                            <p class="details" style="font-size: 15px; margin-left: 8px;"><b>Region:</b> {{ shipping.region }}</p>
+                            <p class="details" style="font-size: 15px; margin-left: 8px;"><b>Zipcode:</b> {{ shipping.zipcode }}</p>
+                        {% else %}
+                            <p>
+                                <a data-bs-toggle="collapse" href="#collapseAddress" role="button" aria-expanded="false" aria-controls="collapseAddress" style="color: #90c67c;">
+                                <u>+ Add Shipping Address</u>
+                                </a>
+                            </p>
+                            <div class="collapse" id="collapseAddress">
+                                <div>
+                                    <form method="POST" action="{% url 'shippingAddress' %}">
+                                        {% csrf_token %}
+                                        
+                                        <div id="address-fields" class="row g-3"> 
+                                            <div class="col-12">
+                                                <label for="address" class="form-label">Address</label>
+                                                <input type="text" name="address" class="form-control address"
+                                                        id="address" style="width: 850px;">
+                                            </div>
+                
+                                            <div class="col-md-4">
+                                                <label for="city" class="form-label">City</label>
+                                                <input type="text" name="city" class="form-control address" 
+                                                        id="city" style="width: 350px;">
+                                            </div>
 
-                                        <div class="col-md-4">
-                                            <label for="region" class="form-label">Region</label>
-                                            <input type="text" name="region" class="form-control address" 
-                                                    id="region" style="width: 350px;">
-                                        </div>
+                                            <div class="col-md-4">
+                                                <label for="region" class="form-label">Region</label>
+                                                <input type="text" name="region" class="form-control address" 
+                                                        id="region" style="width: 350px;">
+                                            </div>
 
-                                        <div class="col-md-4">
-                                            <label for="zipcode" class="form-label">Zipcode</label>
-                                            <input type="text" name="zipcode" class="form-control address" 
-                                                    id="zipcode" style="width: 110px;">
+                                            <div class="col-md-4">
+                                                <label for="zipcode" class="form-label">Zipcode</label>
+                                                <input type="text" name="zipcode" class="form-control address" 
+                                                        id="zipcode" style="width: 110px;">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="d-grid mb-3">
-                                        <button type="submit" class="btn btn-primary"  id="address-btn" style="margin-top: 30px;">Add Address</button>
-                                    </div>
-                                </form>
+                                        <div class="d-grid mb-3">
+                                            <button type="submit" class="btn btn-primary"  id="address-btn" style="margin-top: 30px;">Add Address</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                {% endif %}
+                        {% endif %}
+                    {% endwith %}
                 </div>
             </div>
         </div>
     </div>
+
+    <div id="shipping-address-required" class="address-modal"> 🏠 Please provide necessary shipping location details first! </div>
     {% else %}
         <div id="login-body">
             <div id="login-form">

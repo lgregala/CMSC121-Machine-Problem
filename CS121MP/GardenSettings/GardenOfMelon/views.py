@@ -99,14 +99,15 @@ def logoutPage(request):
 
 def shippingAddress(request):
     customer = request.user.customer
+    shipping, created = ShippingAddress.objects.get_or_create(customer=customer)
 
     if request.method == "POST":
-        form = ShippingAddressForm(request.POST, instance=customer)
+        form = ShippingAddressForm(request.POST, instance=shipping)
         if form.is_valid():
             form.save()
             return redirect('login')
     else:
-        form = ShippingAddressForm(instance=customer)
+        form = ShippingAddressForm(instance=shipping)
 
     context1 = {'form': form}
     context2 = getCartData(request)
@@ -280,8 +281,12 @@ def processOrder(request):
         return JsonResponse({'redirect': '/login'}, status=401)
 
     customer = request.user.customer
-    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    shipping = ShippingAddress.objects.filter(customer=customer).first()
 
+    if not shipping or not all([shipping.address, shipping.city, shipping.region, shipping.zipcode]):
+        return JsonResponse({'redirectUser': '/login'}, status=401)
+        
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
     order.transaction_id = transaction_id
     order.order_number = '#' + str(uuid.uuid4().hex)[:12].upper()
     order.complete = True
@@ -294,7 +299,7 @@ def processOrder(request):
         product.save()
 
     return JsonResponse({'message': 'Items have been checked out!', 'order_number': order.order_number})
-
+    
 class OrderDetailView(DetailView):
     model = Order
     template_name = "admin/orderdetails.html"

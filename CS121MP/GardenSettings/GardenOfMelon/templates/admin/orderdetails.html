@@ -82,9 +82,9 @@
                       <tr>
 						<td style="width: 30%; padding-left: 15px;">Shipping Address:</td>
 						<td style="padding-left: 5px; width: 60%;">
-                            {% if order.customer.address and order.customer.city and order.customer.region and order.customer.zipcode %}
-                                {{ order.customer.address }}, {{ order.customer.city }}, {{ order.customer.region }}, {{ order.customer.zipcode }}
-                            {% endif %}
+                            {% with shipping=order.customer.shippingaddress_set.first %}
+								{{ shipping.address }}, {{ shipping.city }}, {{ shipping.region }}, {{ shipping.zipcode }}
+							{% endwith %}
                         </td>
 					  </tr>
 					</tbody>
