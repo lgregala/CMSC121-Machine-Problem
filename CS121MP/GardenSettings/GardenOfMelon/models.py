@@ -84,11 +84,19 @@ class Product(models.Model):
         return {'price': self.price, 'quantity': self.quantity}
 
 class Order(models.Model):
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Shipped', 'Shipped'),
+        ('Cancelled', 'Cancelled'),
+        ('Return/Refund', 'Return/Refund'),
+    ]
+
     order_number = models.CharField(max_length=15, unique=True, blank=True, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
     transaction_id = models.CharField(max_length=200, null=True)
+    order_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
 
     def __str__(self):
         return str(self.order_number)
@@ -106,7 +114,7 @@ class Order(models.Model):
     @property
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
-        total = sum([item.get_total for item in orderitems])
+        total = sum([item.subtotal for item in orderitems])
         return total 
     
    
@@ -120,7 +128,7 @@ class OrderItem(models.Model):
         return f"{self.product} with Order ID of: ({self.order})"
 
     @property
-    def get_total(self):
+    def subtotal(self):
         total = self.product.price * self.quantity
         return total
 
