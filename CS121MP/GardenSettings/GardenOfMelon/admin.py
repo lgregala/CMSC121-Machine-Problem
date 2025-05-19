@@ -94,11 +94,17 @@ class ProductAdmin(admin.ModelAdmin):
         if not obj.seller:
             obj.seller = request.user
         obj.save()
+
+# Filter what is displayed on django admin to show only checked out orders
+class OrderAdmin(admin.ModelAdmin):
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.exclude(order_number__isnull=True)
     
 admin.site.register(User)
 admin.site.register(Customer)
 admin.site.register(ContactMessage)
 admin.site.register(Product, ProductAdmin)
-admin.site.register(Order)
+admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem)
 admin.site.register(ShippingAddress)
