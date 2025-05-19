@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 
+
 body {
     background-image: url('../Images/products-bg.jpg');
     background-size: cover;      
@@ -377,6 +378,8 @@ button {
     background-color: #2a7f62;
 }
 
+
+
 .list .item:hover .add-to-cart-btn:hover {
     background-color: #2a7f62;
 }
@@ -469,6 +472,10 @@ button {
     animation: fadeIn 0.3s;
   }
 
+#modalProductPriceWrapper {
+    font-size: 30px;
+}
+
 .modal-content {
     background-image: url('../Images/modalbg.jpg');
     margin: 5% auto;
@@ -483,6 +490,18 @@ button {
     .modal-content {
         width: 53.5%;
     }
+
+    .product-stock {
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: rgba(155, 8, 8, 0.61);
+    background-color: #2a7f62;
+    font-size: 14px;
+    padding: 2px;
+    color: white;
+    margin-left: 10px;
+}
+
 }
 
 #modalProductName {
@@ -490,6 +509,8 @@ button {
     font-size: 45px;
     color: #871313;
     font-weight: bold;
+    border-bottom:1px solid #000000;
+    padding-bottom: 5px;
 }
   
 .close-modal {
@@ -513,17 +534,17 @@ button {
   
 #modalProductImage {
     width: 40%;
-    height: 27.5rem;
+    height: 28.5rem;
     object-fit: cover;
     border-radius: 8px;
 }
-  
+
 .modal-details {
     width: 60%;
 }
   
 .modal-details .price {
-    font-size: 1.5rem;
+    font-size: 2.0rem;
     margin: 15px 0;
     color: black;
 }
@@ -572,8 +593,9 @@ button {
     font-size: 14px;
     padding: 2px;
     color: white;
-    margin-left: 10px;
+    margin-left: 20px;
 }
+
   
 .modal-add-to-cart {
     color: white;
