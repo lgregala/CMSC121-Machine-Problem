@@ -121,3 +121,109 @@ body {
     border-top-color: #90c67c;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+.detail-page {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.order-number-text {
+    width: 100%;
+    padding-left: 8px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-family: 'Oleo Script';
+    color: #871313;
+    text-align: center;
+}
+
+.left-ctnr {
+    margin-left: 35px;
+    width: 60%;
+}
+
+.order-item-row-title {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    font-size: 15px;
+    font-family: 'Winky Rough';
+    color: #a94a4a;
+}
+
+.order-item-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-family: 'Winky Rough';
+    background-color: #f2f7df;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    overflow-wrap: break-word;
+    transition: opacity 0.65s ease-out,
+                transform 0.6s ease;
+}
+
+.item-product-name-div {
+    overflow-wrap: break-word;
+    font-size: 13px;
+    text-align: center;
+}
+
+.right-ctnr {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 25px;
+    margin-top: 25px;
+}
+
+.order-detail-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 25px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 90%;
+    background-color: #fffcfc;
+    box-shadow: hsl(0, 0%, 77%) 0 4px 12px; 
+    border-radius: 15px;
+    margin-bottom: 25px;
+    font-family: 'Winky Rough';
+    font-size: 13px; 
+}
+
+.order-detail-section-title {
+    font-size: 20px;  
+    font-family: 'Oleo Script';
+    color: #871313; 
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.row-image {
+    width: 60px;
+    height: 60px;
+    border-top-left-radius: 10px; 
+    border-bottom-left-radius: 10px;
+}
+
+.back-btn {
+    font-family: 'Winky rough';
+    width: 170px;
+    height: 35px;
+    background-color: #90c67c;
+    border-radius: 10px; 
+    border-color: #90c67c;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 7px;
+}

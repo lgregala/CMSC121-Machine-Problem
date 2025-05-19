@@ -1,0 +1,98 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n admin_urls %}
+
+{% block breadcrumbs %}
+    <div>
+        <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+        &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+        &rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+        &rsaquo; Order {{ order }}
+    </div>
+{% endblock%}
+
+{% block content %}
+    <div class='detail-page'>
+		<div class="box-element left-ctnr" style="margin-top: 25px;">
+			<div class="order-number-text"> <i class="fa fa-shopping-cart fs-1" style="color: #871313; margin-right: 10px;"></i> 
+			 Order {{ order.order_number }} </div>
+			<div class="order-item-row-title" style="margin-bottom: 20px;">
+				<div style="flex:0.7"><strong>Image</strong></div>
+				<div style="flex:1.2" style="text-align: center;"><strong>Item Name</strong></div>
+				<div style="flex:0.9"><strong>Price</strong></div>
+				<div style="flex:1.1"><strong>Quantity</strong></div>
+				<div style="flex:0.5"><strong>Subtotal</strong></div>
+			</div>
+			{% for item in order.orderitem_set.all %}
+			<div class="order-item-row">
+				<div style="flex:0.5"><img class="row-image" src="{{item.product.imageURL}}"></div>
+				<div style="flex:0.9;" class="item-product-name-div"><p>{{ item.product }}</p></div>
+				<div style="flex:0.7; text-align: center;"><p>₱{{ item.product.price | floatformat:2 }}</p></div>
+                <div style="flex:1; text-align: center;"><p>{{ item.quantity }}</p></div>
+				<div class="subtotal" style="flex:0.7; text-align: center;"><p>₱{{ item.subtotal | floatformat:2 }}</p></div>
+			</div>
+			{% endfor %}
+		</div>
+        <div class="right-ctnr">
+			<div class="order-detail-section">
+				<h3 class="order-detail-section-title" style="margin-bottom: 15px"> 	
+					<i class="bi bi-receipt" style="margin-right: 5px;"></i> Order Summary</h3>
+				<table class="table">
+					<tbody>
+					  <tr>
+						<td style="width: 50%; padding-left: 15px;">Plant Items:</td>
+						<td style="padding-left: 15px;">{{ order.get_cart_items }}</td>
+					  </tr>
+                      <tr>
+						<td style="width: 50%; padding-left: 15px;">Shipping Fee:</td>
+						<td style="padding-left: 15px;"> Free </td>
+					  </tr>
+					  <tr>
+						<td style="width: 50%; padding-left: 15px;">Grand Total:</td>
+						<td style="padding-left: 15px;">₱{{ order.get_cart_total | floatformat:2 }}</td>
+					  </tr>
+                      <tr>
+						<td style="width: 50%; padding-left: 15px;">Date ordered:</td>
+						<td style="padding-left: 15px;">{{ order.date_ordered|date:"Y-m-d" }}</td>
+					  </tr>
+                      <tr>
+						<td style="width: 50%; padding-left: 15px;">Status:</td>
+						<td style="padding-left: 15px;">{{ order.order_status }}</td>
+					  </tr>
+					</tbody>
+				</table>				  
+			</div>
+            <div class="order-detail-section">
+				<h3 class="order-detail-section-title" style="margin-bottom: 15px"> 	
+					<i class="fas fa-address-card" style="margin-right: 5px;"></i> Customer Details</h3>
+				<table class="table">
+					<tbody>
+					  <tr>
+						<td style="width: 50%; padding-left: 15px;">Name:</td>
+						<td style="padding-left: 5px; width: 40%;">{{ order.customer }}</td>
+					  </tr>
+					  <tr>
+						<td style="width: 50%; padding-left: 15px;">Email:</td>
+						<td style="padding-left: 5px; width: 40%;">{{ order.customer.email }}</td>
+					  </tr>
+                      <tr>
+						<td style="width: 50%; padding-left: 15px;">Phone:</td>
+						<td style="padding-left: 5px; width: 40%;">{{ order.customer.user.phone_number }}</td>
+					  </tr>
+                      <tr>
+						<td style="width: 50%; padding-left: 15px;">Shipping Address:</td>
+						<td style="padding-left: 5px; width: 40%;">
+                            {% if order.customer.address and order.customer.city and order.customer.region and order.customer.zipcode %}
+                                {{ order.customer.address }}, {{ order.customer.city }}, {{ order.customer.region }}, {{ order.customer.zipcode }}
+                            {% endif %}
+                        </td>
+					  </tr>
+					</tbody>
+				</table>				  
+			</div>
+            <div class="d-grid mb-3 back-btn">
+                <a href="/admin/GardenOfMelon/order/" style="color: white;"> Back to Orders → </a>
+            </div>
+		</div>
+	</div>
+{% endblock %}

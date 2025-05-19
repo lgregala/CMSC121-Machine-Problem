@@ -2,6 +2,8 @@ from django.contrib import admin
 from .models import *
 from django import forms
 from django.utils.html import format_html
+from django.urls import path, reverse
+from .views import OrderDetailView
 
 class ProductForm(forms.ModelForm):
     # Category choices
@@ -94,11 +96,39 @@ class ProductAdmin(admin.ModelAdmin):
         if not obj.seller:
             obj.seller = request.user
         obj.save()
+
+class OrderItemInLine(admin.TabularInline):
+    model = OrderItem
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['order_number','customer', 'date_ordered', 'complete', 'transaction_id', 'order_status', 'order_detail']
+    inlines = [OrderItemInLine]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.exclude(order_number__isnull=True)
+
+    def get_urls(self):
+        urls = super().get_urls()
+        return [
+            path(
+                '<pk>/orderdetails/',
+                self.admin_site.admin_view(OrderDetailView.as_view()),
+                name =f"order_detail",
+            ),
+        ] + urls
+    
+    def order_detail(self, obj):
+        url = reverse("admin:order_detail", args=[obj.pk])
+        return format_html(f'<a href={url}>Order details</a>', url)
+
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = [ 'order', 'product', 'quantity', 'subtotal']
     
 admin.site.register(User)
 admin.site.register(Customer)
 admin.site.register(ContactMessage)
 admin.site.register(Product, ProductAdmin)
-admin.site.register(Order)
-admin.site.register(OrderItem)
+admin.site.register(Order, OrderAdmin)
+admin.site.register(OrderItem, OrderItemAdmin)
 admin.site.register(ShippingAddress)

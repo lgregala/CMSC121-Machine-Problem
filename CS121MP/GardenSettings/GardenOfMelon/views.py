@@ -14,6 +14,8 @@ from .utils import *
 import datetime
 import uuid
 import json
+from django.views.generic.detail import DetailView
+from django.contrib import admin
 
 def registerPage(request):
     if request.method == "POST":
@@ -169,7 +171,7 @@ def productsPage(request):
         products = products.filter(subcategory__iexact=subcategory)  # Filter by subcategory
 
     # Apply price filter if minimum and maximum are specified
-    if min_price is not None and min_price != '':
+    if min_price is not None and min_price != '' and isFloat(min_price):
         min_price = float(min_price)
         products = products.filter(price__gte=min_price)
         filterMin_performed = True
@@ -177,7 +179,7 @@ def productsPage(request):
         min_price = 0
         filterMin_performed = False
 
-    if max_price is not None and max_price != '':
+    if max_price is not None and max_price != '' and isFloat(max_price):
         max_price = float(max_price)
         products = products.filter(price__lte=max_price)
         filterMax_performed = True
@@ -204,6 +206,13 @@ def productsPage(request):
     context2 = getCartData(request)
     context = {**context1, **context2}
     return render(request, 'products.html', context)
+
+def isFloat(input):
+    try:
+        float(input)
+        return True
+    except ValueError:
+        return False
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
@@ -285,3 +294,14 @@ def processOrder(request):
         product.save()
 
     return JsonResponse({'message': 'Items have been checked out!', 'order_number': order.order_number})
+
+class OrderDetailView(DetailView):
+    model = Order
+    template_name = "admin/orderdetails.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(admin.site.each_context(self.request))
+        context['opts'] = self.model._meta
+
+        return context
